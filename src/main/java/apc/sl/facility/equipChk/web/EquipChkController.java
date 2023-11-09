@@ -40,7 +40,7 @@ public class EquipChkController {
 		List<?> equipChkList = equipChkService.selectEquipChkList(searchVO);
 		model.put("equipChkList", equipChkList);
 		model.put("paginationInfo", paginationInfo);
-		
+		System.out.println("ㅇㅇㅇㅇ");
 		return "sl/facility/equipChk/equipChkList";
 	}
 	
