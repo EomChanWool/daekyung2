@@ -66,7 +66,9 @@
 						    	<a href="#" class="btn btn-success btn-icon-split" onclick="fn_searchAll_qualityInfo()">
 	                                <span class="text">전체목록</span>
 	                            </a>
-	                            
+	                            <a href="#" class="btn btn-primary btn-icon-split" onclick="fn_regist_qualityInfo()" style="float: right; margin-left: 0.5rem;">
+	                                <span class="text">등록</span>
+	                            </a>
 	                            <a href="#" class="btn btn-primary btn-icon-split" onclick="fn_back_standard()" style="float: right;">
 	                                <span class="text">돌아가기</span>
 	                            </a>
@@ -170,6 +172,10 @@
 			listForm.submit();
 		}
 	
+		function fn_regist_qualityInfo(){
+			listForm.action = "${pageContext.request.contextPath}/sl/basicInfo/qualityInfo/registQualityInfo.do";
+			listForm.submit();
+		}
 		
 		
 	

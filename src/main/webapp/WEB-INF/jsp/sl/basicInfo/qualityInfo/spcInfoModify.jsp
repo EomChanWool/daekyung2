@@ -63,7 +63,7 @@
 											<tr>
 												<th>규격구분<span class="req">*</span></th>
 												<td><input type="text" class="form-control" name="siId" id="siId" value="${spcInfo.siId}" readonly/></td>
-												<th>규격명</th>
+												<th>품명</th>
 												<td><input type="text" class="form-control" name="piId" id="piId" value="${spcInfo.piId}" readonly/></td>
 											</tr>
 											<tr>

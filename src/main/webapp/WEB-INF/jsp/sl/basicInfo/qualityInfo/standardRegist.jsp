@@ -71,7 +71,7 @@
 													</c:forEach>
 												</datalist>
 												</td>
-												<th>규격명</th>
+												<th>품명</th>
 												<td><input type="text" class="form-control" name="piId" id="piId"/></td>
 											</tr>
 											<tr>
@@ -127,11 +127,11 @@
 												<td><input type="text" class="form-control" name="ssiBevelEndMin" id="ssiBevelEndMin"/></td>
 											</tr>
 											<tr>
-												<th>R</th>
+												<th>R(RF)</th>
 												<td><input type="text" class="form-control" name="ssiRootFace" id="ssiRootFace"/></td>
-												<th>R 상한</th>
+												<th>R(RF) 상한</th>
 												<td><input type="text" class="form-control" name="ssiRootFaceMax" id="ssiRootFaceMax"/></td>
-												<th>R 하한</th>
+												<th>R(RF) 하한</th>
 												<td><input type="text" class="form-control" name="ssiRootFaceMin" id="ssiRootFaceMin"/></td>
 											</tr>
 											<tr>
@@ -182,11 +182,11 @@
 												<td><input type="text" class="form-control" name="ssiBevelEndMin" id="ssiBevelEndMin"/></td>
 											</tr>
 											<tr>
-												<th>R</th>
+												<th>R(RF)</th>
 												<td><input type="text" class="form-control" name="ssiRootFace" id="ssiRootFace"/></td>
-												<th>R 상한</th>
+												<th>R(RF) 상한</th>
 												<td><input type="text" class="form-control" name="ssiRootFaceMax" id="ssiRootFaceMax"/></td>
-												<th>R 하한</th>
+												<th>R(RF) 하한</th>
 												<td><input type="text" class="form-control" name="ssiRootFaceMin" id="ssiRootFaceMin"/></td>
 											</tr>
 											<tr>
@@ -259,11 +259,11 @@
 												<td><input type="text" class="form-control" name="ssiBevelEndMin" id="ssiBevelEndMin"/></td>
 											</tr>
 											<tr>
-												<th>R</th>
+												<th>R(RF)</th>
 												<td><input type="text" class="form-control" name="ssiRootFace" id="ssiRootFace"/></td>
-												<th>R 상한</th>
+												<th>R(RF) 상한</th>
 												<td><input type="text" class="form-control" name="ssiRootFaceMax" id="ssiRootFaceMax"/></td>
-												<th>R 하한</th>
+												<th>R(RF) 하한</th>
 												<td><input type="text" class="form-control" name="ssiRootFaceMin" id="ssiRootFaceMin"/></td>
 											</tr>
 											<tr>
@@ -334,11 +334,11 @@
 												<td><input type="text" class="form-control" name="ssiBevelEndMin" id="ssiBevelEndMin"/></td>
 											</tr>
 											<tr>
-												<th>R</th>
+												<th>R(RF)</th>
 												<td><input type="text" class="form-control" name="ssiRootFace" id="ssiRootFace"/></td>
-												<th>R 상한</th>
+												<th>R(RF) 상한</th>
 												<td><input type="text" class="form-control" name="ssiRootFaceMax" id="ssiRootFaceMax"/></td>
-												<th>R 하한</th>
+												<th>R(RF) 하한</th>
 												<td><input type="text" class="form-control" name="ssiRootFaceMin" id="ssiRootFaceMin"/></td>
 											</tr>
 											<tr>
@@ -397,11 +397,11 @@
 												<td><input type="text" class="form-control" name="ssiBevelEndMin" id="ssiBevelEndMin"/></td>
 											</tr>
 											<tr>
-												<th>R</th>
+												<th>R(RF)</th>
 												<td><input type="text" class="form-control" name="ssiRootFace" id="ssiRootFace"/></td>
-												<th>R 상한</th>
+												<th>R(RF) 상한</th>
 												<td><input type="text" class="form-control" name="ssiRootFaceMax" id="ssiRootFaceMax"/></td>
-												<th>R 하한</th>
+												<th>R(RF) 하한</th>
 												<td><input type="text" class="form-control" name="ssiRootFaceMin" id="ssiRootFaceMin"/></td>
 											</tr>
 											<tr>
@@ -492,11 +492,11 @@
 												<td><input type="text" class="form-control" name="ssiBevelEndMin" id="ssiBevelEndMin"/></td>
 											</tr>
 											<tr>
-												<th>R</th>
+												<th>R(RF)</th>
 												<td><input type="text" class="form-control" name="ssiRootFace" id="ssiRootFace"/></td>
-												<th>R 상한</th>
+												<th>R(RF) 상한</th>
 												<td><input type="text" class="form-control" name="ssiRootFaceMax" id="ssiRootFaceMax"/></td>
-												<th>R 하한</th>
+												<th>R(RF) 하한</th>
 												<td><input type="text" class="form-control" name="ssiRootFaceMin" id="ssiRootFaceMin"/></td>
 											</tr>
 											
