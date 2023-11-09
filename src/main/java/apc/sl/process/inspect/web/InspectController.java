@@ -136,9 +136,8 @@ public class InspectController {
 //			return "redirect:/sl/process/inspect/registInspect.do";
 //		}
 		Map<String, Object> siIdMap = inspectService.registSiId(map);
-		
+//		
 		map.put("siId", siIdMap.get("siId"));
-		
 		inspectService.registInspect(map);
 		
 		redirectAttributes.addFlashAttribute("msg", "등록 되었습니다.");

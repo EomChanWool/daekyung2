@@ -108,27 +108,27 @@
 											<tr>
 												<th>검사일</th>
 												<td><input type="date" class="form-control" name="isiDate" id="isiDate"/></td>
-												<th>검사파일1 <span class="req">*</span></th>
+												<th>검사파일1</th>
 												<td><select class="form-control" name="isiFile1" id="isiFile1">
 														<option value="">선택</option>
 													</select></td>
 											</tr>
 											<tr>
-												<th>검사파일2 <span class="req">*</span></th>
+												<th>검사파일2</th>
 												<td><select class="form-control" name="isiFile2" id="isiFile2">
 														<option value="">선택</option>
 													</select></td>
-												<th>검사파일3  <span class="req">*</span></th>
+												<th>검사파일3</th>
 												<td><select class="form-control" name="isiFile3" id="isiFile3">
 														<option value="">선택</option>
 													</select></td>
 											</tr>
 											<tr>
-												<th>검사파일4  <span class="req">*</span></th>
+												<th>검사파일4</th>
 												<td><select class="form-control" name="isiFile4" id="isiFile4">
 														<option value="">선택</option>
 													</select></td>
-												<th>검사파일5  <span class="req">*</span></th>
+												<th>검사파일5</th>
 												<td><select class="form-control" name="isiFile5" id="isiFile5">
 														<option value="">선택</option>
 													</select></td>	
@@ -136,10 +136,10 @@
 											</tr>
 											
 											<tr>
-											<th>수압코드  <span class="req">*</span></th>
+											<th>수압코드</th>
 												<td><input type="text" class="form-control" name="wpCode" id="wpCode"/>
 												</td>
-												<th>측정값  <span class="req">*</span></th>
+												<th>측정값</th>
 												<td><input type="text" class="form-control" name="wpValue" id="wpValue"/>
 												</td>
 											</tr>
@@ -196,21 +196,34 @@
 
 	<script>
 	function fn_regist_ins(){
-		/* if($('#inName').val() == ''){
-			alert("부적합명을 확인 바랍니다.");
+		
+		var num =  /^[0-9.]+$/;
+		
+		 if($('#isiLotno').val() == ''){
+			alert("로트번호를 확인 바랍니다.");
 			return;
 		}
-		
-		if($('#tiIdx').val() == ''){
-			alert("검사명을 확인 바랍니다.");
+		if($('#orId').val() == ''){
+			alert("수주번호를 확인 바랍니다.");
 			return;
 		}
-		
-		
-		if($('#biIdx').val() == ''){
-			alert("불량항목 번호를 확인 바랍니다.");
+		if($('#isiItemType').val() == ''){
+			alert("품목코드를 확인 바랍니다.");
 			return;
-		} */
+		} 
+		if($('#isiSpcSpec').val() == ''){
+			alert("SPC스펙을 확인 바랍니다.");
+			return;
+		} 
+		if($('#isiQty').val() == ''){
+			alert("수량을 확인 바랍니다.");
+			return;
+		} 
+		
+		if(!num.test($('#isiQty').val())){
+			alert("수량에는 숫자만 기입 바랍니다.");
+			return;
+		}
 		
 		registForm.submit();
 	}
