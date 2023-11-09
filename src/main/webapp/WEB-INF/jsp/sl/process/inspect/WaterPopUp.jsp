@@ -53,6 +53,7 @@
 								<form name ="listForm" class="listForm" action="${pageContext.request.contextPath}/sl/process/inspect/registInspectPopup.do" method="post">
 									<input type="hidden" name="cwpCode" id="cwpCode">
 									<input type="hidden" name="cwpValue" id="cwpValue">
+									<input type="hidden" name="temp" id="temp">
 									
 									<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
 									<!--  <input type="text" class="form-control bg-light border-0 small" name="searchKeyword"
@@ -62,11 +63,18 @@
 									<span class="dash" style="display: inline-block; float: left; margin: 0.5rem 0.3rem 0 0">~</span>
 									<input class="btn btn-secondary searchDate" id="searchEdDate" name="searchEdDate" value="${searchVO.searchEdDate}" type="datetime-local">
 						    	</form>
-						    	<a href="#" class="btn btn-info btn-icon-split" onclick="fn_search_water()" style="margin-left: 0.3rem;">
+						    	<a href="#" class="btn btn-info btn-icon-split" onclick="fn_search_water('')" style="margin-left: 0.3rem;">
 	                                <span class="text">검색</span>
 	                            </a>
 						    	<a href="#" class="btn btn-success btn-icon-split" onclick="fn_searchAll_water()">
 	                                <span class="text">전체목록</span>
+	                            </a>
+	                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						    	<a href="#" class="btn btn-success btn-icon-split" onclick="fn_search_water('up')">
+	                                <span class="text">오름차순</span>
+	                            </a>
+						    	<a href="#" class="btn btn-success btn-icon-split" onclick="fn_search_water('down')">
+	                                <span class="text">내림차순</span>
 	                            </a>
 	                           
 							</div>
@@ -142,7 +150,7 @@
 		   	listForm.submit();
 		}
 	
-		function fn_search_water(){
+		function fn_search_water(sort){
 			listForm.pageIndex.value = 1;
 			var searchStDate = document.getElementById('searchStDate').value;
 	        var searchEdDate = document.getElementById('searchEdDate').value;
@@ -152,6 +160,7 @@
 	            alert('검색 시작일은 검색 종료일보다 클 수 없습니다.');
 	            return;
 	        }
+	        listForm.temp.value = sort;
 			listForm.submit();
 		}
 	

@@ -54,7 +54,17 @@
 		<if test="searchEdDate != ''">
 			AND wp_time <![CDATA[<=]]> #{searchEdDate}
 		</if>
-		ORDER BY wp_id DESC
+		<choose>
+			<when test="temp == 'up'">
+				ORDER BY wp_value ASC
+			</when>
+			<when test="temp == 'down'">
+				ORDER BY wp_value DESC
+			</when>
+			<otherwise>
+				ORDER BY wp_id DESC
+			</otherwise>
+		</choose>
 		OFFSET #{firstIndex} ROWS
 		FETCH
 		NEXT

@@ -82,10 +82,10 @@ public class InspectController {
 	@RequestMapping("/sl/process/inspect/registInspectPopup.do")
 	public String registInspectPopup(@ModelAttribute("searchVO") SearchVO searchVO, ModelMap model) {
 		
-		String temp = searchVO.getSearchStDate().replace("T", " ");
-		String temp2 = searchVO.getSearchEdDate().replace("T", " ");
-		searchVO.setSearchStDate(temp);
-		searchVO.setSearchEdDate(temp2);
+		String temp3 = searchVO.getSearchStDate().replace("T", " ");
+		String temp4 = searchVO.getSearchEdDate().replace("T", " ");
+		searchVO.setSearchStDate(temp3);
+		searchVO.setSearchEdDate(temp4);
 		int totCnt = inspectService.waterListToCnt(searchVO);
 		/** pageing setting */
 		searchVO.setPageSize(10);
