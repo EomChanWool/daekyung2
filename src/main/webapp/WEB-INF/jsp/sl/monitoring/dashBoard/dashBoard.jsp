@@ -391,7 +391,7 @@
 			    },
 			    {
 	    		  type: 'value',
-		      	  name: '작동시간',
+		      	  name: '작동시간(DAQ)',
 		      	  position: 'right',
 		      	  axisLabel: {
 		            formatter: '{value} sec'
@@ -535,7 +535,7 @@ option = {
 		    },
 		    {
 	    		  type: 'value',
-		      	  name: '평균시간(절단)',
+		      	  name: '평균시간(가공)',
 		      	  position: 'right',
 		      	  axisLabel: {
 		            formatter: '{value} MIN'

@@ -483,7 +483,7 @@
 					    },
 					    {
 			    		  type: 'value',
-				      	  name: '공수',
+				      	  name: '공수(가공)',
 				      	  axisLabel: {
 				            formatter: '{value} mh'
 						  }
@@ -554,7 +554,7 @@
 					    },
 					    {
 			    		  type: 'value',
-				      	  name: '공수',
+				      	  name: '리드타임',
 				      	  axisLabel: {
 				            formatter: '{value} 일'
 						  }
