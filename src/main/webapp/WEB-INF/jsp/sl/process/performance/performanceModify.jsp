@@ -75,7 +75,7 @@
 												<td><input type="text" class="form-control" name="ptBadQty" id="ptBadQty" value="${detail.ptBadQty}"></td>
 											</tr>
 											<tr>
-												<th>등록자 <span class="req">*</span></th>
+												<th>등록자 </th>
 												<td><input type="text" class="form-control" name="ptRegId" id="ptRegId" value="${detail.ptRegId}"></td>
 											</tr>
 										</tbody>
@@ -120,10 +120,16 @@
 
 	<script>
 	function fn_regist_document(){
+		if($('#ptInsDate').val() == ''){
+			alert("검사일을 확인 바랍니다.");
+			return;
+		}
 		if($('#ptBadQty').val() == ''){
 			alert("불량수량을 확인 바랍니다.");
 			return;
 		}
+	
+
 		modifyForm.submit();
 	}
 	

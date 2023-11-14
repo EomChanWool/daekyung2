@@ -59,14 +59,13 @@
 									<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
 									<select class="btn btn-secondary dropdown-toggle searchCondition" name="searchCondition" id="searchCondition">
 							    		<option value="" <c:if test="${searchVO.searchCondition eq ''}">selected="selected"</c:if>>선택</option>
-							    		<option value="1" <c:if test="${searchVO.searchCondition eq '1'}">selected="selected"</c:if>>수주번호</option>
-							    		<option value="2" <c:if test="${searchVO.searchCondition eq '2'}">selected="selected"</c:if>>작업자</option>
-							    		<option value="3" <c:if test="${searchVO.searchCondition eq '3'}">selected="selected"</c:if>>로트번호</option>
+							    		<option value="수주번호" <c:if test="${searchVO.searchCondition eq '수주번호'}">selected="selected"</c:if>>수주번호</option>
+							    		<option value="작업자" <c:if test="${searchVO.searchCondition eq '작업자'}">selected="selected"</c:if>>작업자</option>
+							    		<option value="로트번호" <c:if test="${searchVO.searchCondition eq '로트번호'}">selected="selected"</c:if>>로트번호</option>
 						    		</select>
 									<input type="text" class="form-control bg-light border-0 small" name="searchKeyword"
 						    									value="${searchVO.searchKeyword}" placeholder="검색어를 입력해 주세요"
 						    									style="background-color:#eaecf4; width: 25%; float: left;">
-						    		
 						    		<input class="btn btn-secondary searchDate" id="searchStDate" name="searchStDate" value="${searchVO.searchStDate}" type="date">
 									<span class="dash" style="display: inline-block; float: left; margin: 0.5rem 0.3rem 0 0">~</span>
 									<input class="btn btn-secondary searchDate" id="searchEdDate" name="searchEdDate" value="${searchVO.searchEdDate}" type="date">
@@ -197,6 +196,14 @@
 			}
 		}
 		
+			function fn_search_workOrder(){
+				if($('#searchCondition').val()==''){
+					alert("검색조건을 선택하세요.");
+					return;
+				}
+				listForm.pageIndex.value = 1;
+				listForm.submit();
+			}
 		$(function() {
 			$('#collectInfoMenu').addClass("active");
 			$('#collectInfo').addClass("show");
@@ -206,7 +213,6 @@
 			if(msg) {
 				alert(msg);
 			}
-			
 			
 			});
 			

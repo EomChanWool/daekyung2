@@ -3,12 +3,26 @@
 <mapper
 	namespace="apc.sl.collectInfo.processing.service.impl.ProcessingMapper">
 	<select id="selectProcessingListToCnt" resultType="int">
-		SELECT COUNT(*) FROM sm_mf_proc_log
-		WHERE 1=1
-		<if test="searchKeyword != ''">
-			AND or_name LIKE CONCAT('%', #{searchKeyword}, '%')
-		</if>
-	</select>
+    SELECT COUNT(*) 
+    FROM sm_mf_proc_log a
+    JOIN sm_mf_proc b ON a.or_id = b.OR_ID
+    WHERE 1=1
+    <if test="searchCondition == '수주번호'">
+        AND a.or_id LIKE CONCAT('%', #{searchKeyword}, '%')
+    </if>
+    <if test="searchCondition == '작업자'">
+        AND a.mfl_manager LIKE CONCAT('%', #{searchKeyword}, '%')
+    </if>
+    <if test="searchCondition == '로트번호'">
+        AND b.po_lotno LIKE CONCAT('%', #{searchKeyword}, '%')
+    </if>
+    <if test="searchStDate != ''">
+		AND a.MFL_ST_DATE >= #{searchStDate}
+	</if>
+	<if test="searchEdDate !=''">
+		AND a.MFL_ED_DATE <![CDATA[<=]]> #{searchEdDate}
+	</if>
+</select>
 
 	<select id="selectProcessingList" resultType="egovMap">
 		<!-- SELECT a.mfl_idx, a.or_id,a.mfl_st_date, a.mfl_ed_date, a.mfl_manager, 
@@ -30,11 +44,23 @@
 		FROM sm_mf_proc_log a
 		JOIN sm_mf_proc b ON a.OR_ID = b.OR_ID
 		LEFT JOIN sm_mf_process_stop s ON a.OR_ID = s.OR_ID
-		WHERE b.MP_PR_STATE
-		= 2
-		<if test="searchKeyword != ''">
-			AND or_id LIKE CONCAT('%', #{searchKeyword}, '%')
+		WHERE b.MP_PR_STATE= 2
+		
+		<if test="searchCondition == '수주번호'">
+			AND a.or_id LIKE CONCAT ('%', #{searchKeyword}, '%')
 		</if>
+		<if test="searchCondition == '작업자'">
+			AND a.mfl_manager LIKE CONCAT ('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchCondition == '로트번호'">
+			AND b.po_lotno LIKE CONCAT ('%', #{searchKeyword}, '%')
+		</if>
+		  <if test="searchStDate != ''">
+			AND a.MFL_ST_DATE >= #{searchStDate}
+		</if>
+	<if test="searchEdDate !=''">
+		AND a.MFL_ED_DATE <![CDATA[<=]]> #{searchEdDate}
+	</if>
 		ORDER BY mfl_idx DESC
 		OFFSET #{firstIndex} ROWS
 		FETCH

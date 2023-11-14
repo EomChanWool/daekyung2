@@ -63,8 +63,8 @@
 												<td><input type="text" class="form-control" name="eqId" value="${equipPrevVO.eqId}" disabled="disabled"></td>
 											</tr>
 											<tr>
-												<th>예방보수구분</th>
-												<td><input type="text" class="form-control" name="epmType" value="${equipPrevVO.epmType}"></td>
+												<th>예방보수구분<span class="req">*</span></th>
+												<td><input type="text" class="form-control" name="epmType" id="epmType" value="${equipPrevVO.epmType}"></td>
 												<th>작업자</th>
 												<td><input type="text" class="form-control" name="epmManager" id="epmManager" value="${equipPrevVO.epmManager}"></td>
 											</tr>
@@ -119,20 +119,15 @@
 
 	<script>
 	function fn_modify_equipPrev(){
-// 		if($('#faName').val() == ''){
-// 			alert("설비명을 확인 바랍니다.");
-// 			return;
-// 		}
-		
-// 		if($('#faCtlVal').val() == ''){
-// 			alert("설정값을 확인 바랍니다.");
-// 			return;
-// 		}
-		
-// 		if($('#faStatus').val() == ''){
-// 			alert("상태를 확인 바랍니다.");
-// 			return;
-// 		}
+		if($('#epmType').val() == ''){
+			alert("예방보수구분을 확인 바랍니다.");
+			return;
+		}
+		if($('#epmDate').val() == ''){
+			alert("예방보수 일자를 확인 바랍니다.");
+			return;
+		}
+
 		modifyForm.submit();
 	}
 	

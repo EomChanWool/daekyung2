@@ -63,16 +63,16 @@
 												<td><input type="text" class="form-control" name="eqId" value="${failReportVO.eqId}" disabled="disabled"></td>
 											</tr>
 											<tr>
-												<th>고장구분</th>
-												<td><input type="text" class="form-control" name="trType" value="${failReportVO.trType}"></td>
+												<th>고장구분<span class="req">*</span></th>
+												<td><input type="text" class="form-control" name="trType" id="trType" value="${failReportVO.trType}"></td>
 												<th>신고일자<span class="req">*</span></th>
 												<td><input type="date" class="form-control" name="trDate" id="trDate" value="<fmt:formatDate value='${failReportVO.trDate}' pattern='yyyy-MM-dd' />"></td>
 											</tr>
 											<tr>
 												
-												<th>처리여부</th>
+												<th>처리여부<span class="req">*</span></th>
 												<td>
-													<select class="form-control" name="trIscomp">
+													<select class="form-control" name="trIscomp" id="trIscomp">
 														<option>선택</option>
 														<option value="0" <c:if test="${failReportVO.trIscomp eq '0'}">selected="selected"</c:if>>O</option>
 														<option value="1" <c:if test="${failReportVO.trIscomp eq '1'}">selected="selected"</c:if>>X</option>
@@ -126,25 +126,23 @@
 	<script>
 	function fn_modify_failReport(){
 		var num = /^\d+$/;
-// 		if(!num.test($('#prReCnt').val())){
-// 			alert("생산수량을 확인 바랍니다.");
-// 			return;
-// 		}
+		if($('#trType').val() == ''){
+			alert("고장구분을 확인바랍니다.");
+			return;
+		}
 		
-// 		if($('#prReFaultyCnt').val() != '' && !num.test($('#prReFaultyCnt').val())){
-// 			alert("불량수량을 확인 바랍니다.");
-// 			return;
-// 		}
+		if($('#trDate').val() == ''){
+			alert("신고일자를 확인바랍니다.");
+			return;
+		}
 		
-// 		if($('#prReState').val() == ''){
-// 			alert("작업상태를 확인 바랍니다.");
-// 			return;
-// 		}
-// 		if($('#prReState').val() == '1' && $('#prReEdTime').val() == ''){
-// 			alert("작업종료일을 확인 바랍니다.");
-// 			return;
-// 		}
+		if($('#trIscomp').val() == ''){
+			alert("처리여부를 확인바랍니다.");
+			return;
+		}
 		
+	
+	
 		modifyForm.submit();
 	}
 	

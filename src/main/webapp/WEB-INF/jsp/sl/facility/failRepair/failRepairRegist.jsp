@@ -65,8 +65,8 @@
 														</c:forEach>
 													</select>
 												</td>
-												<th>조치구분</th>
-												<td><input type="text" class="form-control" name="tsType" value="${failReportVO.tsType}"></td>
+												<th>조치구분<span class="req">*</span></th>
+												<td><input type="text" class="form-control" name="tsType" id="tsType" value="${failReportVO.tsType}"></td>
 											</tr>
 											<tr>
 												
@@ -123,16 +123,16 @@
  			alert("신고ID를 확인 바랍니다.");
  			return;
  		}
+		if($('#tsType').val() == ''){
+			alert("조치구분을 확인 바랍니다.");
+			return;
+		}
 		
  		if($('#tsDate').val() == ''){
  			alert("조치일자를 확인 바랍니다.");
  			return;
  		}
 		
-// 		if($('#faStatus').val() == ''){
-// 			alert("상태를 확인 바랍니다.");
-// 			return;
-// 		}
 		
 		registForm.submit();
 	}

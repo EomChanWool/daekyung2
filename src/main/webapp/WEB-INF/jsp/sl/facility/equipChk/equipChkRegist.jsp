@@ -65,13 +65,13 @@
 														</c:forEach>
 													</select>
 												</td>
-												<th>설비체크명</th>
+												<th>설비체크명<span class="req">*</span></th>
 												<td><input type="text" class="form-control" name="eciName" id="eciName" value="${equipChkVO.eciName}"></td>
 											</tr>
 											<tr>
-												<th>점검내용</th>
+												<th>점검내용<span class="req">*</span></th>
 												<td><input type="text" class="form-control" name="eciComment" id="eciComment" value="${equipChkVO.eciComment}"></td>
-												<th>점검자<span class="req">*</span></th>
+												<th>점검자</th>
 												<td><input type="text" class="form-control" name="eciManager" id="eciManager" value="${equipChkVO.eciManager}"></td>
 											</tr>
 											<tr>
@@ -134,8 +134,8 @@
  			return;
  		}
  		
- 		if($('#eciManager').val() == ''){
- 			alert("점검자를 확인 바랍니다.");
+ 		if($('#eciComment').val() == ''){
+ 			alert("점검내용을 확인 바랍니다.");
  			return;
  		}
 		

@@ -57,7 +57,7 @@
 	                                <table class="table table-bordered" id="dataTable">
 	                                    <tbody>
 											<tr>
-												<th>설비ID <span class="req">*</span></th>
+												<th>설비ID<span class="req">*</span></th>
 												<td>
 													<select class="form-control" name="eqId" id="eqId">
 														<option value="">선택</option>
@@ -66,11 +66,11 @@
 														</c:forEach>
 													</select>
 												</td>
-												<th>고장구분</th>
-												<td><input type="text" class="form-control" name="trType" value="${failReportVO.trType}"></td>
+												<th>고장구분<span class="req">*</span></th>
+												<td><input type="text" class="form-control" name="trType" id="trType"value="${failReportVO.trType}"></td>
 											</tr>
 											<tr>
-												<th>처리여부</th>
+												<th>처리여부<span class="req">*</span></th>
 												<td>
 													<select class="form-control" name="trIscomp" id="trIscomp">
 														<option value="">선택</option>
@@ -133,11 +133,16 @@
  			alert("설비ID를 확인 바랍니다.");
  			return;
  		}
+ 		
+ 		if($('#trType').val() == ''){
+ 			alert("고장구분을 확인 바랍니다.");
+ 			return;
+ 		}
+ 		
  		if($('#trIscomp').val() == ''){
  			alert("처리여부를 확인 바랍니다.");
  			return;
  		}
- 		
  		if($('#trDate').val() == ''){
  			alert("신고일자를 확인 바랍니다.");
  			return;

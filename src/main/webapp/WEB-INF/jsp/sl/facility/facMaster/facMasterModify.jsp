@@ -53,24 +53,24 @@
 	                                <table class="table table-bordered" id="dataTable">
 	                                    <tbody>
 											<tr>
-												<th>설비ID</th>
+												<th>설비ID<span class="req">*</span></th>
 												<td><input type="text" class="form-control" name="eqId" value="${facMasterVO.eqId}" disabled="disabled"/></td>
-												<th>설비구분</th>
-												<td><input type="text" class="form-control" name="eqType" value="${facMasterVO.eqType}"/></td>
+												<th>설비구분<span class="req">*</span></th>
+												<td><input type="text" class="form-control" name="eqType" id="eqType" value="${facMasterVO.eqType}"/></td>
 											</tr>
 											<tr>
-												<th>설비명</th>
-												<td><input type="text" class="form-control" name=eqName value="${facMasterVO.eqName}"/></td>
-												<th>센서ID</th>
-												<td><input type="text" class="form-control" name="eqSensorid" value="${facMasterVO.eqSensorid}"/></td>
+												<th>설비명<span class="req">*</span></th>
+												<td><input type="text" class="form-control" name="eqName" id="eqName" value="${facMasterVO.eqName}"/></td>
+												<th>센서ID<span class="req">*</span></th>
+												<td><input type="text" class="form-control" name="eqSensorid" id="eqSensorid" value="${facMasterVO.eqSensorid}"/></td>
 												
 											</tr>
 											<tr>
 												<th>설치장소</th>
 												<td><input type="text" class="form-control" name="eqPlace" value="${facMasterVO.eqPlace}"/></td>
-												<th>설비상태</th>
+												<th>설비상태<span class="req">*</span></th>
 												<td>
-													<select class="form-control" name="eqOpState">
+													<select class="form-control" name="eqOpState" id="eqOpState">
 														<option value="정상" <c:if test="${facMasterVO.eqOpState eq '정상'}">selected="selected"</c:if>>정상</option>
 														<option value="고장" <c:if test="${facMasterVO.eqOpState eq '고장'}">selected="selected"</c:if>>고장</option>
 													</select>
@@ -78,9 +78,9 @@
 												
 											</tr>
 											<tr>
-												<th>사용여부</th>
+												<th>사용여부<span class="req">*</span></th>
 												<td>
-													<select class="form-control" name="eqIsuse">
+													<select class="form-control" name="eqIsuse" id="eqInsuse">
 														<option value="0" <c:if test="${facMasterVO.eqIsuse eq '0'}">selected="selected"</c:if>>사용</option>
 														<option value="1" <c:if test="${facMasterVO.eqIsuse eq '1'}">selected="selected"</c:if>>미사용</option>
 													</select>
@@ -128,15 +128,35 @@
 
 	<script>
 	function fn_modify_facMaster(){
-// 		if($('#facMasterType').val() == ''){
-// 			alert("분류를 확인 바랍니다.");
-// 			return;
-// 		}
 		
-// 		if($('#facMasterName').val() == ''){
-// 			alert("품목명을 확인 바랍니다.");
-// 			return;
-// 		}
+		if($('#eqType').val() == ''){
+			alert("설비구분을 확인 바랍니다.");
+			return;
+		}
+		
+		if($('#eqName').val() == ''){
+			alert("설비명을 확인 바랍니다.");
+			return;
+		}
+		
+		if($('#eqSensorid').val() == ''){
+			alert("센서ID을 확인 바랍니다.");
+			return;
+		}
+		
+		if($('#eqOpState').val() == ''){
+			alert("설비상태를 확인 바랍니다.");
+			return;
+		}
+		
+		if($('#eqInsuse').val() == ''){
+			alert("사용여부를 확인 바랍니다.");
+			return;
+		}
+		
+		
+		
+		
 		modifyForm.submit();
 	}
 	

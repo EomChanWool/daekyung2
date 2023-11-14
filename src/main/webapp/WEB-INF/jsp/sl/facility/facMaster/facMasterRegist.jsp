@@ -54,19 +54,19 @@
 											<tr>
 <!-- 												<th>설비ID</th> -->
 <%-- 												<td><input type="text" class="form-control" name="eqId" value="${facMasterVO.eqId}"/></td> --%>
-												<th>설비구분</th>
+												<th>설비구분<span class="req">*</span></th>
 												<td><input type="text" class="form-control" name="eqType" id="eqType" value="${facMasterVO.eqType}"/></td>
-												<th>설비명</th>
+												<th>설비명<span class="req">*</span></th>
 												<td><input type="text" class="form-control" name="eqName" id="eqName" value="${facMasterVO.eqName}"/></td>
 											</tr>
 											<tr>
-												<th>센서ID</th>
+												<th>센서ID<span class="req">*</span></th>
 												<td><input type="text" class="form-control" name="eqSensorid" id="eqSensorid" value="${facMasterVO.eqSensorid}"/></td>
 												<th>설치장소</th>
 												<td><input type="text" class="form-control" name="eqPlace" id="eqPlace" value="${facMasterVO.eqPlace}"/></td>
 											</tr>
 											<tr>
-												<th>설비상태</th>
+												<th>설비상태<span class="req">*</span></th>
 												<td>
 													<select class="form-control" name="eqOpState" id="eqOpState">
 														<option value="">선택</option>
@@ -74,7 +74,7 @@
 														<option value="고장">고장</option>
 													</select>
 												</td>
-												<th>사용여부</th>
+												<th>사용여부<span class="req">*</span></th>
 												<td>
 													<select class="form-control" name="eqIsuse" id="eqIsuse">
 														<option value="">선택</option>
@@ -125,7 +125,8 @@
 
 	<script>
 	function fn_regist_facMaster(){
- 		if($('#eqType').val() == ''){
+ 	
+		if($('#eqType').val() == ''){
  			alert("설비구분을 확인 바랍니다.");
  			return;
  		}
@@ -137,10 +138,6 @@
 		
  		if($('#eqSensorid').val() == ''){
  			alert("센서ID를 확인 바랍니다.");
- 			return;
- 		}
- 		if($('#eqPlace').val() == ''){
- 			alert("설치장소를 확인 바랍니다.");
  			return;
  		}
  		if($('#eqOpState').val() == ''){

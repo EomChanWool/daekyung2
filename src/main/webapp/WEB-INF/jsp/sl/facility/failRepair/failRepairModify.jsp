@@ -59,8 +59,8 @@
 											<tr>
 												<th>신고ID <span class="req">*</span></th>
 												<td><input type="text" class="form-control" name="trId" value="${failRepairVO.trId}" disabled="disabled"></td>
-												<th>조치구분</th>
-												<td><input type="text" class="form-control" name="tsType" value="${failRepairVO.tsType}"></td>
+												<th>조치구분<span class="req">*</span></th>
+												<td><input type="text" class="form-control" name="tsType" id="tsType" value="${failRepairVO.tsType}"></td>
 											</tr>
 											<tr>
 												
@@ -113,20 +113,14 @@
 
 	<script>
 	function fn_modify_failRepair(){
-// 		if($('#faName').val() == ''){
-// 			alert("설비명을 확인 바랍니다.");
-// 			return;
-// 		}
-		
-// 		if($('#faCtlVal').val() == ''){
-// 			alert("설정값을 확인 바랍니다.");
-// 			return;
-// 		}
-		
-// 		if($('#faStatus').val() == ''){
-// 			alert("상태를 확인 바랍니다.");
-// 			return;
-// 		}
+		if($('#tsType').val() == ''){
+			alert("조치구분을 확인 바랍니다.");
+			return;
+		}
+		if($('#tsDate').val() == ''){
+			alert("조치일자를 확인 바랍니다.");
+			return;
+		}
 		
 		modifyForm.submit();
 	}

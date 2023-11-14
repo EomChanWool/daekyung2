@@ -134,17 +134,16 @@
 	<script>
 	function fn_modify_cut(){
 	
-
-		
-		
-		if($('#cpMfno').val() == ''){
-			alert("공정번호를 확인 바랍니다.");
-			return;
-		}
 		if($('#cpQty').val() == ''){
 			alert("생산량을 확인 바랍니다.");
 			return;
 		}
+
+		if($('#cpMfno').val() == ''){
+			alert("공정번호를 확인 바랍니다.");
+			return;
+		}
+
 
 		modifyForm.submit();
 	}

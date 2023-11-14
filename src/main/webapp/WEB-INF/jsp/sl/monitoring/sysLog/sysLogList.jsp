@@ -56,9 +56,13 @@
 								<form name ="listForm" class="listForm" action="${pageContext.request.contextPath}/sl/monitoring/sysLog/sysLogList.do" method="post">
 									<input type="hidden" name=mlIdx>
 									<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
-									<input type="text" class="form-control bg-light border-0 small" name="searchKeyword"
-						    									value="${searchVO.searchKeyword}" placeholder="아이디를 입력해 주세요"
-						    									style="background-color:#eaecf4; width: 25%; float: left;">
+									<input type="text" class="form-control bg-light border-0 small" name="searchKeyword" id="searchKeyword"
+						    									value="${searchVO.searchKeyword}" placeholder="접속자ID를 입력해주세요"
+						    									style="background-color:#eaecf4; width: 25%; float: left; margin: 0 0.3rem 0 0;">
+						    		<input class="btn btn-secondary searchDate" id="searchStDate" name="searchStDate" value="${searchVO.searchStDate}" type="date">
+									<span class="dash" style="display: inline-block; float: left; margin: 0.5rem 0.3rem 0 0">~</span>
+						    										<input class="btn btn-secondary searchDate" id="searchEdDate" name="searchEdDate" value="${searchVO.searchEdDate}" type="date">
+						    	
 						    	</form>
 						    	<a href="#" class="btn btn-info btn-icon-split" onclick="fn_search_sysLog()" style="margin-left: 0.3rem;">
 	                                <span class="text">검색</span>
@@ -87,6 +91,7 @@
 												<td>${result.mlIp}</td>
 												<td>${result.mlDate}</td>
 												<td>${result.mlComment}</td>
+												
 	                                        </tr>
                                     	</c:forEach>
                                     	<c:if test="${empty sysLogList}"><tr><td colspan='4'>결과가 없습니다.</td><del></del></c:if>

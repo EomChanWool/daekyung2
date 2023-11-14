@@ -63,7 +63,7 @@
 												<td><input type="text" class="form-control" name="eqId" value="${equipChkVO.eqId}" disabled="disabled"></td>
 											</tr>
 											<tr>
-												<th>설비체크명</th>
+												<th>설비체크명<span class="req">*</span></th>
 												<td><input type="text" class="form-control" name="eciName" id="eciName" value="${equipChkVO.eciName}"></td>
 												<th>점검내용<span class="req">*</span></th>
 												<td><input type="text" class="form-control" name="eciComment" id="eciComment" value="${equipChkVO.eciComment}"></td>
@@ -120,36 +120,21 @@
 
 	<script>
 	function fn_modify_equipChk(){
-// 		if($('#prListIdx').val() == ''){
-// 			alert("공정번호를 확인 바랍니다.");
-// 			return;
-// 		}
-		
-// 		if($('#faCd').val() == ''){
-// 			alert("설비코드를 확인 바랍니다.");
-// 			return;
-// 		}
-		
-// 		if($('#prChkList').val() == ''){
-// 			alert("점검항목을 확인 바랍니다.");
-// 			return;
-// 		}
-		
-// 		if($('#prChkDte').val() == ''){
-// 			alert("점검일을 확인 바랍니다.");
-// 			return;
-// 		}
-		
-// 		if($('#prChkManager').val() == ''){
-// 			alert("담당자를 확인 바랍니다.");
-// 			return;
-// 		}
-		
-// 		if($('#prChkInsp').val() == ''){
-// 			alert("점검내역을 확인 바랍니다.");
-// 			return;
-// 		}
-		
+
+		if($('#eciName').val() == ''){
+			alert("설비체크명을 확인 바랍니다.");
+			return;
+		}
+
+		if($('#eciComment').val() == ''){
+			alert("점검내용을 확인 바랍니다.");
+			return;
+		}
+		if($('#eciDate').val() == ''){
+			alert("점검일을 확인 바랍니다.");
+			return;
+		}
+
 		modifyForm.submit();
 	}
 	

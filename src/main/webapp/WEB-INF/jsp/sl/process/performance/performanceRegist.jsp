@@ -63,13 +63,13 @@
 											</tr>
 											<tr>
 												<th>제품명 <span class="req">*</span></th>
-												<td><input type="text" class="form-control" name="ptProdName" id="ptProdName" readonly></td>
+												<td><input type="text" class="form-control" name="ptProdName" id="ptProdName" ></td>
 												<th>검사일<span class="req">*</span></th>
 												<td><input type="date" class="form-control" name="ptInsDate" id="ptInsDate"></td>
 											</tr>
 											<tr>
 												<th>가공수량 <span class="req">*</span></th>
-												<td><input type="text" class="form-control" name="ptQty" id="ptQty" readonly></td>
+												<td><input type="text" class="form-control" name="ptQty" id="ptQty" ></td>
 												<th>불량수량 <span class="req">*</span></th>
 												<td><input type="text" class="form-control" name="ptBadQty" id="ptBadQty"></td>
 											</tr>
@@ -124,12 +124,23 @@
 			alert("로트번호를 확인 바랍니다.");
 			return;
 		}
-		
+		 if($('#orId').val() == ''){
+			alert("수주번호를 확인 바랍니다.");
+			return;
+		}
+		 if($('#ptProdName').val() == ''){
+				alert("제품명을 확인 바랍니다.");
+				return;
+			}
 		 if($('#ptInsDate').val() == ''){
 				alert("검사일을 확인 바랍니다.");
 				return;
 			}
-		 
+		 if($('#ptQty').val() == ''){
+				alert("가공수량을 확인 바랍니다.");
+				return;
+			}
+
 		 if($('#ptBadQty').val() == ''){
 				alert("불량수량을 확인 바랍니다.");
 				return;

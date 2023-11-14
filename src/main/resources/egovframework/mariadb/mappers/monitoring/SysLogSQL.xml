@@ -7,7 +7,10 @@
 		SELECT COUNT(*) FROM sm_ms_log
 		where 1=1
 		<if test="searchKeyword != ''">
-			AND ml_id = #{searchKeyword}
+			AND ml_id LIKE CONCAT('%',#{searchKeyword},'%')
+		</if>
+		 <if test="searchStDate != '' and searchEdDate != ''">
+		AND CONVERT(varchar(10), ml_date, 120) BETWEEN #{searchStDate} AND #{searchEdDate}
 		</if>
 	</select>
 
@@ -17,8 +20,12 @@
 		FROM sm_ms_log
 		where 1=1
 		<if test="searchKeyword != ''">
-			AND ml_id = #{searchKeyword}
+			AND ml_id LIKE CONCAT('%',#{searchKeyword},'%')
 		</if>
+		<if test="searchStDate != '' and searchEdDate != ''">
+				AND CONVERT(varchar(10), ml_date, 120) BETWEEN #{searchStDate} AND #{searchEdDate}
+		</if>
+
 		ORDER BY ml_idx DESC
 		OFFSET #{firstIndex} ROWS
 		FETCH NEXT
