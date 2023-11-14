@@ -89,14 +89,10 @@
 											<th>생산량</th>
 											<td><input type="text" class="form-control" name="mpQty" id="mpQty"></td>
 											</tr>
-											
 											<tr>
 												<th>비고</th>
 												<td colspan="3"><textarea name="mpNote"></textarea></td>
 											</tr>
-											
-											
-											
 										</tbody>
 	                                </table>
                                 </form>
@@ -145,10 +141,10 @@
 		var num =  /^[0-9.]+$/;
 
 		
-		/*  if(!regex.test($('#orId').val())){
+		 if(!regex.test($('#orId').val())){
 	 			alert("수주번호형식을 확인해주세요.");
 				return;
-	 		} */
+	 		} 
 		 
 		if($('#orId').val() == ''){
 			alert("수주번호를 확인 바랍니다.");
@@ -156,54 +152,53 @@
 		}
 		
 		
-		
 		if($('#mpMfno').val() == ''){
 			alert("가공공정번호를 확인 바랍니다.");
 			return;
 		}
 		
-		if($('#mpProdName').val() == ''){
-			alert("품명을 확인 바랍니다.");
-			return;
-		}
+// 		if($('#mpProdName').val() == ''){
+// 			alert("품명을 확인 바랍니다.");
+// 			return;
+// 		}
 		
 		
-		if($('#mpRegDate').val() == ''){
-			alert("일자를 확인 바랍니다.");
-			return;
-		}
-		if($('#mpTexture').val() == ''){
-			alert("재질을 확인 바랍니다.");
-			return;
-		}
-		if($('#mpThickness').val() == ''){
-			alert("두께를 확인 바랍니다.");
-			return;
-		}
+// 		if($('#mpRegDate').val() == ''){
+// 			alert("일자를 확인 바랍니다.");
+// 			return;
+// 		}
+// 		if($('#mpTexture').val() == ''){
+// 			alert("재질을 확인 바랍니다.");
+// 			return;
+// 		}
+// 		if($('#mpThickness').val() == ''){
+// 			alert("두께를 확인 바랍니다.");
+// 			return;
+// 		}
 		
-		if($('#mpStandard').val() == ''){
-			alert("규격을 확인 바랍니다.");
-			return;
-		}
+// 		if($('#mpStandard').val() == ''){
+// 			alert("규격을 확인 바랍니다.");
+// 			return;
+// 		}
 		
-		if($('#mpState').val() == ''){
-			alert("상태를 확인 바랍니다.");
-			return;
-		}
+// 		if($('#mpState').val() == ''){
+// 			alert("상태를 확인 바랍니다.");
+// 			return;
+// 		}
 		
-		if($('#poLotno').val() == ''){
-			alert("로트번호를 확인 바랍니다.");
-			return;
-		}
+// 		if($('#poLotno').val() == ''){
+// 			alert("로트번호를 확인 바랍니다.");
+// 			return;
+// 		}
 		
-		if($('#mpQty').val() == ''){
-			alert("수량을 확인 바랍니다.");
-			return;
-		}
-		if(!num.test($('#mpQty').val())){
- 			alert("수량은 숫자만 입력가능합니다.");
-			return;
- 		}
+// 		if($('#mpQty').val() == ''){
+// 			alert("수량을 확인 바랍니다.");
+// 			return;
+// 		}
+// 		if(!num.test($('#mpQty').val())){
+//  			alert("수량은 숫자만 입력가능합니다.");
+// 			return;
+//  		}
 		
 		registForm.submit();
 	}

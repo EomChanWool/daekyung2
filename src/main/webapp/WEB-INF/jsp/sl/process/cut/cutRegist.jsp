@@ -153,14 +153,14 @@
 			alert("공정번호를 확인 바랍니다.");
 			return;
 		}
-		if(!num.test($('#cpQty').val())){
-			alert("생산량에는 숫자만 기입 바랍니다.");
-			return;
-		}
-		if($('#cpQty').val() == ''){
-			alert("생산량을 확인 바랍니다.");
-			return;
-		}
+// 		if(!num.test($('#cpQty').val())){
+// 			alert("생산량에는 숫자만 기입 바랍니다.");
+// 			return;
+// 		}
+// 		if($('#cpQty').val() == ''){
+// 			alert("생산량을 확인 바랍니다.");
+// 			return;
+// 		}
 		
 		registForm.submit();
 	}

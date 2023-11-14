@@ -65,7 +65,7 @@
 														</c:forEach>
 													</select>
 												</td>
-												<th>예방보수구분</th>
+												<th>예방보수구분<span class="req">*</span></th>
 												<td><input type="text" class="form-control" name="epmType" id="epmType" value="${equipPrevVO.epmType}"></td>
 											</tr>
 											<tr>

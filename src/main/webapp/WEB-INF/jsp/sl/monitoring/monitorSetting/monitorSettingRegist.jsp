@@ -47,7 +47,7 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">KPI목표관리 등록</h1>
+                    <h1 class="h3 mb-2 text-gray-800">모니터링 등록</h1>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-body">

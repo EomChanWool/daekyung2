@@ -5,10 +5,12 @@
 	<select id="selectPerformanceListToCnt" resultType="int">
 		SELECT COUNT(*) FROM sm_perf_test
 		WHERE 1=1
-		<if test="searchKeyword">
-			AND pt_lotno = #{searchKeyword}
+		<if test="searchCondition == '수주번호'">
+			AND or_id LIKE CONCAT ('%', #{searchKeyword}, '%')
 		</if>
-
+		<if test="searchCondition == '로트번호'">
+			AND pt_lotno LIKE CONCAT ('%', #{searchKeyword}, '%')
+		</if>
 	</select>
 
 	<select id="selectPerformanceList" resultType="egovMap">
@@ -16,8 +18,11 @@
 		FROM
 		sm_perf_test
 		WHERE 1=1
-		<if test="searchKeyword !=''">
-			AND pt_lotno = #{searchKeyword}
+		<if test="searchCondition == '수주번호'">
+			AND or_id LIKE CONCAT ('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchCondition == '로트번호'">
+			AND pt_lotno LIKE CONCAT ('%', #{searchKeyword}, '%')
 		</if>
 
 		ORDER BY pt_id DESC

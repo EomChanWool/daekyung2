@@ -153,49 +153,7 @@
 			alert("가공공정번호를 확인 바랍니다.");
 			return;
 		}
-		
-		if($('#mpProdName').val() == ''){
-			alert("품명을 확인 바랍니다.");
-			return;
-		}
-		
-		
-		if($('#mpRegDate').val() == ''){
-			alert("일자를 확인 바랍니다.");
-			return;
-		}
-		if($('#mpTexture').val() == ''){
-			alert("재질을 확인 바랍니다.");
-			return;
-		}
-		if($('#mpThickness').val() == ''){
-			alert("두께를 확인 바랍니다.");
-			return;
-		}
-		
-		if($('#mpStandard').val() == ''){
-			alert("규격을 확인 바랍니다.");
-			return;
-		}
-		
-		if($('#mpState').val() == ''){
-			alert("상태를 확인 바랍니다.");
-			return;
-		}
-		
-		if($('#poLotno').val() == ''){
-			alert("로트번호를 확인 바랍니다.");
-			return;
-		}
-		
-		if($('#mpQty').val() == ''){
-			alert("수량을 확인 바랍니다.");
-			return;
-		}
-		if(!num.test($('#mpQty').val())){
- 			alert("수량은 숫자만 입력가능합니다.");
-			return;
- 		}
+
 		
 		modifyForm.submit();
 	}

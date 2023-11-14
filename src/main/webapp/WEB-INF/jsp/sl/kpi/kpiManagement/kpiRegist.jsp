@@ -157,13 +157,13 @@
 		
 
  		if(!num.test($('#kiManhour').val())){
- 			alert("목표 불량률을 확인 바랍니다.");
+ 			alert("목표공수를 확인 바랍니다.");
 			return;
  		}
  		
 
  		if(!num.test($('#kiLeadtime').val())){
- 			alert("목표 불량률을 확인 바랍니다.");
+ 			alert("목표 리드타임을 확인 바랍니다.");
 			return;
  		}
 		

@@ -47,7 +47,7 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">검사공정 등록</h1>
+                    <h1 class="h3 mb-2 text-gray-800">검사공정 수정</h1>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-body">
@@ -84,7 +84,7 @@
 	                                <table class="table table-bordered" id="dataTable">
 	                                    <tbody>
 											<tr>
-												<th>관리항목  <span class="req">*</span></th>
+												<th>관리항목 </th>
 												<td>
 													<input type="text" class="form-control" name="siType" id="siType" value="${incoVO.siId}" readonly>
 													
@@ -96,19 +96,19 @@
 											<tr>
 												<th>검사일</th>
 												<td><input type="date" class="form-control" name="isiDate" id="isiDate" value="${incoVO.isiDate}"/></td>
-												<th>검사파일1 <span class="req">*</span></th>
+												<th>검사파일1 </th>
 												<td><input type="text" class="form-control" value="${incoVO.isiFile1}" readonly/></td>
 											</tr>
 											<tr>
-												<th>검사파일2 <span class="req">*</span></th>
+												<th>검사파일2 </th>
 												<td><input type="text" class="form-control" value="${incoVO.isiFile2}" readonly/></td>
-												<th>검사파일3  <span class="req">*</span></th>
+												<th>검사파일3  </th>
 												<td><input type="text" class="form-control" value="${incoVO.isiFile3}" readonly/></td>
 											</tr>
 											<tr>
-												<th>검사파일4  <span class="req">*</span></th>
+												<th>검사파일4  </th>
 												<td><input type="text" class="form-control" value="${incoVO.isiFile4}" readonly/></td>
-												<th>검사파일5  <span class="req">*</span></th>
+												<th>검사파일5  </th>
 												<td><input type="text" class="form-control" value="${incoVO.isiFile5}" readonly/></td>	
 												
 											</tr>
@@ -155,22 +155,32 @@
 
 	<script>
 	function fn_modify_ins(){
-		/* if($('#inName').val() == ''){
-			alert("부적합명을 확인 바랍니다.");
-			return;
-		}
+
+// 		if($('#isiLotno').val() == ''){
+// 			alert("로트번호를 확인 바랍니다.");
+// 			return;
+// 		}
 		
-		if($('#tiIdx').val() == ''){
-			alert("검사명을 확인 바랍니다.");
-			return;
-		}
+// 		if($('#orId').val() == ''){
+// 			alert("수주 번호를 확인 바랍니다.");
+// 			return;
+// 		} 
 		
+// 		if($('#isiItemType').val() == ''){
+// 			alert("품목코드를 확인 바랍니다.");
+// 			return;
+// 		} 
 		
-		if($('#biIdx').val() == ''){
-			alert("불량항목 번호를 확인 바랍니다.");
-			return;
-		} */
+// 		if($('#isiSpcSpec').val() == ''){
+// 			alert("SPC스펙을 확인 바랍니다.");
+// 			return;
+// 		} 
 		
+// 		if($('#isiQty').val() == ''){
+// 			alert("수량을 확인 바랍니다.");
+// 			return;
+// 		} 
+	
 		modifyForm.submit();
 	}
 	
@@ -188,7 +198,7 @@
 		
 	});
 
-	s
+	
 	
 
 	

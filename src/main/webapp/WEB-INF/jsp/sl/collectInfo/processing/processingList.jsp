@@ -66,7 +66,6 @@
 									<input type="text" class="form-control bg-light border-0 small" name="searchKeyword"
 						    									value="${searchVO.searchKeyword}" placeholder="검색어를 입력해 주세요"
 						    									style="background-color:#eaecf4; width: 25%; float: left;">
-						    		
 						    		<input class="btn btn-secondary searchDate" id="searchStDate" name="searchStDate" value="${searchVO.searchStDate}" type="date">
 									<span class="dash" style="display: inline-block; float: left; margin: 0.5rem 0.3rem 0 0">~</span>
 									<input class="btn btn-secondary searchDate" id="searchEdDate" name="searchEdDate" value="${searchVO.searchEdDate}" type="date">
@@ -205,6 +204,14 @@
 			}
 		}
 		
+			function fn_search_workOrder(){
+				if($('#searchCondition').val()==''){
+					alert("검색조건을 선택하세요.");
+					return;
+				}
+				listForm.pageIndex.value = 1;
+				listForm.submit();
+			}
 		$(function() {
 			$('#collectInfoMenu').addClass("active");
 			$('#collectInfo').addClass("show");
@@ -214,7 +221,6 @@
 			if(msg) {
 				alert(msg);
 			}
-			
 			
 			});
 			

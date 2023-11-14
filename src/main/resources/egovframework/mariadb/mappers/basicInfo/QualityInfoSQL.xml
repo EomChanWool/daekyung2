@@ -5,7 +5,9 @@
 	<select id="selectQualityInfoToCnt" resultType="int">
 		SELECT
 		COUNT(*)
-		FROM sm_spc_specinfo
+		FROM sm_spc_specinfo a
+		JOIN sm_quality_info b
+		ON a.SI_ID = b.QI_NAME
 		WHERE 1=1
 		<if test="searchKeyword != ''">
 			AND PI_ID LIKE CONCAT ('%', #{searchKeyword}, '%')
