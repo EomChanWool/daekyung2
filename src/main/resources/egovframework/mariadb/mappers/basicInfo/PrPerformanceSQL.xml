@@ -10,31 +10,35 @@
 			and po_lotno LIKE CONCAT ('%', #{searchKeyword}, '%')
 		</if>
 		<if test="searchStDate != ''">
-			AND rel_date >= #{searchStDate}
+			AND rel_clgo >= #{searchStDate}
 		</if>
 		<if test="searchEdDate !=''">
-			AND rel_date <![CDATA[<=]]>
+			AND rel_clgo <![CDATA[<=]]>
 			#{searchEdDate}
 		</if>
 	</select>
 
 	<select id="selectPrPerformanceList" resultType="egovMap">
 	
-		SELECT rel_idx, po_lotno, rel_clgo, rel_compony, rel_prod,
-		rel_qty, rel_price, rel_or_type  FROM sm_release_info
-
+		SELECT 
+			rel_idx,
+			po_lotno,
+			rel_clgo,
+			rel_compony,
+			rel_prod,
+			rel_qty,
+			rel_price,
+			rel_or_type
+		FROM 
+			sm_release_info
 		WHERE 1=1
 		<if test="searchCondition == 1 and searchKeyword != ''">and po_lotno LIKE CONCAT ('%', #{searchKeyword}, '%')</if>
-		<!-- <if test="searchKeyword != ''">
-			and po_lotno LIKE CONCAT ('%', #{searchKeyword}, '%')
-		</if> -->
 		<if test="searchCondition == 2 and searchKeyword != ''">and or_id LIKE CONCAT ('%', #{searchKeyword}, '%')</if>
 		<if test="searchStDate != ''">
 			AND rel_clgo >= #{searchStDate}
 		</if>
 		<if test="searchEdDate !=''">
-			AND rel_clgo <![CDATA[<=]]>
-			#{searchEdDate}
+			AND rel_clgo <![CDATA[<=]]> #{searchEdDate}
 		</if>
 		ORDER BY rel_idx DESC
 		OFFSET #{firstIndex} ROWS

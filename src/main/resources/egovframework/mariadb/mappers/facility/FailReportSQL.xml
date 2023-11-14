@@ -2,10 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="apc.sl.facility.failReport.service.impl.FailReportMapper">
 	<select id="selectFailReportListToCnt" resultType="int">
-		SELECT COUNT(*) FROM sm_trouble_report
+		SELECT 
+			COUNT(*)
+		FROM
+			sm_trouble_report a
+		JOIN
+			sm_equipment b
+		ON
+			a.eq_id = b.eq_id
 		WHERE 1=1
-		<if test="searchKeyword != ''">
-			AND wo_idx LIKE CONCAT('%', #{searchKeyword}, '%')
+		<if test="searchCondition== '설비' and searchKeyword != ''">
+			AND b.eq_type LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchCondition== '고장' and searchKeyword != ''">
+			AND tr_type LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
 	</select>
 	
@@ -16,13 +26,20 @@
 			a.tr_type,
 			a.tr_date,
 			a.tr_comment,
-			a.tr_iscomp
-		FROM sm_trouble_report a
-		JOIN sm_equipment b
-		ON a.eq_id = b.eq_id
+			a.tr_iscomp,
+			b.eq_type
+		FROM 
+			sm_trouble_report a
+		JOIN 
+			sm_equipment b
+		ON 
+			a.eq_id = b.eq_id
 		WHERE 1=1
-		<if test="searchKeyword != ''">
-			AND wo_idx LIKE CONCAT('%', #{searchKeyword}, '%')
+		<if test="searchCondition== '설비' and searchKeyword != ''">
+			AND b.eq_type LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchCondition== '고장' and searchKeyword != ''">
+			AND tr_type LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
 		ORDER BY tr_id DESC
 		OFFSET #{firstIndex} ROWS

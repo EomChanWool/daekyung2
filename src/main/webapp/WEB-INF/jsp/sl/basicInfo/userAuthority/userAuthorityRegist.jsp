@@ -74,7 +74,7 @@
 												<td><input type="text" class="form-control" name="maUrl" id="maUrl" disabled="disabled"/></td>
 											</tr>
 											<tr>
-												<th>권한레벨</th>
+												<th>권한레벨 <span class="req">*</span></th>
 												<td><select class="form-control" name="miLevel" id="miLevel">
 														<option value="">선택</option>
 														<option value="1">작업자</option>
@@ -138,7 +138,7 @@
 				alert("권한레벨을 확인 바랍니다.");
 				return;
 			}
-			
+			한진개발공사
 			
 			
 			registForm.submit();

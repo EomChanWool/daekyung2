@@ -13,16 +13,22 @@
 		SELECT
 			a.ts_id,
 			b.tr_id,
+			b.tr_type,
 			a.ts_type,
 			a.ts_date,
 			a.ts_comment,
 			c.eq_id,
 			c.eq_name
-		FROM sm_troubleshooting a
-		JOIN sm_trouble_report b
-		ON a.tr_id = b.tr_id
-		join sm_equipment c
-		on b.eq_id = c.eq_id
+		FROM 
+			sm_troubleshooting a
+		JOIN 
+			sm_trouble_report b
+		ON 
+			a.tr_id = b.tr_id
+		JOIN 
+			sm_equipment c
+		ON 
+			b.eq_id = c.eq_id
 		WHERE 1=1
 		<if test="searchCondition != ''">
 			AND ${searchCondition} LIKE CONCAT('%', #{searchKeyword}, '%')

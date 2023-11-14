@@ -52,14 +52,14 @@
 	                                <table class="table table-bordered" id="dataTable">
 	                                    <tbody>
 											<tr>
-												<th>신뢰성구분</th>
+												<th>신뢰성구분 <span class="req">*</span></th>
 												<td><input type="text" class="form-control" name="qiTrustType" id="qiTrustType"></td>
-												<th>관리항목명</th>
+												<th>관리항목명 <span class="req">*</span></th>
 												<td><input type="text" class="form-control" name=qiName id="qiName"/></td>
 											</tr>
 											<tr>
 											
-											<th>정성/정량 구분</th>
+											<th>정성/정량 구분 <span class="req">*</span></th>
 											<td>
 											<select name="qiType" class="form-control">
 											<option value="">선택</option>
@@ -69,7 +69,7 @@
 											</td>
 											
 											
-											<th>사용여부</th>
+											<th>사용여부 <span class="req">*</span></th>
 											<td>
 											<select name="qiIsuse" class="form-control">
 											<option value="">선택</option>
@@ -151,6 +151,14 @@
 	function fn_regist_qualityInfo(){
 	
 		 
+		 if(registForm.qiTrustType.value == ''){
+			 alert("신뢰성구분을 확인바랍니다.")
+			 return;
+		 }
+		 if(registForm.qiName.value == ''){
+			 alert("관리항목명을 확인바랍니다.")
+			 return;
+		 }
 		 if(registForm.qiType.value == ''){
 			 alert("정성/정량 구분을 확인바랍니다.")
 			 return;

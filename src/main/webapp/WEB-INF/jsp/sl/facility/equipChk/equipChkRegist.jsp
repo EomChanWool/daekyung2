@@ -61,7 +61,7 @@
 													<select class="form-control" name="eqId" id="eqId">
 														<option value="">선택</option>
 														<c:forEach var="list" items="${equipmentList}" varStatus="status">
-															<option value="${list.eqId}">${list.eqId}</option>
+															<option value="${list.eqId}">${list.eqName}</option>
 														</c:forEach>
 													</select>
 												</td>

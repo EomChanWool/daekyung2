@@ -87,6 +87,7 @@
                                     <thead>
                                         <tr>
                                             <th>예방ID</th>
+                                            <th>설비명</th>
 											<th>예방보수구분</th>
 											<th>작업자</th>
 											<th>예방보수일자</th>
@@ -97,6 +98,7 @@
                                     	<c:forEach var="result" items="${equipPrevList}" varStatus="status">
 	                                   		<tr onclick="fn_detail_EquipPrev('${result.epmId}')" style="cursor: pointer;">
 	                                            <td>${result.epmId}</td>
+	                                            <td>${result.eqName}</td>
 	                                            <td>${result.epmType}</td>
 	                                            <td>${result.epmManager}</td>
 	                                            <td>

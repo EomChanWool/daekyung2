@@ -60,8 +60,8 @@
 									<select class="btn btn-secondary dropdown-toggle searchCondition" name="searchCondition" id="searchCondition">
 							    		<option value="" <c:if test="${searchVO.searchCondition eq ''}">selected="selected"</c:if>>선택</option>
 							    		<option value="1" <c:if test="${searchVO.searchCondition eq '1'}">selected="selected"</c:if>>수주번호</option>
-							    		<option value="2" <c:if test="${searchVO.searchCondition eq '2'}">selected="selected"</c:if>>작업자</option>
-							    		<option value="3" <c:if test="${searchVO.searchCondition eq '3'}">selected="selected"</c:if>>로트번호</option>
+							    		<option value="2" <c:if test="${searchVO.searchCondition eq '2'}">selected="selected"</c:if>>로트번호</option>
+							    		<option value="3" <c:if test="${searchVO.searchCondition eq '3'}">selected="selected"</c:if>>작업자</option>
 						    		</select>
 									<input type="text" class="form-control bg-light border-0 small" name="searchKeyword"
 						    									value="${searchVO.searchKeyword}" placeholder="검색어를 입력해 주세요"
@@ -166,14 +166,22 @@
 		   	listForm.submit();
 		}
 		
-		function fn_search_kpi(){
+		function fn_search_workOrder(){
+			var searchStDate = document.getElementById('searchStDate').value;
+	        var searchEdDate = document.getElementById('searchEdDate').value;
+	        if (searchStDate > searchEdDate) {
+	            alert('검색 시작일은 검색 종료일보다 클 수 없습니다.');
+	            return;
+	        }
+			listForm.pageIndex.value = 1;
 			listForm.submit();
 		}
 		
-		function fn_searchAll_kpi(){
+		function fn_searchAll_workOrder(){
 			listForm.searchCondition.value = "";
-			listForm.searchCondition2.value = "";
-			listForm.searchCondition3.value = "";
+			listForm.searchKeyword.value = "";
+			listForm.searchStDate.value = "";
+			listForm.searchEdDate.value = "";
 			listForm.pageIndex.value = 1;
 			listForm.submit();
 		}

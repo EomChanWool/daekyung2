@@ -11,7 +11,7 @@ public interface EquipChkService {
 
 	List<?> selectEquipChkList(SearchVO searchVO);
 
-	List<?> selectEquipmentChkList();
+	List<Map<String, Object>> selectEquipmentChkList();
 
 	List<?> selectRegEquipmentChkList();
 

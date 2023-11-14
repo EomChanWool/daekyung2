@@ -15,6 +15,7 @@
 		SELECT
 			a.epm_id,
 			b.eq_id,
+			b.eq_name,
 			a.epm_type,
 			a.epm_date,
 			a.epm_comment,

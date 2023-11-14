@@ -60,7 +60,7 @@
 									
 									<select class="btn btn-secondary dropdown-toggle searchCondition" name="searchCondition" id="searchCondition">
 							    		<option value="" <c:if test="${searchVO.searchCondition eq ''}">selected="selected"</c:if>>선택</option>
-							    		<option value="eq_name" <c:if test="${searchVO.searchCondition eq 'eq_name'}">selected="selected"</c:if>>설비구분</option>
+							    		<option value="eq_name" <c:if test="${searchVO.searchCondition eq 'eq_name'}">selected="selected"</c:if>>설비명</option>
 							    		<option value="tr_type" <c:if test="${searchVO.searchCondition eq 'tr_type'}">selected="selected"</c:if>>고장구분</option>
 							    		<option value="ts_type" <c:if test="${searchVO.searchCondition eq 'ts_type'}">selected="selected"</c:if>>조치구분</option>
 						    		</select>
@@ -85,8 +85,9 @@
                                 <table class="table table-bordered" id="dataTable">
                                     <thead>
                                         <tr>
-                                        	<th>설비명</th>
                                             <th>조치ID</th>
+                                        	<th>설비명</th>
+											<th>고장구분</th>
 											<th>조치구분</th>
 											<th>조치일자</th>
 											<th>수정/삭제</th>
@@ -95,8 +96,9 @@
                                     <tbody>
                                     	<c:forEach var="result" items="${failRepairList}" varStatus="status">
 	                                   		<tr onclick="fn_detail_FailRepair('${result.tsId}')" style="cursor: pointer;">
-	                                   			<td>${result.eqName}</td>
 	                                            <td>${result.tsId}</td>
+	                                   			<td>${result.eqName}</td>
+	                                            <td>${result.trType}</td>
 	                                            <td>${result.tsType}</td>
 	                                            <td>
 	                                            	<fmt:formatDate value="${result.tsDate}" pattern="yyyy-MM-dd"/>
@@ -166,6 +168,7 @@
 	}
 	
 	function fn_searchAll_failRepair(){
+		listForm.searchCondition.value = "";
 		listForm.searchKeyword.value = "";
 		listForm.pageIndex.value = 1;
 		listForm.submit();

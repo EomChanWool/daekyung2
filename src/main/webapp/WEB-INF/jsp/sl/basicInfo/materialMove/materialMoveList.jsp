@@ -93,9 +93,9 @@
 	                                   		<tr onclick="fn_detail_materialMove('${result.mmId}')" style="cursor: pointer;">
 	                                            <td>${result.piId}</td>
 	                                            <td>${result.mmIn}</td>
-	                                            <td>${result.mmOut }</td>
-	                                            <td>${result.mmInKg }</td>
-	                                            <td>${result.mmOutKg }</td>
+	                                            <td>${result.mmOut}</td>
+	                                            <td><fmt:formatNumber value="${result.mmInKg}" pattern="#,###"/><c:if test="${not empty result.mmInKg}"> kg</c:if></td>
+	                                            <td><fmt:formatNumber value="${result.mmOutKg}" pattern="#,###"/><c:if test="${not empty result.mmOutKg}"> kg</c:if></td>
 	                                            <td onclick="event.cancelBubble=true" style="padding: 5px 0px;">
 	                                            	<a href="#" class="btn btn-warning btn-icon-split" onclick="fn_modify_materialMove_go('${result.mmId}')">
 				                                        <span class="text">수정</span>

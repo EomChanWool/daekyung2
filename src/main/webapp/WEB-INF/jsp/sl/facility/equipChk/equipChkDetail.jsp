@@ -57,8 +57,12 @@
 										<tr>
 											<th>정보ID</th>
 											<td><span class="form-control val-area">${equipChkVO.eciId}</span></td>
+										</tr>
+										<tr>
 											<th>설비ID</th>
 											<td><span class="form-control val-area">${equipChkVO.eqId}</span></td>
+											<th>설비체크명</th>
+											<td><span class="form-control val-area">${equipChkVO.eqName}</span></td>
 										</tr>
 										<tr>
 											<th>설비체크명</th>

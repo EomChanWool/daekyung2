@@ -52,49 +52,42 @@
                             		<input type="hidden" name="csIdx" value="${cuttingVO.csIdx}">
 	                                <table class="table table-bordered" id="dataTable">
 	                                    <tbody>
-										<tr>
-											<th>설비</th>
-											<td><input type="text" class="form-control" value="${cuttingVO.eqSensorid}" readonly/></td>
-											<th>품명</th>
-											<td><input type="text" class="form-control" name="csProdName" value="${cuttingVO.csProdName}"/></td>
-										</tr>
-										<tr>
-											<th>모델  </th>
-											
-											<td><input type="text" class="form-control" name="csModel" value="${cuttingVO.csModel}"/></td>
-											
-											<th>반경  </th>
-											
-											<td><input type="text" class="form-control" name="csRadius" value="${cuttingVO.csRadius}"/></td>
-										</tr>
-										<tr>
-											<th>두께</th>
-											<td><input type="text" class="form-control" name="csThickness" value="${cuttingVO.csThickness}"></td>
-											<th>갭</th>
-											<td><input type="text" class="form-control" name="csGap" value="${cuttingVO.csGap}"></td>
-										</tr>
-										<tr>
-											<th>생산량</th>
-											<td><input type="text" class="form-control" name="csQty" value="${cuttingVO.csQty}"></td>
-											<th>배길이</th>
-											<td><input type="text" class="form-control" name="csLong" value="${cuttingVO.csLong}"></td>
-										</tr>
-										<tr>
-											<th>시작시간</th>
-											<td><input type="datetime-local" class="form-control" name="csRegDate" value="${cuttingVO.csRegDate}"></td>
-											<th>종료시간</th>
-											<td><input type="datetime-local" class="form-control" name="csEdDate" value="${cuttingVO.csEdDate}"></td>
-										</tr>
-										<tr>
-											<th>작업시간</th>
-											<td><input type="text" class="form-control" name="csWorkTime" value="${cuttingVO.csWorkTime}"></td>
-										</tr>
-										
-										
-									</tbody>
+											<tr>
+												<th>설비</th>
+												<td><input type="text" class="form-control" value="${cuttingVO.eqSensorid}" readonly/></td>
+												<th>품명</th>
+												<td><input type="text" class="form-control" name="csProdName" value="${cuttingVO.csProdName}"/></td>
+											</tr>
+											<tr>
+												<th>모델  </th>
+												<td><input type="text" class="form-control" name="csModel" value="${cuttingVO.csModel}"/></td>
+												<th>반경  </th>
+												<td><input type="text" class="form-control" name="csRadius" value="${cuttingVO.csRadius}"/></td>
+											</tr>
+											<tr>
+												<th>두께</th>
+												<td><input type="text" class="form-control" name="csThickness" value="${cuttingVO.csThickness}"></td>
+												<th>갭</th>
+												<td><input type="text" class="form-control" name="csGap" value="${cuttingVO.csGap}"></td>
+											</tr>
+											<tr>
+												<th>생산량</th>
+												<td><input type="text" class="form-control" name="csQty" value="${cuttingVO.csQty}"></td>
+												<th>배길이</th>
+												<td><input type="text" class="form-control" name="csLong" value="${cuttingVO.csLong}"></td>
+											</tr>
+											<tr>
+												<th>시작시간</th>
+												<td><input type="datetime-local" class="form-control" name="csRegDate" value="${cuttingVO.csRegDate}"></td>
+												<th>종료시간</th>
+												<td><input type="datetime-local" class="form-control" name="csEdDate" value="${cuttingVO.csEdDate}"></td>
+											</tr>
+											<tr>
+												<th>작업시간</th>
+												<td><input type="text" class="form-control" name="csWorkTime" value="${cuttingVO.csWorkTime}"></td>
+											</tr>
+										</tbody>
 	                                </table>
-	                              
-	                               
                                 </form>
                                 <div class="btn_bottom_wrap">
 									<button type="submit" class="btn_ok" onclick="fn_modify_cutting()" style="border:none;">확인</button>
@@ -139,9 +132,6 @@
 			alert("시작시간을 확인 바랍니다.");
 			return;
 		}
-		
-		
-		
 		modifyForm.submit();
 	}
 	

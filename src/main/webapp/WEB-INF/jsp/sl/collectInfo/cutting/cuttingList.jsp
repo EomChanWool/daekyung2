@@ -104,7 +104,7 @@
 												<td>${result.csQty}</td>
 												<td>${result.csLong}</td>
 												<c:if test="${empty result.csWorkTime}"><td>없음</td></c:if>
-												<c:if test="${not empty result.csWorkTime}"><td>${result.csWorkTime}분</td></c:if>
+												<c:if test="${not empty result.csWorkTime}"><td>${result.csWorkTime}초</td></c:if>
 												
 												<td><fmt:formatDate value="${result.csRegDate}" pattern="yyyy-MM-dd HH:mm"/></td>
 												<td style="padding: 5px 0px;">

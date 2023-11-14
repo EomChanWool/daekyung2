@@ -52,7 +52,7 @@
 	                                <table class="table table-bordered" id="dataTable">
 	                                    <tbody>
 											<tr>
-												<th>제품코드</th>
+												<th>제품코드 <span class="req">*</span></th>
 												<td><input type="text" class="form-control" name="piId" id="piId" value="${prodInfoVO.piId}"/></td>
 												<th>구분</th>
 												<td><input type="text" class="form-control" name="piItemType" id="piItemType" value="${prodInfoVO.piItemType}"/></td>
@@ -140,30 +140,30 @@
  			alert("제품코드를 확인 바랍니다.");
  			return;
  		}
- 		if($('#piItemType').val() == ''){
- 			alert("구분을 확인 바랍니다.");
- 			return;
- 		}
- 		if($('#piItemTexture').val() == ''){
- 			alert("재질을 확인 바랍니다.");
- 			return;
- 		}
- 		if($('#piItemStandard').val() == ''){
- 			alert("규격을 확인 바랍니다.");
- 			return;
- 		}
- 		if($('#piItemThickness').val() == ''){
- 			alert("두께를 확인 바랍니다.");
- 			return;
- 		}
- 		if($('#piItemLong').val() == ''){
- 			alert("길이를 확인 바랍니다.");
- 			return;
- 		}
- 		if($('#piItemHeat').val() == ''){
- 			alert("히트를 확인 바랍니다.");
- 			return;
- 		}
+//  		if($('#piItemType').val() == ''){
+//  			alert("구분을 확인 바랍니다.");
+//  			return;
+//  		}
+//  		if($('#piItemTexture').val() == ''){
+//  			alert("재질을 확인 바랍니다.");
+//  			return;
+//  		}
+//  		if($('#piItemStandard').val() == ''){
+//  			alert("규격을 확인 바랍니다.");
+//  			return;
+//  		}
+//  		if($('#piItemThickness').val() == ''){
+//  			alert("두께를 확인 바랍니다.");
+//  			return;
+//  		}
+//  		if($('#piItemLong').val() == ''){
+//  			alert("길이를 확인 바랍니다.");
+//  			return;
+//  		}
+//  		if($('#piItemHeat').val() == ''){
+//  			alert("히트를 확인 바랍니다.");
+//  			return;
+//  		}
  		if(!num.test($('#piRemainQty').val())){
  			alert("수량에는 숫자만 입력됩니다.");
 			return;

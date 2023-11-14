@@ -25,7 +25,7 @@ public class EquipChkServieImpl implements EquipChkService {
 	}
 
 	@Override
-	public List<?> selectEquipmentChkList() {
+	public List<Map<String, Object>> selectEquipmentChkList() {
 		return equipChkMapper.selectEquipmentChkList();
 	}
 

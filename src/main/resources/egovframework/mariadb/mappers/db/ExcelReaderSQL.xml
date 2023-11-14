@@ -265,15 +265,26 @@ WHERE CAST(a.mfl_ed_date AS DATE) = CAST(GETDATE() AS DATE)
 	</insert>
 
 	<insert id="registMm">
-		<!-- INSERT INTO sm_material_move ( mm_id, pi_id, mm_in, mm_in_kg, mm_out, 
-			mm_out_kg, mm_cnt, mm_cnt_kg, mm_reg_id, mm_reg_date ) VALUES ( 'MM' + SUBSTRING(CONVERT(VARCHAR(8), 
-			GETDATE(), 112), 3, 6) + '-' + RIGHT('0000' + CAST(CAST( COALESCE(( SELECT 
+		 INSERT INTO sm_material_move 
+		 	( 
+		 	mm_id,
+		 	pi_id,
+		 	mm_in,
+		 	mm_in_kg,
+			mm_reg_date,
+			pi_item_name
+			) 
+			VALUES
+			(
+			'MM' + SUBSTRING(CONVERT(VARCHAR(8), GETDATE(), 112), 3, 6) + '-' + RIGHT('0000' + CAST(CAST( COALESCE(( SELECT 
 			MAX(CAST(SUBSTRING(a.mm_id, 10, 12) AS INT)) + 1 FROM sm_material_move a 
 			WHERE a.MM_ID LIKE CONCAT(CONCAT('MM', SUBSTRING(CONVERT(VARCHAR(8), GETDATE(), 
-			112), 3, 8)), '%') ), '0') AS VARCHAR(4)) AS INT), 4), #{piId}, CONVERT(INT,CONVERT(float,#{mmIn})), 
-			CONVERT(FLOAT,#{mmInKg}), CONVERT(INT,CONVERT(float,#{mmOut})), CONVERT(FLOAT,#{mmOutKg}), 
-			CONVERT(INT,CONVERT(float,#{piCnt})), CONVERT(FLOAT,#{piItemRemain}), #{mmRegId}, 
-			GETDATE() ) -->
+			112), 3, 8)), '%') ), '0') AS VARCHAR(4)) AS INT), 4),
+			#{piId},
+			CONVERT(INT,CONVERT(float,#{piRemainQty})), 
+			CONVERT(FLOAT,#{piRemainKg}),
+			GETDATE(),
+			#{piItemName} ) 
 <!-- 		DECLARE @CurrentDate VARCHAR(8) = CONVERT(VARCHAR(8), GETDATE(), 112) -->
 <!-- 		DECLARE @MaxID INT -->
 
@@ -321,28 +332,28 @@ WHERE CAST(a.mfl_ed_date AS DATE) = CAST(GETDATE() AS DATE)
 <!-- 		SUBSTRING(@CurrentDate, 3, 6) + '-' + RIGHT('000' + CAST(@MaxID -->
 <!-- 		AS -->
 <!-- 		VARCHAR(4)), 4), -->
-	MERGE INTO sm_product_info AS target
-    USING (VALUES (
-        #{piId},
-        #{piItemType},
-        #{piItemHeat},
-        #{piItemName},
-        #{piItemTexture},
-        #{piItemStandard},
-        #{piItemThickness},
-        #{piItemLong},
-        #{piMiddle},
-        #{piItemUnit},
-        #{piRemainQty},
-        #{piRemainKg},
-        GETDATE()
-    )) AS source (piId, piItemType, piItemHeat, piItemName, piItemTexture, piItemStandard, piItemThickness, piItemLong, piMiddle, piItemUnit, piRemainQty, piRemainKg, piRegDate)
-    ON target.pi_id = source.piId
-    WHEN MATCHED THEN
-        UPDATE SET target.pi_remain_qty = source.piRemainQty
-    WHEN NOT MATCHED THEN
-        INSERT (pi_id, pi_item_type, pi_item_heat, pi_item_name, pi_item_texture, pi_item_standard, pi_item_thickness, pi_item_long, pi_middle, pi_item_unit, pi_remain_qty, pi_remain_kg, pi_reg_date)
-        VALUES (source.piId, source.piItemType, source.piItemHeat, source.piItemName, source.piItemTexture, source.piItemStandard, source.piItemThickness, source.piItemLong, source.piMiddle, source.piItemUnit, source.piRemainQty, source.piRemainKg, source.piRegDate);
+<!-- 	MERGE INTO sm_product_info AS target -->
+<!--     USING (VALUES ( -->
+<!--         #{piId}, -->
+<!--         #{piItemType}, -->
+<!--         #{piItemHeat}, -->
+<!--         #{piItemName}, -->
+<!--         #{piItemTexture}, -->
+<!--         #{piItemStandard}, -->
+<!--         #{piItemThickness}, -->
+<!--         #{piItemLong}, -->
+<!--         #{piMiddle}, -->
+<!--         #{piItemUnit}, -->
+<!--         #{piRemainQty}, -->
+<!--         #{piRemainKg}, -->
+<!--         GETDATE() -->
+<!--     )) AS source (piId, piItemType, piItemHeat, piItemName, piItemTexture, piItemStandard, piItemThickness, piItemLong, piMiddle, piItemUnit, piRemainQty, piRemainKg, piRegDate) -->
+<!--     ON target.pi_id = source.piId -->
+<!--     WHEN MATCHED THEN -->
+<!--         UPDATE SET target.pi_remain_qty = source.piRemainQty -->
+<!--     WHEN NOT MATCHED THEN -->
+<!--         INSERT (pi_id, pi_item_type, pi_item_heat, pi_item_name, pi_item_texture, pi_item_standard, pi_item_thickness, pi_item_long, pi_middle, pi_item_unit, pi_remain_qty, pi_remain_kg, pi_reg_date) -->
+<!--         VALUES (source.piId, source.piItemType, source.piItemHeat, source.piItemName, source.piItemTexture, source.piItemStandard, source.piItemThickness, source.piItemLong, source.piMiddle, source.piItemUnit, source.piRemainQty, source.piRemainKg, source.piRegDate); -->
 	</insert>
 
 	<insert id="testRegist">

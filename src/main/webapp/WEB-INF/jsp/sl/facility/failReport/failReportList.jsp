@@ -58,8 +58,8 @@
 									<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
 									<select class="btn btn-secondary dropdown-toggle searchCondition" name="searchCondition" id="searchCondition">
 							    		<option value="" <c:if test="${searchVO.searchCondition eq ''}">selected="selected"</c:if>>선택</option>
-							    		<option value="제품" <c:if test="${searchVO.searchCondition eq '제품'}">selected="selected"</c:if>>설비구분</option>
-							    		<option value="자재" <c:if test="${searchVO.searchCondition eq '자재'}">selected="selected"</c:if>>고장구분</option>
+							    		<option value="설비" <c:if test="${searchVO.searchCondition eq '설비'}">selected="selected"</c:if>>설비구분</option>
+							    		<option value="고장" <c:if test="${searchVO.searchCondition eq '고장'}">selected="selected"</c:if>>고장구분</option>
 							    		
 						    		</select>
 						    		<input type="text" class="form-control bg-light border-0 small" name="searchKeyword"
@@ -83,6 +83,7 @@
                                     <thead>
                                         <tr>
                                             <th>신고ID</th>
+                                            <th>설비구분</th>
 											<th>고장구분</th>
 											<th>처리여부</th>
 											<th>신고일자</th>
@@ -93,6 +94,7 @@
                                     	<c:forEach var="result" items="${failReportList}" varStatus="status">
 	                                   		<tr onclick="fn_detail_FailReport('${result.trId}')" style="cursor: pointer;">
 	                                            <td>${result.trId}</td>
+	                                            <td>${result.eqType}</td>
 	                                            <td>${result.trType}</td>
 	                                            <td><c:if test="${result.trIscomp eq 0}">O</c:if>
 	                                            	<c:if test="${result.trIscomp eq 1}">X</c:if>
@@ -166,6 +168,7 @@
 	
 	function fn_searchAll_FailReport(){
 		listForm.searchKeyword.value = "";
+		listForm.searchCondition.value = "";
 		listForm.pageIndex.value = 1;
 		listForm.submit();
 	}

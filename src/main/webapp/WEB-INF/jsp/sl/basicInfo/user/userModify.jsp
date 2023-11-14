@@ -59,7 +59,7 @@
 												<td><input type="password" class="form-control" name="miPass" id="miPass" value=""/></td>
 											</tr>
 											<tr>
-												<th>이름 </th>
+												<th>이름 <span class="req">*</span></th>
 												<td><input type="text" class="form-control" name="miName" value="${userVO.miName}"/></td>
 												<th>부서명 </th>
 												<td><input type="text" class="form-control" name="miDepartment" value="${userVO.miDepartment}"/></td>
@@ -73,7 +73,7 @@
 											<tr>
 												<th>전화번호 </th>
 												<td><input type="text" class="form-control" name="miPhone" value="${userVO.miPhone}"/></td>
-												<th>사용권한</th>
+												<th>사용권한 <span class="req">*</span></th>
 												<td>
 													<select class="form-control" name="miLevel">
 														<option value="1" <c:if test="${userVO.miLevel eq '1'}">selected="selected"</c:if>>1</option>
@@ -133,30 +133,22 @@
 			//이메일
 			const email = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 			
-// 			if(modifyForm.cName.value == ''){
-// 				alert("사업장명을 확인 바랍니다.");
-// 				return;
-// 			}
-			
-// 			if(modifyForm.cAddr.value == ''){
-// 				alert("주소를 확인 바랍니다.");
-// 				return;
-// 			}
-			
-// 			if(modifyForm.cTel.value != '' && !localPhone.test(modifyForm.cTel.value)){
-// 				alert("전화번호를 확인 바랍니다.");
-// 				return;
-// 			}
-			
-// 			if(modifyForm.cFax.value != '' && !localPhone.test(modifyForm.cFax.value)){
-// 				alert("팩스번호를 확인 바랍니다.");
-// 				return;
-// 			}
-			
-// 			if(modifyForm.cRegitNo.value != '' && !regitNo.test(modifyForm.cRegitNo.value)){
-// 				alert("사업자등록 번호를 확인 바랍니다.");
-// 				return;
-// 			}
+			if($('#miId').val() == ''){
+				alert("아이디를 확인 바랍니다.");
+				return;
+			}
+			if($('#miPass').val() == ''){
+				alert("비밀번호를 확인 바랍니다.");
+				return;
+			}
+			if($('#miName').val() == ''){
+				alert("이름을 확인 바랍니다.");
+				return;
+			}
+			if($('#miLevel').val() == ''){
+				alert("사용권한을 확인 바랍니다.");
+				return;
+			}
 			
 			if(modifyForm.miEmail.value != '' && !email.test(modifyForm.miEmail.value)){
  				alert("이메일을 확인 바랍니다.");

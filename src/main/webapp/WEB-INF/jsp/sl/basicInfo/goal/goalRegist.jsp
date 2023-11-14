@@ -59,7 +59,7 @@
 						    			<option value="2025">2025년</option>
 						    			<option value="2026">2026년</option>
 						    		</select></td>
-												<th>입고수량 <span class="req">*</span></th>
+												<th>목표월 <span class="req">*</span></th>
 												<td><select class="form-control" name="gmMonth" id="gmMonth">
 							    		<c:forEach begin="1" end="12" varStatus="status">
 							    			<option value="${status.count}">${status.count}월</option>
@@ -69,7 +69,7 @@
 											<tr>
 												<th>목표생산량 <span class="req">*</span></th>
 												<td><input type="text" class="form-control" name="gmProdQty" id="gmProdQty"/></td>
-												<th>목표생산률</th>
+												<th>목표생산률 <span class="req">*</span></th>
 												<td><input type="text" class="form-control" name="gmGoodRate" id="gmGoodRate"/></td>
 											</tr>
 											<tr>

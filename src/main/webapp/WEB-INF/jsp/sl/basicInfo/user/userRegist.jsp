@@ -58,7 +58,7 @@
 												<td><input type="password" class="form-control" name="miPass" id="miPass" value="${userVO.miPass}"/></td>
 											</tr>
 											<tr>
-												<th>이름 </th>
+												<th>이름 <span class="req">*</span></th>
 												<td><input type="text" class="form-control" name="miName" id="miName" value="${userVO.miName}"/></td>
 												<th>부서명 </th>
 												<td><input type="text" class="form-control" name="miDepartment" value="${userVO.miDepartment}"/></td>
@@ -72,7 +72,7 @@
 											<tr>
 												<th>전화번호 </th>
 												<td><input type="text" class="form-control" name="miPhone" value="${userVO.miPhone}"/></td>
-												<th>사용권한</th>
+												<th>사용권한 <span class="req">*</span></th>
 												<td>
 													<select class="form-control" name="miLevel" id="miLevel">
 														<option value="">선택</option>
@@ -153,10 +153,10 @@
 			}
 			
 			
-			if(registForm.miEmail.value != '' && !email.test(registForm.miEmail.value)){
- 				alert("이메일을 확인 바랍니다.");
- 				return;
- 			}
+// 			if(registForm.miEmail.value != '' && !email.test(registForm.miEmail.value)){
+//  				alert("이메일을 확인 바랍니다.");
+//  				return;
+//  			}
 			
 			registForm.submit();
 		}

@@ -5,10 +5,10 @@
 		SELECT COUNT(*) FROM sm_equip_checksheet_info
 		WHERE 1=1
 		<if test="searchStDate != ''">
-			AND pr_chk_dte >= #{searchStDate}
+			AND eci_date >= #{searchStDate}
 		</if>
 		<if test="searchEdDate !=''">
-			AND pr_chk_dte <![CDATA[<=]]> #{searchEdDate}
+			AND eci_date <![CDATA[<=]]> #{searchEdDate}
 		</if>
 	</select>
 	
@@ -25,19 +25,20 @@
 		ON a.eq_id = b.eq_id
 		WHERE 1=1
 		<if test="searchStDate != ''">
-			AND pr_chk_dte >= #{searchStDate}
+			AND a.eci_date >= #{searchStDate}
 		</if>
-		<if test="searchEdDate !=''">
-			AND pr_chk_dte <![CDATA[<=]]> #{searchEdDate}
+		<if test="searchEdDate != ''">
+			AND a.eci_date <![CDATA[<=]]> #{searchEdDate}
 		</if>
-		ORDER BY eci_id DESC
+		ORDER BY a.eci_id DESC
 		OFFSET #{firstIndex} ROWS
 		FETCH NEXT #{recordCountPerPage} ROWS ONLY
 	</select>
 	
 	<select id="selectEquipmentChkList" resultType="egovMap">
 		SELECT
-			eq_id
+			eq_id,
+			eq_name
 		FROM sm_equipment;
 	</select>
 	
@@ -105,6 +106,7 @@
 	<select id="selectEquipChkInfo" resultType="egovMap">
 		SELECT
 			eci_id,
+			(select a.eq_name from sm_equipment a join sm_equip_checksheet_info b on a.eq_id = b.eq_id where b.eci_id = #{eciId}) as eq_name,
 			eq_id,
 			eci_name,
 			eci_comment,

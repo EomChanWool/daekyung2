@@ -170,10 +170,10 @@
 			return;
 		}
 		
-		if($('#relIdx').val() == ""){
-			alert("생산실적번호를 확인 바랍니다.");
-			return;
-		}
+// 		if($('#relIdx').val() == ""){
+// 			alert("생산실적번호를 확인 바랍니다.");
+// 			return;
+// 		}
 		
 		registForm.submit();
 	}

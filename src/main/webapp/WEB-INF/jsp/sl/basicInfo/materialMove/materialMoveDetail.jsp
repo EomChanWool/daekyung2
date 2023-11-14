@@ -61,7 +61,6 @@
 											<td><span class="form-control val-area">${materialMoveVO.mmIn}</span></td>
 											<th>입고중량(kg)</th>
 											<td><span class="form-control val-area">${materialMoveVO.mmInKg}kg</span></td>
-											
 										</tr>
 										<tr>
 											<th>출고수량</th>

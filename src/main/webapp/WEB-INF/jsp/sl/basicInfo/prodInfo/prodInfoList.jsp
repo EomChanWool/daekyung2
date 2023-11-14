@@ -60,7 +60,7 @@
 							    		<option value="" <c:if test="${searchVO.searchCondition eq ''}">selected="selected"</c:if>>선택</option>
 							    		<option value="제품코드" <c:if test="${searchVO.searchCondition eq '제품코드'}">selected="selected"</c:if>>제품코드</option>
 							    		<option value="제품구분" <c:if test="${searchVO.searchCondition eq '제품구분'}">selected="selected"</c:if>>제품구분</option>
-							    		<option value="상태조건" <c:if test="${searchVO.searchCondition eq '제품명'}">selected="selected"</c:if>>제품명</option>
+							    		<option value="제품명" <c:if test="${searchVO.searchCondition eq '제품명'}">selected="selected"</c:if>>제품명</option>
 						    		</select>
 						    		<input type="text" class="form-control bg-light border-0 small" name="searchKeyword" 
 						    					value="${searchVO.searchKeyword}" placeholder="검색어를 입력해 주세요" 

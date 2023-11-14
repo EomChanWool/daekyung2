@@ -322,7 +322,7 @@ public class Scheduler {
 		} catch (Exception e) {
 		}
 	}
-//	@Scheduled(cron = "50 59 20 * * *")
+//	@Scheduled(cron = "50 24 10 * * *")
 	public void readClgo() throws Exception{
 		
 		
@@ -397,7 +397,7 @@ public class Scheduler {
 	}
 	
 //	@Scheduled(cron = "30 10 21 * * *")
-//	@Scheduled(cron = "20 26 09 * * *")
+//	@Scheduled(cron = "50 30 11 * * *")
 	public void readSubl() throws Exception{
 		
 		
@@ -680,7 +680,7 @@ public class Scheduler {
 
 	
 //	@Scheduled(cron = "20 04 21 * * *")
-//	@Scheduled(cron = "30 21 09 * * *")
+//	@Scheduled(cron = "30 59 10 * * *")
 	public void openSubl() {
 		  ftp = new FTPClient();
 		    //default controlEncoding 값이 "ISO-8859-1" 때문에 한글 파일의 경우 파일명이 깨짐
@@ -767,7 +767,7 @@ public class Scheduler {
 	}
 
 //		@Scheduled(cron = "20 58 20 * * *")
-//		@Scheduled(cron = "20 20 09 * * *")
+//		@Scheduled(cron = "20 26 09 * * *")
 	public void openClgo() {
 		ftp = new FTPClient();
 		//default controlEncoding 값이 "ISO-8859-1" 때문에 한글 파일의 경우 파일명이 깨짐

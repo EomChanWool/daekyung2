@@ -49,6 +49,8 @@ public class ProcessingController {
 		searchVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
 		searchVO.setLastIndex(paginationInfo.getLastRecordIndex());
 		searchVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
+		System.out.println(searchVO.getSearchKeyword());
+		System.out.println(searchVO.getSearchCondition());
 		List<?> processingList = processingService.selectProcessingList(searchVO);
 		
 		model.put("processingList", processingList);

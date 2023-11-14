@@ -65,11 +65,8 @@
 										</tr>
 										<tr>
 											<th>모델  </th>
-											
 											<td><input type="text" class="form-control" name="csModel" value="${cuttingVO.csModel}"/></td>
-											
 											<th>반경  </th>
-											
 											<td><input type="text" class="form-control" name="csRadius" value="${cuttingVO.csRadius}"/></td>
 										</tr>
 										<tr>
@@ -94,11 +91,8 @@
 											<th>작업시간</th>
 											<td><input type="text" class="form-control" name="csWorkTime" value="${cuttingVO.csWorkTime}"></td>
 										</tr>
-										
 									</tbody>
 	                                </table>
-	                                
-										
                                 </form>
                                 <div class="btn_bottom_wrap">
 									<button type="submit" class="btn_ok" onclick="fn_regist_cutting()" style="border:none;">확인</button>

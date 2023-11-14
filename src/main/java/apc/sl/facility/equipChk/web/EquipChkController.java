@@ -1,7 +1,5 @@
 package apc.sl.facility.equipChk.web;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -40,18 +38,17 @@ public class EquipChkController {
 		List<?> equipChkList = equipChkService.selectEquipChkList(searchVO);
 		model.put("equipChkList", equipChkList);
 		model.put("paginationInfo", paginationInfo);
-		System.out.println("ㅇㅇㅇㅇ");
 		return "sl/facility/equipChk/equipChkList";
 	}
 	
 	@RequestMapping("/sl/facility/equipChk/registEquipChk.do")
 	public String registEquipChk(ModelMap model) {
 		List<?> regEquipmentList = equipChkService.selectRegEquipmentChkList();
-		List<?> equipmentList = equipChkService.selectEquipmentChkList();
+		List<Map<String, Object>> equipmentList = equipChkService.selectEquipmentChkList();
 		
 		for (int i = 0; i < regEquipmentList.size(); i++) {
 			for (int j = 0; j < equipmentList.size(); j++) {
-				if (regEquipmentList.get(i).equals(equipmentList.get(j))) {
+				if (regEquipmentList.get(i).equals(equipmentList.get(j).get("eq_id"))) {
 					equipmentList.remove(j);
 				}
 			}

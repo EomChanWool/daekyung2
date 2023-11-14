@@ -63,7 +63,7 @@
 											<tr>
 												<th>목표생산량 <span class="req">*</span></th>
 												<td><input type="text" class="form-control" name="gmProdQty" id="gmProdQty" value="${goalInfo.gmProdQty}"/></td>
-												<th>목표생산률</th>
+												<th>목표생산률 <span class="req">*</span></th>
 												<td><input type="text" class="form-control" name="gmGoodRate" id="gmGoodRate"  value="${goalInfo.gmGoodRate}"/></td>
 											</tr>
 											<tr>

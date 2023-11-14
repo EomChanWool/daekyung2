@@ -116,6 +116,18 @@
 	<script>
 	function fn_regist_water(){
 		
+		var num =  /^[0-9.-]+$/;
+		
+		if(registForm.wpValue.value == ''){
+			alert("측정값을 확인 바랍니다.");
+		}
+		if(registForm.wpCode.value == ''){
+			alert("코드번호를 확인 바랍니다.");
+		}
+		if(!num.test($('#wpValue').val())){
+ 			alert("측정값에는 숫자만 입력됩니다.");
+			return;
+ 		}
 		
 		registForm.submit();
 	}

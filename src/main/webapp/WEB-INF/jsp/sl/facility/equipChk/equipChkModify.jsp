@@ -60,7 +60,7 @@
 												<th>정보ID <span class="req">*</span></th>
 												<td><input type="text" class="form-control" name="eciId" value="${equipChkVO.eciId}" disabled="disabled"></td>
 												<th>설비ID <span class="req">*</span></th>
-												<td><input type="text" class="form-control" name="eqId" value="${equipChkVO.eqId}" disabled="disabled"></td>
+												<td><input type="text" class="form-control" name="eqName" value="${equipChkVO.eqName}" disabled="disabled"></td>
 											</tr>
 											<tr>
 												<th>설비체크명</th>

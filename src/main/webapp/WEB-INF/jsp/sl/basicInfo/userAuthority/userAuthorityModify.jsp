@@ -62,7 +62,7 @@
 											<th>URL</th>
 												<td><input type="text" class="form-control" name="maUrl" id="maUrl" disabled="disabled" value="${userAuthorityVO.maUrl}"/></td>
 												
-												<th>권한레벨</th>
+												<th>권한레벨 <span class="req">*</span></th>
 												<td>
 												<select class="form-control" name="miLevel" id="miLevel">
 												  <option value="">선택</option>

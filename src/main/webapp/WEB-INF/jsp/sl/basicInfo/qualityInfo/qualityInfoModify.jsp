@@ -63,7 +63,7 @@
 												
 											</tr>
 											<tr>
-											<th>정성/정량구분</th>
+											<th>정성/정량구분 <span class="req">*</span></th>
 											<td>
 											<select name="qiType" class="form-control">
 											<option value="">선택</option>
@@ -71,7 +71,7 @@
 											<option value="정량" ${qualityInfoVO.qiType == '정량' ? 'selected' : ''}>정량</option>
 											</select>
 											</td>
-											<th>사용여부</th>
+											<th>사용여부 <span class="req">*</span></th>
 											<td>
 											<select name="qiIsuse" class="form-control">
 											<option value="">선택</option>
@@ -149,6 +149,14 @@
 	<script>
 	function fn_regist_qualityInfo(){
 		
+		if(registForm.qiTrustType.value == ''){
+			 alert("신뢰성구분을 확인바랍니다.")
+			 return;
+		 }
+		 if(registForm.qiName.value == ''){
+			 alert("관리항목명을 확인바랍니다.")
+			 return;
+		 }
 		 if(registForm.qiType.value == ''){
 			 alert("정성/정량 구분을 확인바랍니다.")
 			 return;

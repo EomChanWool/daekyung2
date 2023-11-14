@@ -55,25 +55,25 @@
 											<tr>
 												<th>바코드 <span class="req">*</span></th>
 												<td><input type="text" class="form-control" name="piId" id="piId" value="${materialMoveVO.piId}"/></td>
-												<th>입고수량 <span class="req">*</span></th>
+												<th>입고수량</th>
 												<td><input type="text" class="form-control" name="mmIn" id="mmIn" value="${materialMoveVO.mmIn}"/></td>
 											</tr>
 											<tr>
-												<th>입고중량(kg) <span class="req">*</span></th>
+												<th>입고중량(kg)</th>
 												<td><input type="text" class="form-control" name="mmInKg" id="mmInKg" value="${materialMoveVO.mmInKg}"/></td>
-												<th>출고수량 <span class="req">*</span></th>
+												<th>출고수량</th>
 												<td><input type="text" class="form-control" name="mmOut" id="mmOut" value="${materialMoveVO.mmOut}"/></td>
 											</tr>
 											<tr>
-												<th>출고중량(kg) <span class="req">*</span></th>
+												<th>출고중량(kg)</th>
 												<td><input type="text" class="form-control" name="mmOutKg" id="mmOutKg" value="${materialMoveVO.mmOutKg}"/></td>
-												<th>재고수량 <span class="req">*</span></th>
+												<th>재고수량</th>
 												<td><input type="text" class="form-control" name="mmCnt" id="mmCnt" value="${materialMoveVO.mmCnt}"/></td>
 											</tr>
 											<tr>
-												<th>재고중량(kg) <span class="req">*</span></th>
+												<th>재고중량(kg)</th>
 												<td><input type="text" class="form-control" name="mmCntKg" id="mmCntKg" value="${materialMoveVO.mmCntKg}"/></td>
-												<th>품명</th>
+												<th>품명 <span class="req">*</span></th>
 												<td><input type="text" class="form-control" name="piItemName" id="piItemName" value="${materialMoveVO.piItemName}"/></td>
 											</tr>
 										</tbody>
@@ -125,34 +125,26 @@
 			alert("바코드를 확인 바랍니다.");
 			return;
 		}
-		
-		if(!num.test($('#mmIn').val())){
- 			alert("입고수량을 확인 바랍니다.");
+		if($('#piItemName').val() == ''){
+ 			alert("품명을 확인 바랍니다.");
 			return;
  		}
+		if(!num.test($('#mmIn').val())){
+			alert('숫자만 입력 가능합니다.');
+			return;
+		}
 		if(!num.test($('#mmInKg').val())){
-			alert('입고중량을 확인바랍니다.');
+			alert('숫자만 입력 가능합니다.');
 			return;
 		}
 		if(!num.test($('#mmOut').val())){
-			alert('출고수량을 확인바랍니다.');
+			alert('숫자만 입력 가능합니다.');
 			return;
 		}
 		if(!num.test($('#mmOutKg').val())){
-			alert('출고중량을 확인바랍니다.');
+			alert('숫자만 입력 가능합니다.');
 			return;
 		}
-		if(!num.test($('#mmCnt').val())){
-			alert('재고수량을 확인바랍니다.');
-			return;
-		}
-		if(!num.test($('#mmCntKg').val())){
-			alert('재고중량을 확인바랍니다.');
-			return;
-		}
-		
-		
-		
 		modifyForm.submit();
 	}
 	
