@@ -129,7 +129,8 @@ WHERE CAST(a.mfl_ed_date AS DATE) = CAST(GETDATE() AS DATE)
 		or_unit,
 		or_money,
 		or_qty,
-		or_process
+		or_process,
+		or_reg_date
 		) VALUES
 		(
 		#{orId},
@@ -149,7 +150,8 @@ WHERE CAST(a.mfl_ed_date AS DATE) = CAST(GETDATE() AS DATE)
 		#{orUnit},
 		#{orMoney},
 		#{orQty},
-		0
+		0,
+		GETDATE()
 		)
 	</insert>
 	<insert id="registRelease">
