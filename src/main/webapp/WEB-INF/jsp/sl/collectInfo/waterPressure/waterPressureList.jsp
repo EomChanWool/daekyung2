@@ -85,7 +85,6 @@
                                             <th>코드명</th>
 											<th>측정값</th>
 											<th>측정시간</th>
-											<th>사용유무</th>
 											<th>수정/삭제</th>
                                         </tr>
                                     </thead>
@@ -95,8 +94,7 @@
 	                                            <td>${result.wpCode}</td>
 												<td>${result.wpValue}</td>
 												<td><fmt:formatDate value="${result.wpTime}" pattern="yyyy-MM-dd HH:mm"/></td>
-												<c:if test="${result.wpState == 0 }"><td>사용가능</td></c:if>
-												<c:if test="${result.wpState == 1 }"><td>사용불가</td></c:if>
+												
 											
 	                                            <td style="padding: 5px 0px;">
 	                                            	<a href="#" class="btn btn-warning btn-icon-split" onclick="fn_modify_water_go('${result.wpId}')">

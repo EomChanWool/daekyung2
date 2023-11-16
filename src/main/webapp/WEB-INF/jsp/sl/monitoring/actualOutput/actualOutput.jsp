@@ -118,7 +118,7 @@
 	<script>
 	
 	function fn_search_actualOutput(){
-		listForm.submit();
+	    listForm.submit();
 	}
 	
 	function fn_searchAll_actualOutput(){
@@ -137,257 +137,238 @@
 		}
 	});
 	
-	//생산실적 현황
 	var chartDom = document.getElementById('graph');
 	var myChart = echarts.init(chartDom);
 	var option;
-
 
 	var date = [];
 	var year = [];
 	
 	var totalRealTime = [];
-	
-	var totalMflPerson = [];
-	
-	var avgRealTime = [];
-	
+	var totalMpQty = [];
+	var totalTime = [];
+	var totalQty = [];
+
 	var num = 0;
 	var years = 0;
 	var maxMon = 0;
-	
-	if($('#searchCondition2').val() == "1"){
-	
-	<c:forEach items="${prodCntList}" var="list">
-		year = ${list.years};
-		maxMon = ${list.months};
-	</c:forEach>
-	
-	for(var i=1;i<=maxMon;i++){
-		date.push(year+"년 "+i+"월");
-		totalRealTime.push(0);
-		totalMflPerson.push(0);
-		avgRealTime.push(0);
-	}
-	
-	<c:forEach items="${prodCntList}" var="list">
-	totalRealTime[${list.months-1}] = ${list.totalRealTime};
-	totalMflPerson[${list.months-1}] = ${list.totalMflPerson};
-	avgRealTime[${list.months-1}] = ${list.avgRealTime};
-	</c:forEach>
-	}else if($('#searchCondition2').val() == "2"){
+
+	if ($('#searchCondition2').val() == "1") {
+
+	    <c:forEach items="${prodCntList}" var="list">
+	        year = ${list.years};
+	        maxMon = ${list.months};
+	    </c:forEach>
+
+	    for (var i = 1; i <= maxMon; i++) {
+	        date.push(year + "년 " + i + "월");
+	        totalRealTime.push(0);
+	        totalMpQty.push(0);
+	    }
+
+	    <c:forEach items="${prodCntList}" var="list">
+	        totalRealTime[${list.months-1}] = ${list.totalRealTime};
+	        totalMpQty[${list.months-1}] = ${list.totalMpQty};
+	    </c:forEach>
+	    
+	}else if ($('#searchCondition2').val() == "2") {
 		
 		<c:forEach items="${prodCntList2}" var="list">
-		year = ${list.years};
-		maxMon = ${list.months};
-	</c:forEach>
-	for(var i=1;i<=maxMon;i++){
-		date.push(year+"년 "+i+"월");
-		totalRealTime.push(0);
-		avgRealTime.push(0);
-	}
-	<c:forEach items="${prodCntList2}" var="list">
-	totalRealTime[${list.months-1}] = ${list.totalTime};
-	avgRealTime[${list.months-1}] = ${list.avgTime};
-	</c:forEach>
-		
+        	year = ${list.years};
+        	maxMon = ${list.months};
+    	</c:forEach>
+
+    for (var i = 1; i <= maxMon; i++) {
+        date.push(year + "년 " + i + "월");
+        totalTime.push(0);
+        totalQty.push(0);
+    }
+
+    <c:forEach items="${prodCntList2}" var="list">
+    totalTime[${list.months-1}] = ${list.totalTime};
+    totalQty[${list.months-1}] = ${list.totalQty};
+    </c:forEach>
+    
+    
 	}
 	
 	
-	if($('#searchCondition2').val() == "1"){
-	option = {
-			  tooltip: {
-			    trigger: 'axis',
-			    axisPointer: {
-			    	type: 'cross',
-			    	axis: "auto",
-			    	crossStyle: {
-			        	color: '#999'
-			    	}
-			    }
-			  },
-			  toolbox: {
-			    feature: {
-			      dataView: { show: false, readOnly: false },
-			      magicType: { show: false, type: ['line', 'bar'] },
-			      restore: { show: false },
-			      saveAsImage: { show: true }
-			    }
-			  },
-			  legend: {
-			    data: ['총 시간', '작업인원', '평균 시간']
-			  },
-			  xAxis: [
-			    {
-			      type: 'category',
-			      data: date,
-			      axisPointer: {
-			        type: 'shadow'
-			      }
-			    }
-			  ],
-			  yAxis: [
-			    {
-			      type: 'value',
-			      name: '총작업시간',
-			      axisLabel: {
-			        formatter: '{value} MIN'
-			      }
-			    },
-			    {
-		    		  type: 'value',
-			      	  name: '평균시간',
-			      	  position: 'right',
-			      	  axisLabel: {
-			            formatter: '{value} MIN'
-					  }
-				    }
-			    
-			  ],
-			  series: [
-			    {
-			      name: '총 시간',
-			      stack: 'one',
-			      type: 'bar',
-			      label: {
-			          show: true,
-			          position: 'inside',
-			          formatter: '{c}분'
-			          
-			        },
-			      tooltip: {
-			        valueFormatter: function (value) {
-			          return value + ' MIN';
-			        }
-			      },
-			      data: totalRealTime
-			    },
-			    {
-			      name: '작업인원',
-			      stack: 'one',
-			      type: 'bar',
-			      
-			      label: {
-			          show: true,
-			          position: 'left',
-			          formatter: '{c}명'
-			          
-			        },
-			      tooltip: {
-			        valueFormatter: function (value) {
-			          return value + ' HC';
-			        }
-			      },
-			      data: totalMflPerson
-			    },
-			    {
-			      name: '평균 시간',
-			      yAxisIndex: 1,
-			      type: 'line',
-			      label: {
-			          show: true,
-			          position: 'top',
-			          formatter: '{c}분'
-			        },
-			      tooltip: {
-			        valueFormatter: function (value) {
-			          return value + ' MIN';
-			        }
-			      },
-			      data: avgRealTime
-			    }
-			  ]
-			};
+	if ($('#searchCondition2').val() == "1") {
+
+	    option = {
+	        tooltip: {
+	            trigger: 'axis',
+	            axisPointer: {
+	                type: 'cross',
+	                axis: "auto",
+	                crossStyle: {
+	                    color: '#999'
+	                }
+	            }
+	        },
+	        toolbox: {
+	            feature: {
+	                dataView: { show: false, readOnly: false },
+	                magicType: { show: false, type: ['line', 'bar'] },
+	                restore: { show: false },
+	                saveAsImage: { show: true }
+	            }
+	        },
+	        legend: {
+	            data: ['총 시간', '총 생산량']
+	        },
+	        xAxis: [
+	            {
+	                type: 'category',
+	                data: date,
+	                axisPointer: {
+	                    type: 'shadow'
+	                }
+	            }
+	        ],
+	        yAxis: [
+	            {
+	                type: 'value',
+	                name: '총작업시간',
+	                axisLabel: {
+	                    formatter: '{value} MIN'
+	                }
+	            },
+	            {
+	                type: 'value',
+	                name: '총생산량',
+	                position: 'right',
+	                axisLabel: {
+	                    formatter: '{value} EA'
+	                },
+	              
+	            }
+	        ],
+	        series: [
+	            {
+	                name: '총 시간',
+	                stack: 'one',
+	                type: 'bar',
+	                label: {
+	                    show: true,
+	                    position: 'inside',
+	                    formatter: '{c}분'
+	                },
+	                tooltip: {
+	                    valueFormatter: function (value) {
+	                        return value + ' MIN';
+	                    }
+	                },
+	                data: totalRealTime
+	            },
+	            {
+	                name: '총 생산량',
+	                yAxisIndex: 1,
+	                type: 'line',
+	                label: {
+	                    show: true,
+	                    position: 'left',
+	                    formatter: '{c} EA'
+	                },
+	                tooltip: {
+	                    valueFormatter: function (value) {
+	                        return value + ' EA';
+	                    }
+	                },
+	                data: totalMpQty
+	            }
+	        ]
+	    };
 	}else if($('#searchCondition2').val() == "2"){
 		
-		option = {
-				  tooltip: {
-				    trigger: 'axis',
-				    axisPointer: {
-				    	type: 'cross',
-				    	axis: "auto",
-				    	crossStyle: {
-				        	color: '#999'
-				    	}
-				    }
-				  },
-				  toolbox: {
-				    feature: {
-				      dataView: { show: false, readOnly: false },
-				      magicType: { show: false, type: ['line', 'bar'] },
-				      restore: { show: false },
-				      saveAsImage: { show: true }
-				    }
-				  },
-				  legend: {
-				    data: ['총 시간', '평균 시간']
-				  },
-				  xAxis: [
-				    {
-				      type: 'category',
-				      data: date,
-				      axisPointer: {
-				        type: 'shadow'
-				      }
-				    }
-				  ],
-				  yAxis: [
-				    {
-				      type: 'value',
-				      name: '총작업시간',
-				      axisLabel: {
-				        formatter: '{value} MIN'
-				      }
-				    },
-				    {
-			    		  type: 'value',
-				      	  name: '평균시간',
-				      	  position: 'right',
-				      	  axisLabel: {
-				            formatter: '{value} MIN'
-						  }
-					    }
-				    
-				  ],
-				  series: [
-				    {
-				      name: '총 시간',
-				      stack: 'one',
-				      type: 'bar',
-				      label: {
-				          show: true,
-				          position: 'inside',
-				          formatter: '{c}분'
-				          
-				        },
-				      tooltip: {
-				        valueFormatter: function (value) {
-				          return value + ' MIN';
-				        }
-				      },
-				      data: totalRealTime
-				    },
-				   
-				    {
-				      name: '평균 시간',
-				      yAxisIndex: 1,
-				      type: 'line',
-				      label: {
-				          show: true,
-				          position: 'top',
-				          formatter: '{c}분'
-				        },
-				      tooltip: {
-				        valueFormatter: function (value) {
-				          return value + ' MIN';
-				        }
-				      },
-				      data: avgRealTime
-				    }
-				  ]
-				};
+	
+	    option = {
+	        tooltip: {
+	            trigger: 'axis',
+	            axisPointer: {
+	                type: 'cross',
+	                axis: "auto",
+	                crossStyle: {
+	                    color: '#999'
+	                }
+	            }
+	        },
+	        toolbox: {
+	            feature: {
+	                dataView: { show: false, readOnly: false },
+	                magicType: { show: false, type: ['line', 'bar'] },
+	                restore: { show: false },
+	                saveAsImage: { show: true }
+	            }
+	        },
+	        legend: {
+	            data: ['총 시간', '총 생산량']
+	        },
+	        xAxis: [
+	            {
+	                type: 'category',
+	                data: date,
+	                axisPointer: {
+	                    type: 'shadow'
+	                }
+	            }
+	        ],
+	        yAxis: [
+	            {
+	                type: 'value',
+	                name: '총작업시간',
+	                axisLabel: {
+	                    formatter: '{value} MIN'
+	                }
+	            },
+	            {
+	                type: 'value',
+	                name: '총생산량',
+	                position: 'right',
+	                axisLabel: {
+	                    formatter: '{value} EA'
+	                }
+	            }
+	        ],
+	        series: [
+	            {
+	                name: '총 시간',
+	                stack: 'one',
+	                type: 'bar',
+	                label: {
+	                    show: true,
+	                    position: 'inside',
+	                    formatter: '{c}분'
+	                },
+	                tooltip: {
+	                    valueFormatter: function (value) {
+	                        return value + ' MIN';
+	                    }
+	                },
+	                data: totalTime
+	            },
+	            {
+	                name: '총생산량',
+	                yAxisIndex: 1,
+	                type: 'line',
+	                label: {
+	                    show: true,
+	                    position: 'left',
+	                    formatter: '{c} EA'
+	                },
+	                tooltip: {
+	                    valueFormatter: function (value) {
+	                        return value + ' EA';
+	                    }
+	                },
+	                data: totalQty
+	            }
+	        ]
+	    };
+	    
 		
-	}
+	}	
+	
 	
 	option && myChart.setOption(option);
 	</script>
