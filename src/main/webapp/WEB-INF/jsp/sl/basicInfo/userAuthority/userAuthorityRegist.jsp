@@ -138,9 +138,6 @@
 				alert("권한레벨을 확인 바랍니다.");
 				return;
 			}
-			한진개발공사
-			
-			
 			registForm.submit();
 		}
 		
