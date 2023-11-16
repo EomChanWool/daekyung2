@@ -51,6 +51,8 @@ public interface QualityInfoMapper {
 	
 	void deleteStandardInfo(Map<String, Object> map);
 
+	void deleteQulityJoinStandard(Map<String, Object> map);
+
 	int selectAccessLevel(String str);
 	
 	int codeNum(String str);

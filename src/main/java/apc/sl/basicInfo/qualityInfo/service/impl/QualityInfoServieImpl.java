@@ -90,6 +90,11 @@ public class QualityInfoServieImpl implements QualityInfoService {
 	}
 
 	@Override
+	public void deleteQulityJoinStandard(Map<String, Object> map) {
+		qualityInfoMapper.deleteQulityJoinStandard(map);
+	}
+
+	@Override
 	public int selectExistsQualInfo(Map<String, Object> map) {
 		return qualityInfoMapper.selectExistsQualInfo(map);
 	}

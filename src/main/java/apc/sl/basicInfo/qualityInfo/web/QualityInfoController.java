@@ -203,6 +203,7 @@ public class QualityInfoController {
 	@RequestMapping("/sl/basicInfo/qualityInfo/deleteStandard.do")
 	public String deleteStandard(@RequestParam Map<String, Object> map, RedirectAttributes redirectAttributes, HttpSession session) {
 		qualityInfoService.deleteStandardInfo(map);
+		qualityInfoService.deleteQulityJoinStandard(map);
 		redirectAttributes.addFlashAttribute("msg","삭제 되었습니다.");
 		return "redirect:/sl/basicInfo/qualityInfo/listStandard.do";
 	}

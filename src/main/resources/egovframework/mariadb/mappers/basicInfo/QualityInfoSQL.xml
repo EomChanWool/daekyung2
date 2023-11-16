@@ -271,7 +271,18 @@
 	
 
 	<delete id="deleteStandardInfo">
-		DELETE FROM sm_quality_info WHERE qi_code = #{qiCode}
+		DELETE FROM
+			sm_spc_specinfo
+		FROM
+			sm_spc_specinfo a
+		INNER JOIN
+			sm_quality_info b
+		ON
+			a.si_id = b.qi_name
+		WHERE b.qi_code = #{qiCode};
+	</delete>
+	<delete id="deleteQulityJoinStandard">
+		DELETE FROM	sm_quality_info	WHERE qi_code = #{qiCode};
 	</delete>
 
 	<select id="selectDetailQualInfo" resultType="egovMap">
