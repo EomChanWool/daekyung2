@@ -28,32 +28,41 @@
 	
 	<select id="selectProdCnt" resultType="egovMap">
 		SELECT
-		YEAR(mfl_ed_date) AS years,
-		MONTH(mfl_ed_date) AS months,
-		SUM(mfl_work_time -
-		ISNULL(b.total_rest_time, 0)) AS total_real_time,
-		count(DISTINCT mfl_manager) AS
-		total_mfl_person,
-		AVG(mfl_work_time - ISNULL(b.total_rest_time,0)) AS avg_real_time
+		    YEAR(a.mfl_ed_date) AS years,
+		    MONTH(a.mfl_ed_date) AS months,
+		    SUM(a.mfl_work_time - ISNULL(b.total_rest_time, 0)) AS total_real_time,
+		    d.total_mp_qty
 		FROM
-		sm_mf_proc_log a
+		    sm_mf_proc_log a
 		LEFT JOIN (
-		SELECT
-		or_id,
-		SUM(mfs_rest_time) AS total_rest_time
-		FROM
-		sm_mf_process_stop
+		    SELECT
+		        or_id,
+		        SUM(mfs_rest_time) AS total_rest_time
+		    FROM
+		        sm_mf_process_stop
+		    WHERE
+		        YEAR(mfs_stop_time) = #{searchCondition}
+		    GROUP BY
+		        or_id
+		) b ON a.or_id = b.or_id
+		LEFT JOIN (
+		    SELECT
+		        YEAR(mp_reg_date) AS reg_year,
+		        MONTH(mp_reg_date) AS reg_month,
+		        SUM(mp_qty) AS total_mp_qty
+		    FROM
+		        sm_mf_proc
+		    WHERE
+		        MP_PR_STATE = 2
+		    GROUP BY
+		        YEAR(mp_reg_date), MONTH(mp_reg_date)
+		) d ON YEAR(a.mfl_ed_date) = d.reg_year AND MONTH(a.mfl_ed_date) = d.reg_month
 		WHERE
-		YEAR(mfs_stop_time) = #{searchCondition}
+		    YEAR(a.mfl_ed_date) = #{searchCondition}
 		GROUP BY
-		or_id
-		) b ON a.or_id =
-		b.or_id
-		WHERE
-		YEAR(mfl_ed_date) = #{searchCondition}
-		GROUP BY
-		YEAR(mfl_ed_date), MONTH(mfl_ed_date)
-		ORDER BY months
+		    YEAR(a.mfl_ed_date), MONTH(a.mfl_ed_date), d.total_mp_qty
+		ORDER BY
+		    months
 	</select>
 	<select id="selectProdCnt2" resultType="egovMap">
 	<!-- SELECT
@@ -84,10 +93,10 @@
 		YEAR(cs_reg_date) AS years,
 		month(cs_reg_date) AS months,
 		SUM(cs_work_time)AS total_time,
-		AVG(cs_work_time)AS avg_time
+		sum(cs_qty)AS total_qty
 		FROM sm_cut_sensor_data
 		WHERE 1=1
-		AND YEAR(cs_reg_date) = #{searchCondition}
+		AND YEAR(cs_reg_date) = 2023
 		AND cs_state = 0
 		GROUP BY
 		month(cs_reg_date), YEAR(cs_reg_date)
