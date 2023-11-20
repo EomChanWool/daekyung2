@@ -338,4 +338,34 @@
 	#{sulMinVal}
 	)
 	</insert>
+	<update id="modifySpcinfo">
+		UPDATE sm_spc_specinfo
+		SET
+		    ssi_od01 = #{ssiOd01}, ssi_od01_max = #{ssiOd01Max}, ssi_od01_min = #{ssiOd01Min},
+		    ssi_od02 = #{ssiOd02}, ssi_od02_max = #{ssiOd02Max}, ssi_od02_min = #{ssiOd02Min},
+		    ssi_id01 = #{ssiId01}, ssi_id01_max = #{ssiId01Max}, ssi_id01_min = #{ssiId01Min},
+		    ssi_id02 = #{ssiId02}, ssi_id02_max = #{ssiId02Max}, ssi_id02_min = #{ssiId02Min},
+		    ssi_t1_bevel = #{ssiT1Bevel}, ssi_t1_bevel_max = #{ssiT1BevelMax}, ssi_t1_bevel_min = #{ssiT1BevelMin},
+		    ssi_t1_body = #{ssiT1Body}, ssi_t1_body_max = #{ssiT1BodyMax}, ssi_t1_body_min = #{ssiT1BodyMin},
+		    ssi_t2_bevel = #{ssiT2Bevel}, ssi_t2_bevel_max = #{ssiT2BevelMax}, ssi_t2_bevel_min = #{ssiT2BevelMin},
+		    ssi_t2_body = #{ssiT2Body}, ssi_t2_body_max = #{ssiT2BodyMax}, ssi_t2_body_min = #{ssiT2BodyMin},
+		    ssi_bevel_end = #{ssiBevelEnd}, ssi_bevel_end_max = #{ssiBevelEndMax}, ssi_bevel_end_min = #{ssiBevelEndMin},
+		    ssi_root_face = #{ssiRootFace},
+		    ssi_root_face_max = #{ssiRootFaceMax}, ssi_root_face_min = #{ssiRootFaceMin},
+		    ssi_oa_q_max = #{ssiOaQMax},
+		    ssi_elbow_a = #{ssiElbowA}, ssi_elbow_a_max = #{ssiElbowAMax}, ssi_elbow_a_min = #{ssiElbowAMin},
+		    ssi_tee_c = #{ssiTeeC}, ssi_tee_c_max = #{ssiTeeCMax}, ssi_tee_c_min = #{ssiTeeCMin},
+		    ssi_tee_m = #{ssiTeeM}, ssi_tee_m_max = #{ssiTeeMMax}, ssi_tee_m_min = #{ssiTeeMMin},
+		    ssi_redu_h = #{ssiReduH}, ssi_redu_h_max = #{ssiReduHMax}, ssi_redu_h_min = #{ssiReduHMin},
+		    ssi_cap_limit_t = #{ssiCapLimitT},
+		    ssi_cap_e = #{ssiCapE}, ssi_cap_e_max = #{ssiCapEMax}, ssi_cap_e_min = #{ssiCapEMin},
+		    ssi_cap_e1 = #{ssiCapE1}, ssi_cap_e1_max = #{ssiCapE1Max}, ssi_cap_e1_min = #{ssiCapE1Min},
+		    ssi_stub_f = #{ssiStubF}, ssi_stub_f_max = #{ssiStubFMax}, ssi_stub_f_min = #{ssiStubFMin},
+		    ssi_stub_g = #{ssiStubG}, ssi_stub_g_max = #{ssiStubGMax}, ssi_stub_g_min = #{ssiStubGMin},
+		    ssi_stub_gt = #{ssiStubGt}, ssi_stub_gt_max = #{ssiStubGtMax}, ssi_stub_gt_min = #{ssiStubGtMin},
+		    ssi_stub_r = #{ssiStubR}, ssi_stub_r_max = #{ssiStubRMax}, ssi_stub_r_min = #{ssiStubRMin},
+		    ssi_type = #{ithType}
+		WHERE
+			 ssi_id = #{ssiId};
+	</update>
 </mapper>

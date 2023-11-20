@@ -51,6 +51,8 @@ public interface QualityInfoService {
 
 	void deleteQulityJoinStandard(Map<String, Object> map);
 
+	void modifySpcinfo(Map<String, Object> map);
+
 	int selectAccessLevel(String str);
 	
 	int codeNum(String str);

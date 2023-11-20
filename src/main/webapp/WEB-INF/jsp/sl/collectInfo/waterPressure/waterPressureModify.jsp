@@ -112,7 +112,7 @@
 	
 		var num =  /^[0-9.-]+$/;
 		
-		if(registForm.wpValue.value == ''){
+		if(modifyForm.wpValue.value == ''){
 			alert("측정값을 확인 바랍니다.");
 		}
 		if(!num.test($('#wpValue').val())){

@@ -135,6 +135,10 @@ public class QualityInfoServieImpl implements QualityInfoService {
 	}
 
 
+	@Override
+	public void modifySpcinfo(Map<String, Object> map) {
+		qualityInfoMapper.modifySpcinfo(map);
+	}
 	
 
 }
