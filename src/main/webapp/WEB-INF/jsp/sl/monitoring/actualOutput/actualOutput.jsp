@@ -180,12 +180,10 @@
 
     for (var i = 1; i <= maxMon; i++) {
         date.push(year + "년 " + i + "월");
-        totalTime.push(0);
         totalQty.push(0);
     }
 
     <c:forEach items="${prodCntList2}" var="list">
-    totalTime[${list.months-1}] = ${list.totalTime};
     totalQty[${list.months-1}] = ${list.totalQty};
     </c:forEach>
     
@@ -296,13 +294,13 @@
 	        toolbox: {
 	            feature: {
 	                dataView: { show: false, readOnly: false },
-	                magicType: { show: false, type: ['line', 'bar'] },
+	                magicType: { show: false, type: ['bar'] },
 	                restore: { show: false },
 	                saveAsImage: { show: true }
 	            }
 	        },
 	        legend: {
-	            data: ['총 시간', '총 생산량']
+	            data: ['총 생산량']
 	        },
 	        xAxis: [
 	            {
@@ -316,7 +314,7 @@
 	        yAxis: [
 	            {
 	                type: 'value',
-	                name: '총작업시간',
+	                name: '',
 	                axisLabel: {
 	                    formatter: '{value} MIN'
 	                }
@@ -331,29 +329,29 @@
 	            }
 	        ],
 	        series: [
+// 	            {
+// 	                name: '총 시간',
+// 	                stack: 'one',
+// 	                type: 'bar',
+// 	                label: {
+// 	                    show: true,
+// 	                    position: 'inside',
+// 	                    formatter: '{c}분'
+// 	                },
+// 	                tooltip: {
+// 	                    valueFormatter: function (value) {
+// 	                        return value + ' MIN';
+// 	                    }
+// 	                },
+// 	                data: totalTime
+// 	            },
 	            {
-	                name: '총 시간',
-	                stack: 'one',
+	                name: '총생산량',
+	                yAxisIndex: 1,
 	                type: 'bar',
 	                label: {
 	                    show: true,
 	                    position: 'inside',
-	                    formatter: '{c}분'
-	                },
-	                tooltip: {
-	                    valueFormatter: function (value) {
-	                        return value + ' MIN';
-	                    }
-	                },
-	                data: totalTime
-	            },
-	            {
-	                name: '총생산량',
-	                yAxisIndex: 1,
-	                type: 'line',
-	                label: {
-	                    show: true,
-	                    position: 'left',
 	                    formatter: '{c} EA'
 	                },
 	                tooltip: {

@@ -89,17 +89,32 @@
 		GROUP BY
 		month(cs_reg_date), YEAR(cs_reg_date)
 		ORDER BY months asc -->
-		SELECT
-		YEAR(cs_reg_date) AS years,
-		month(cs_reg_date) AS months,
-		SUM(cs_work_time)AS total_time,
-		sum(cs_qty)AS total_qty
-		FROM sm_cut_sensor_data
+		<!--SELECT
+			YEAR(cs_reg_date) AS years,
+			MONTH(cs_reg_date) AS months,
+			SUM(cs_work_time)AS total_time,
+			SUM(cs_qty)AS total_qty
+		FROM 
+			sm_cut_sensor_data
 		WHERE 1=1
-		AND YEAR(cs_reg_date) = 2023
-		AND cs_state = 0
+		AND 
+			YEAR(cs_reg_date) = #{searchCondition}
+		AND 
+			cs_state = 0
 		GROUP BY
-		month(cs_reg_date), YEAR(cs_reg_date)
+			month(cs_reg_date), YEAR(cs_reg_date)
+		ORDER BY months-->
+		SELECT
+			YEAR(cp_reg_date) AS years,
+			MONTH(cp_reg_date) AS months,
+			SUM(cp_qty)AS total_qty
+		FROM 
+			sm_cut_proc
+		WHERE 1=1
+		AND 
+			YEAR(cp_reg_date) = #{searchCondition}
+		GROUP BY
+			month(cp_reg_date), YEAR(cp_reg_date)
 		ORDER BY months
 	</select>
 </mapper>

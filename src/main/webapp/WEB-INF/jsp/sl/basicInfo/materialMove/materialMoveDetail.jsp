@@ -165,14 +165,40 @@
     <script src="/resources/js/sb-admin-2.min.js"></script>
 
 	<script>
-	function fn_modify_materialMove(){
+function fn_modify_materialMove(){
+		
+		var num =  /^[0-9.]+$/;
+		
 		if($('#piId').val() == ''){
 			alert("바코드를 확인 바랍니다.");
 			return;
 		}
+		if($('#piItemName').val() == ''){
+ 			alert("품명을 확인 바랍니다.");
+			return;
+ 		}
 		
 		
-		
+
+	    if ($('#mmIn').val() !== '' && !num.test($('#mmIn').val())) {
+	        alert('숫자만 입력 가능합니다.');
+	        return;
+	    }
+
+	    if ($('#mmInKg').val() !== '' && !num.test($('#mmInKg').val())) {
+	        alert('숫자만 입력 가능합니다.');
+	        return;
+	    }
+
+	    if ($('#mmOut').val() !== '' && !num.test($('#mmOut').val())) {
+	        alert('숫자만 입력 가능합니다.');
+	        return;
+	    }
+
+	    if ($('#mmOutKg').val() !== '' && !num.test($('#mmOutKg').val())) {
+	        alert('숫자만 입력 가능합니다.');
+	        return;
+	    }
 		modifyForm.submit();
 	}
 	
