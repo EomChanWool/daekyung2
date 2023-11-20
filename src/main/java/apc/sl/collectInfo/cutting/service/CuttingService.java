@@ -22,6 +22,8 @@ public interface CuttingService {
 	List<?> selectComapnyInfo(Map<String, Object> map);
 
 	List<?> selectProdPerPrice(Map<String, Object> map);
+	
+	List<?> cutSensorData(SearchVO searchVO);
 
 	void registCutting(Map<String, Object> map);
 	

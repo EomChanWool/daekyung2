@@ -59,21 +59,33 @@
 									<input type="text" class="form-control bg-light border-0 small" name="searchKeyword"
 						    									value="${searchVO.searchKeyword}" placeholder="품명을 입력해 주세요"
 						    									style="background-color:#eaecf4; width: 25%; float: left;">
-						    		<input class="btn btn-secondary searchDate" id="searchStDate" name="searchStDate" value="${searchVO.searchStDate}" type="date">
-									<span class="dash" style="display: inline-block; float: left; margin: 0.5rem 0.3rem 0 0">~</span>
-									<input class="btn btn-secondary searchDate" id="searchEdDate" name="searchEdDate" value="${searchVO.searchEdDate}" type="date">
+						    		<select class="btn btn-secondary dropdown-toggle searchCondition" name="searchCondition" id="searchCondition">
+						    			<option value="" <c:if test="${searchVO.searchCondition eq ''}">selected="selected"</c:if>>전체</option>
+						    			<option value="2023" <c:if test="${searchVO.searchCondition eq '2023'}">selected="selected"</c:if>>2023년</option>
+						    			<option value="2024" <c:if test="${searchVO.searchCondition eq '2024'}">selected="selected"</c:if>>2024년</option>
+						    			<option value="2025" <c:if test="${searchVO.searchCondition eq '2025'}">selected="selected"</c:if>>2025년</option>
+						    			<option value="2026" <c:if test="${searchVO.searchCondition eq '2026'}">selected="selected"</c:if>>2026년</option>
+						    		</select>
+						    		
+						    		<select class="btn btn-secondary dropdown-toggle searchCondition" name="searchCondition2" id="searchCondition2">
+							    		<option value="">선택</option>
+							    		<c:forEach begin="1" end="12" varStatus="status">
+							    			<option value="${status.count}" <c:if test="${searchVO.searchCondition2 eq status.count}">selected="selected"</c:if>>${status.count}월</option>
+							    		</c:forEach>
+						    		</select>
 						    	</form>
 						    	<a href="#" class="btn btn-info btn-icon-split" onclick="fn_search_cutting()" style="margin-left: 0.3rem;">
 	                                <span class="text">검색</span>
 	                            </a>
 						    	<a href="#" class="btn btn-success btn-icon-split" onclick="fn_searchAll_cutting()">
-	                                <span class="text">전체목록</span>
+	                                <span class="text">당월</span>
 	                            </a>
 	                            <a href="#" class="btn btn-primary btn-icon-split" onclick="fn_regist_cutting()" style="float: right;">
 	                                <span class="text">등록</span>
 	                            </a>
 							</div>
                         </div>
+                        <div id="graph" style="width: 100%; height:300px;"></div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable"  >
@@ -170,8 +182,8 @@
 		
 		function fn_searchAll_cutting(){
 			listForm.searchKeyword.value = "";
-			listForm.searchStDate.value = "";
-			listForm.searchEdDate.value = "";
+			listForm.searchCondition.value = "";
+			listForm.searchCondition2.value = "";
 			listForm.pageIndex.value = 1;
 			listForm.submit();
 		}
@@ -211,16 +223,70 @@
 			$('#searchCondition2').change(function(){
 				listForm.submit();
 			});
-			$('#searchCondition3').change(function(){
-				listForm.submit();
-			});
+			
 			
 			window.onresize = function() {
 				location.reload();
 			}
 		});
 			
+	
+		var chartDom = document.getElementById('graph');
+		var myChart = echarts.init(chartDom);
+		var option;
+		
+		let date = [];
 
+		let OutputData = [];
+		
+		let viewData = [];
+		
+		
+		for(var i=1;i<=31;i++){
+			date.push(i+"일");
+			OutputData.push(0);
+			viewData.push(0);
+		}
+		
+		<c:forEach items="${sensorData}" var="list">
+		OutputData[${list.days-1}] = ${list.workTime};
+		</c:forEach> 
+		
+		
+		
+		
+		
+		option = {
+		  animation: false,
+		  xAxis: {
+		    type: 'category',
+		    name: '일별',
+		    data: date
+		  
+		  },
+		  yAxis: {
+		    type: 'value',
+		    name: '작업시간(초)'
+		  },
+		  tooltip: {
+			    trigger: 'axis', 
+			    formatter: function (params) {
+			      var xValue = params[0].name;
+			      var yValue = params[0].value;
+			      return '<span style="font-weight: bold; letter-spacing: 4.7px;">작동시간(초):</span>' + yValue;
+			    }
+			  },
+		  series: [
+		    {
+		      data: OutputData,
+		      type: 'line',
+		      smooth: true
+		    }
+		  ]
+		};
+
+		option && myChart.setOption(option);
+		
 	</script>
 </body>
 

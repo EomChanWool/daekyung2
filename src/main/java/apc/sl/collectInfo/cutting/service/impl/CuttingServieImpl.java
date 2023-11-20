@@ -85,4 +85,9 @@ public class CuttingServieImpl implements CuttingService {
 		return cuttingMapper.checkEq(map);
 	}
 
+	@Override
+	public List<?> cutSensorData(SearchVO searchVO) {
+		return cuttingMapper.cutSensorData(searchVO);
+	}
+
 }

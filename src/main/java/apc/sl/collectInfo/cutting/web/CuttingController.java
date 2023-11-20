@@ -30,12 +30,26 @@ public class CuttingController {
 	
 	@RequestMapping("/sl/collectInfo/cutting/cuttingList.do")
 	public String cuttingList(@ModelAttribute("searchVO") SearchVO searchVO, ModelMap model, HttpSession session) {
+		Date now = new Date();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM");
+		String rowDate = format.format(now);
+		String[] rowDate2 = rowDate.split("-");
+		String cYear = rowDate2[0];
+		String cMonth = rowDate2[1];
+		
+		
+		if(searchVO.getSearchCondition().equals("")) {
+			searchVO.setSearchCondition(cYear);
+			searchVO.setSearchCondition2(cMonth);
+			
+		}
+		
 		int totCnt = cuttingService.selectCuttingListToCnt(searchVO);
 		/** pageing setting */
 		searchVO.setPageSize(10);
 		PaginationInfo paginationInfo = new PaginationInfo();
 		paginationInfo.setCurrentPageNo(searchVO.getPageIndex()); // 현재 페이지 번호
-		paginationInfo.setRecordCountPerPage(10); // 한 페이지에 게시되는 게시물 건수
+		paginationInfo.setRecordCountPerPage(5); // 한 페이지에 게시되는 게시물 건수
 		paginationInfo.setPageSize(searchVO.getPageSize()); // 페이징 리스트의 사이즈
 		paginationInfo.setTotalRecordCount(totCnt);
 		
@@ -43,7 +57,9 @@ public class CuttingController {
 		searchVO.setLastIndex(paginationInfo.getLastRecordIndex());
 		searchVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
 		List<?> cuttingList = cuttingService.selectCuttingList(searchVO);
+		List<?> sensorData = cuttingService.cutSensorData(searchVO);
 		model.put("cuttingList", cuttingList);
+		model.put("sensorData", sensorData);
 		model.put("paginationInfo", paginationInfo);
 		return "sl/collectInfo/cutting/cuttingList";
 	}

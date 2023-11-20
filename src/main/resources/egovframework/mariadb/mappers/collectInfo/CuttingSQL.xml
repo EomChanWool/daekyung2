@@ -4,16 +4,15 @@
 	namespace="apc.sl.collectInfo.cutting.service.impl.CuttingMapper">
 	<select id="selectCuttingListToCnt" resultType="int">
 		SELECT COUNT(*) FROM sm_cut_sensor_data
-		WHERE cs_state = 0
+		WHERE cs_state = 1
 		<if test="searchKeyword != ''">
-			AND cs_data01 LIKE CONCAT ('%', #{searchKeyword}, '%')
+			AND cs_prod_name LIKE CONCAT ('%', #{searchKeyword}, '%')
 		</if>
-		<if test="searchStDate != ''">
-			AND CAST(cs_reg_date AS DATE) >= #{searchStDate}
+		<if test="searchCondition != ''">
+			AND YEAR(CS_REG_DATE) = #{searchCondition}
 		</if>
-		<if test="searchEdDate != ''">
-			AND CAST(cs_reg_date AS DATE) <![CDATA[<=]]>
-			#{searchEdDate}
+		<if test="searchCondition2 != ''">
+		AND MONTH(CS_REG_DATE) = #{searchCondition2}
 		</if>
 	</select>
 
@@ -24,16 +23,15 @@
 			ORDER BY cs_idx)) AS cs_work_time FROM sm_cut_sensor_data t WHERE cs_idx 
 			% 2 = 1 -->
 		SELECT * FROM sm_cut_sensor_data
-		WHERE cs_state = 0
+		WHERE cs_state = 1
 		<if test="searchKeyword != ''">
 			AND cs_prod_name LIKE CONCAT ('%', #{searchKeyword}, '%')
 		</if>
-		<if test="searchStDate != ''">
-			AND CAST(cs_reg_date AS DATE) >= #{searchStDate}
+		<if test="searchCondition != ''">
+			AND YEAR(CS_REG_DATE) = #{searchCondition}
 		</if>
-		<if test="searchEdDate != ''">
-			AND CAST(cs_reg_date AS DATE) <![CDATA[<=]]>
-			#{searchEdDate}
+		<if test="searchCondition2 != ''">
+		AND MONTH(CS_REG_DATE) = #{searchCondition2}
 		</if>
 		ORDER BY cs_idx desc
 		OFFSET #{firstIndex} ROWS
@@ -93,6 +91,20 @@
 		WHERE
 		cs_idx = #{csIdx}
 		
+	</select>
+	
+	<select id="cutSensorData" resultType="egovMap">
+	
+	SELECT YEAR(CS_REG_DATE) AS years , MONTH(CS_REG_DATE) AS months ,DAY(CS_REG_DATE) AS days ,SUM(CS_WORK_TIME) AS work_time
+	FROM sm_cut_sensor_data
+	WHERE CS_STATE = 1
+	AND YEAR(CS_REG_DATE) = #{searchCondition}
+	AND MONTH(CS_REG_DATE) = #{searchCondition2}
+	<if test="searchKeyword != ''">
+	AND cs_prod_name LIKE CONCAT ('%', #{searchKeyword}, '%')
+	</if>
+	GROUP BY YEAR(CS_REG_DATE),MONTH(CS_REG_DATE),DAY(CS_REG_DATE)
+	
 	</select>
 	
 	<insert id="registCutting">
