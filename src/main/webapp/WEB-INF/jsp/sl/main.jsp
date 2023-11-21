@@ -28,7 +28,7 @@
 		<div class="login_wrap">
 			<div class="login">
 				<div class="login_tit">
-<!-- 					<span><img src="/resources/conf/images/jungin3.png" style="width: 300px;"></span> -->
+ 					<span><img src="/resources/conf/images/dk2.png" style="width: 70px;"></span>
 					<span class="login_txt">대경벤드</span>
 				</div>
 				<input type="text" name ="id" required="required" placeholder="아이디" class="adm_id">
