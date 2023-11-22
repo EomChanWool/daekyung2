@@ -86,7 +86,6 @@
                                             <th>날짜</th>
 											<th>설비</th>
 											<th>카운팅</th>
-											<th>작동시간</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -95,7 +94,6 @@
 	                                   		<td>${result.daqEdDate}</td>
 	                                   		<td>${result.daqName}</td>
 	                                   		<td>${result.counting}</td>
-	                                   		<td>${result.workTime}초</td>
 	                                   		</tr>
                                     	</c:forEach>
                                     	<c:if test="${empty lineRunningList}"><tr><td colspan='4'>결과가 없습니다.</td><del></del></c:if>
@@ -201,12 +199,10 @@
 	
 	let lineCount = [];
 	
-	let lineWorkTime = [];
 	
 	<c:forEach items="${lineRunningList}" var="list">
 	lineName.push('${list.daqName}');
 	lineCount.push('${list.counting}');
-	lineWorkTime.push('${list.workTime}');
 	</c:forEach>
 	
 	
@@ -248,15 +244,6 @@
 			      axisLabel: {
 			        formatter: '{value} Count'
 			      }
-			    },
-			    {
-	    		  type: 'value',
-		      	  name: '작동시간',
-		      	position: 'right',
-		      	  axisLabel: {
-		            formatter: '{value} sec',
-		            
-				  }
 			    }
 			  ],
 			  series: [
@@ -275,24 +262,8 @@
 			        }
 			      },
 			      data: lineCount
-			    },
-			    {
-				      name: '작동시간',
-				      yAxisIndex: 1,
-				      type: 'bar',
-				      label: {
-				          show: true,
-				          position: 'inside',
-				          formatter: '{c} sec'
-				          
-				        },
-				      tooltip: {
-				        valueFormatter: function (value) {
-				          return value + ' sec';
-				        }
-				      },
-				      data: lineWorkTime
-				    },
+			    }
+			    
 			  ]
 			};
 	option && myChart.setOption(option);

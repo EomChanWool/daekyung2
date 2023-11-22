@@ -17,15 +17,15 @@
 
 	<select id="selectLineRunningList" resultType="egovMap">
 		SELECT COUNT(*) AS
-		counting , DAQ_NAME, convert(date,DAQ_ED_DATE) AS
-		daq_ed_date, SUM(DAQ_WORK_TIME) AS work_time
+		counting , DAQ_NAME, convert(date,DAQ_ST_DATE) AS
+		daq_ed_date
 		FROM
 		sm_daq_data
 		WHERE 1=1
 
-		AND CONVERT(DATE, DAQ_ED_DATE) = #{searchEdDate}
+		AND CONVERT(DATE, DAQ_ST_DATE) = #{searchEdDate}
 		<if test="searchKeyword != ''">AND daq_name like concat('%', '${searchKeyword}', '%')</if>
-		GROUP BY daq_name, daq_ed_date
+		GROUP BY daq_name, DAQ_ST_DATE
 		ORDER BY DAQ_NAME
 		OFFSET
 		(#{firstIndex}) ROWS
@@ -34,12 +34,12 @@
 	</select>
 
 	<select id="selectLineYear" resultType="egovMap">
-		SELECT COUNT(*) AS counting , MONTH(daq_ed_date) AS months, SUM(DAQ_WORK_TIME) AS work_time
+		SELECT COUNT(*) AS counting , MONTH(DAQ_ST_DATE) AS months
 		FROM sm_daq_data
 		WHERE 1=1
-		AND YEAR(DAQ_ED_DATE) = #{searchCondition}
+		AND YEAR(DAQ_ST_DATE) = #{searchCondition}
 		<if test="searchCondition2 != ''">AND daq_name = #{searchCondition2}</if>
-		GROUP BY MONTH(daq_ed_date)
+		GROUP BY MONTH(DAQ_ST_DATE)
 		ORDER BY months
 		
 	</select>

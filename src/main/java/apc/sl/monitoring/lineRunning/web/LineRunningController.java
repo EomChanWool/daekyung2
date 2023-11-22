@@ -61,6 +61,7 @@ public class LineRunningController {
 		searchVO.setLastIndex(paginationInfo.getLastRecordIndex());
 		searchVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
 		List<?> lineRunningList = lineRunningService.selectLineRunningList(searchVO);
+		System.out.println(searchVO.getSearchEdDate());
 		model.put("lineRunningList", lineRunningList);
 		model.put("paginationInfo", paginationInfo);
 		return "sl/monitoring/lineRunning/lineRunning";

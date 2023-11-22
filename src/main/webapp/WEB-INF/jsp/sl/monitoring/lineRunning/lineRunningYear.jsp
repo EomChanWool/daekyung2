@@ -192,12 +192,10 @@
 	
 	let lineCount = [];
 	
-	let workTime=[];
 	
 	<c:forEach items="${eqList}" var="list">
 	date.push('${list.months}월');
 	lineCount.push('${list.counting}');
-	workTime.push('${list.workTime}');
 	</c:forEach>
 	
 	
@@ -221,7 +219,7 @@
 			    }
 			  },
 			  legend: {
-			    data: ['카운트','작동시간']
+			    data: ['카운트']
 			  },
 			  xAxis: [
 			    {
@@ -239,14 +237,6 @@
 			      axisLabel: {
 			        formatter: '{value} Count'
 			      }
-			    },
-			    {
-	    		  type: 'value',
-		      	  name: '작동시간',
-		      	  position: 'right',
-		      	  axisLabel: {
-		            formatter: '{value} sec'
-				  }
 			    }
 			  ],
 			  series: [
@@ -265,24 +255,7 @@
 			        }
 			      },
 			      data: lineCount
-			    },
-			    {
-				      name: '작동시간',
-				      yAxisIndex: 1,
-				      type: 'bar',
-				      label: {
-				          show: true,
-				          position: 'inside',
-				          formatter: '{c} sec'
-				          
-				        },
-				      tooltip: {
-				        valueFormatter: function (value) {
-				          return value + ' sec';
-				        }
-				      },
-				      data: workTime
-				    },
+			    }
 			  ]
 			};
 	option && myChart.setOption(option);
