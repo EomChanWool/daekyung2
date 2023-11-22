@@ -22,7 +22,6 @@
 		FROM
 		sm_daq_data
 		WHERE 1=1
-
 		AND CONVERT(DATE, DAQ_ED_DATE) = #{searchEdDate}
 		<if test="searchKeyword != ''">AND daq_name like concat('%', '${searchKeyword}', '%')</if>
 		GROUP BY daq_name, daq_ed_date

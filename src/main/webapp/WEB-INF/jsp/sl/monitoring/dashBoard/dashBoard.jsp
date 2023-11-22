@@ -448,6 +448,8 @@
 	var year3 = [];
 	
 	var totalRealTime = [];
+	var totalMpQty = [];
+	var totalQty = [];
 	
 	var totalMflPerson = [];
 	
@@ -459,38 +461,34 @@
 	
 	
 	if($('#searchCondition').val() == "manu"){
+		<c:forEach items="${prodCntListAc}" var="list">
+			year3 = ${list.years};
+			maxMon3 = ${list.months};
+		</c:forEach>
+
+	for(var i=1;i<=maxMon3;i++){
+		date3.push(i+"월");
+		totalRealTime.push(0);
+        totalMpQty.push(0);
+	}
+
 	<c:forEach items="${prodCntListAc}" var="list">
-	year3 = ${list.years};
-	maxMon3 = ${list.months};
-</c:forEach>
-
-for(var i=1;i<=maxMon3;i++){
-	date3.push(i+"월");
-	totalRealTime.push(0);
-	totalMflPerson.push(0);
-	avgRealTime.push(0);
-}
-
-<c:forEach items="${prodCntListAc}" var="list">
-totalRealTime[${list.months-1}] = ${list.totalRealTime};
-totalMflPerson[${list.months-1}] = ${list.totalMflPerson};
-avgRealTime[${list.months-1}] = ${list.avgRealTime};
-</c:forEach>
-}else if($('#searchCondition').val() == "cut"){
+		totalRealTime[${list.months-1}] = ${list.totalRealTime};
+	    totalMpQty[${list.months-1}] = ${list.totalMpQty};
+	</c:forEach>
+	}else if($('#searchCondition').val() == "cut"){
+		<c:forEach items="${prodCntListAc2}" var="list">
+			year3 = ${list.years};
+			maxMon3 = ${list.months};
+		</c:forEach>
+	
+	for(var i=1;i<=maxMon3;i++){
+		date3.push(i+"월");
+		totalQty.push(0);
+	}
 	<c:forEach items="${prodCntListAc2}" var="list">
-	year3 = ${list.years};
-	maxMon3 = ${list.months};
-</c:forEach>
-
-for(var i=1;i<=maxMon3;i++){
-	date3.push(i+"월");
-	totalRealTime.push(0);
-	avgRealTime.push(0);
-}
-<c:forEach items="${prodCntListAc2}" var="list">
-totalRealTime[${list.months-1}] = ${list.sumCsWorkTime};
-avgRealTime[${list.months-1}] = ${list.avgWorkTime};
-</c:forEach>
+		totalQty[${list.months-1}] = ${list.totalQty};
+	</c:forEach>
 	
 }
 	if($('#searchCondition').val() == "manu"){
@@ -514,7 +512,7 @@ option = {
 		    }
 		  },
 		  legend: {
-		    data: ['총 시간', '작업인원', '평균 시간']
+		    data: ['총 시간', '총 생산량']
 		  },
 		  xAxis: [
 		    {
@@ -535,10 +533,10 @@ option = {
 		    },
 		    {
 	    		  type: 'value',
-		      	  name: '평균시간(가공)',
+		      	  name: '총생산량(가공)',
 		      	  position: 'right',
 		      	  axisLabel: {
-		            formatter: '{value} MIN'
+		            formatter: '{value} EA'
 				  }
 			    }
 		    
@@ -552,7 +550,6 @@ option = {
 		          show: true,
 		          position: 'inside',
 		          formatter: '{c}분'
-		          
 		        },
 		      tooltip: {
 		        valueFormatter: function (value) {
@@ -562,38 +559,20 @@ option = {
 		      data: totalRealTime
 		    },
 		    {
-		      name: '작업인원',
-		      stack: 'one',
-		      type: 'bar',
-		      
-		      label: {
-		          show: true,
-		          position: 'top',
-		          formatter: '{c}명'
-		          
-		        },
-		      tooltip: {
-		        valueFormatter: function (value) {
-		          return value + ' HC';
-		        }
-		      },
-		      data: totalMflPerson
-		    },
-		    {
-		      name: '평균 시간',
+		      name: '총 생산량',
 		      yAxisIndex: 1,
 		      type: 'line',
-		      /* label: {
+	      	  label: {
 		          show: true,
-		          position: 'top',
-		          formatter: '{c}분'
-		        }, */
+		          position: 'left',
+		          formatter: '{c} EA'
+		        }, 
 		      tooltip: {
 		        valueFormatter: function (value) {
-		          return value + ' MIN';
+		          return value + ' EA';
 		        }
 		      },
-		      data: avgRealTime
+		      data: totalMpQty
 		    }
 		  ]
 		};
@@ -612,13 +591,13 @@ option = {
 				  toolbox: {
 				    feature: {
 				      dataView: { show: false, readOnly: false },
-				      magicType: { show: false, type: ['line', 'bar'] },
+				      magicType: { show: false, type: ['bar'] },
 				      restore: { show: false },
 				      saveAsImage: { show: true }
 				    }
 				  },
 				  legend: {
-				    data: ['총 시간', '평균 시간']
+				    data: ['총 생산량']
 				  },
 				  xAxis: [
 				    {
@@ -632,55 +611,55 @@ option = {
 				  yAxis: [
 				    {
 				      type: 'value',
-				      name: '총작업시간(절단)',
+				      name: '',
 				      axisLabel: {
 				        formatter: '{value} MIN'
 				      }
 				    },
 				    {
 			    		  type: 'value',
-				      	  name: '평균시간(절단)',
+				      	  name: '총생산량(절단)',
 				      	  position: 'right',
 				      	  axisLabel: {
-				            formatter: '{value} MIN'
+				            formatter: '{value} EA'
 						  }
 					    }
 				    
 				  ],
 				  series: [
+// 				    {
+// 				      name: '총 시간',
+// 				      stack: 'one',
+// 				      type: 'bar',
+// 				      label: {
+// 				          show: true,
+// 				          position: 'inside',
+// 				          formatter: '{c}분'
+				          
+// 				        },
+// 				      tooltip: {
+// 				        valueFormatter: function (value) {
+// 				          return value + ' MIN';
+// 				        }
+// 				      },
+// 				      data: totalRealTime
+// 				    },
+				   
 				    {
-				      name: '총 시간',
-				      stack: 'one',
+				      name: '총생산량',
+				      yAxisIndex: 1,
 				      type: 'bar',
 				      label: {
 				          show: true,
 				          position: 'inside',
-				          formatter: '{c}분'
-				          
-				        },
+				          formatter: '{c} EA'
+				      }, 
 				      tooltip: {
 				        valueFormatter: function (value) {
-				          return value + ' MIN';
+				          return value + ' EA';
 				        }
 				      },
-				      data: totalRealTime
-				    },
-				   
-				    {
-				      name: '평균 시간',
-				      yAxisIndex: 1,
-				      type: 'line',
-				      /* label: {
-				          show: true,
-				          position: 'top',
-				          formatter: '{c}분'
-				        }, */
-				      tooltip: {
-				        valueFormatter: function (value) {
-				          return value + ' MIN';
-				        }
-				      },
-				      data: avgRealTime
+				      data: totalQty
 				    }
 				  ]
 				};
@@ -708,7 +687,6 @@ option && myChart.setOption(option);
 	lineCount4.push('${list.counting}');
 	lineWorkTime.push('${list.workTime}');
 	</c:forEach>
-	
 	
 	option = {
 			  tooltip: {

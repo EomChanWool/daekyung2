@@ -175,6 +175,22 @@ public class InspectController {
 			model.put("spcInfo",spcInfo);
 			String Edata = map.get("isiFile")+"";
 			Map<String, Object> eDataInfo = inspectService.eDataInfo(Edata);
+			System.out.println(eDataInfo);
+			
+			if (eDataInfo.get("iehP1") != null) {
+				float arr[] = { Float.parseFloat(eDataInfo.get("iehP1")+""),
+						Float.parseFloat(eDataInfo.get("iehP2")+""),
+						Float.parseFloat(eDataInfo.get("iehP3")+""),
+						Float.parseFloat(eDataInfo.get("iehP4")+""),
+						Float.parseFloat(eDataInfo.get("iehP5")+""),
+						Float.parseFloat(eDataInfo.get("iehP6")+""),
+						Float.parseFloat(eDataInfo.get("iehP7")+""),
+						Float.parseFloat(eDataInfo.get("iehP8")+"")};
+				Arrays.sort(arr);
+				float BlMax = arr[arr.length-1];
+				eDataInfo.put("pMax", BlMax);
+			}
+			
 			model.put("eDataInfo", eDataInfo);
 			model.put("cIsiFile", Edata);
 			model.put("cFile", map.get("cFile"));
@@ -189,6 +205,19 @@ public class InspectController {
 			String Edata = map.get("isiFile")+"";
 			Map<String, Object> eDataInfo = inspectService.eDataInfo(Edata);
 			System.out.println(eDataInfo);
+			if (eDataInfo.get("iehP1") != null) {
+				float arr[] = { Float.parseFloat(eDataInfo.get("iehP1")+""),
+						Float.parseFloat(eDataInfo.get("iehP2")+""),
+						Float.parseFloat(eDataInfo.get("iehP3")+""),
+						Float.parseFloat(eDataInfo.get("iehP4")+""),
+						Float.parseFloat(eDataInfo.get("iehP5")+""),
+						Float.parseFloat(eDataInfo.get("iehP6")+""),
+						Float.parseFloat(eDataInfo.get("iehP7")+""),
+						Float.parseFloat(eDataInfo.get("iehP8")+"")};
+				Arrays.sort(arr);
+				float BlMax = arr[arr.length-1];
+				eDataInfo.put("pMax", BlMax);
+			}
 			model.put("eDataInfo", eDataInfo);
 			model.put("cIsiFile", Edata);
 			model.put("cFile", map.get("cFile"));
@@ -203,6 +232,19 @@ public class InspectController {
 			String Edata = map.get("isiFile")+"";
 			Map<String, Object> eDataInfo = inspectService.eDataInfo(Edata);
 			System.out.println(eDataInfo);
+			if (eDataInfo.get("iehP1") != null) {
+				float arr[] = { Float.parseFloat(eDataInfo.get("iehP1")+""),
+						Float.parseFloat(eDataInfo.get("iehP2")+""),
+						Float.parseFloat(eDataInfo.get("iehP3")+""),
+						Float.parseFloat(eDataInfo.get("iehP4")+""),
+						Float.parseFloat(eDataInfo.get("iehP5")+""),
+						Float.parseFloat(eDataInfo.get("iehP6")+""),
+						Float.parseFloat(eDataInfo.get("iehP7")+""),
+						Float.parseFloat(eDataInfo.get("iehP8")+"")};
+				Arrays.sort(arr);
+				float BlMax = arr[arr.length-1];
+				eDataInfo.put("pMax", BlMax);
+			}
 			model.put("eDataInfo", eDataInfo);
 			model.put("cIsiFile", Edata);
 			model.put("cFile", map.get("cFile"));
@@ -216,6 +258,19 @@ public class InspectController {
 			model.put("spcInfo",spcInfo);
 			String Edata = map.get("isiFile")+"";
 			Map<String, Object> eDataInfo = inspectService.eDataInfo(Edata);
+			if (eDataInfo.get("iehP1") != null) {
+				float arr[] = { Float.parseFloat(eDataInfo.get("iehP1")+""),
+						Float.parseFloat(eDataInfo.get("iehP2")+""),
+						Float.parseFloat(eDataInfo.get("iehP3")+""),
+						Float.parseFloat(eDataInfo.get("iehP4")+""),
+						Float.parseFloat(eDataInfo.get("iehP5")+""),
+						Float.parseFloat(eDataInfo.get("iehP6")+""),
+						Float.parseFloat(eDataInfo.get("iehP7")+""),
+						Float.parseFloat(eDataInfo.get("iehP8")+"")};
+				Arrays.sort(arr);
+				float BlMax = arr[arr.length-1];
+				eDataInfo.put("pMax", BlMax);
+			}
 			model.put("eDataInfo", eDataInfo);
 			model.put("cIsiFile", Edata);
 			model.put("cFile", map.get("cFile"));
@@ -229,6 +284,19 @@ public class InspectController {
 			model.put("spcInfo",spcInfo);
 			String Edata = map.get("isiFile")+"";
 			Map<String, Object> eDataInfo = inspectService.eDataInfo(Edata);
+			if (eDataInfo.get("iehP1") != null) {
+				float arr[] = { Float.parseFloat(eDataInfo.get("iehP1")+""),
+						Float.parseFloat(eDataInfo.get("iehP2")+""),
+						Float.parseFloat(eDataInfo.get("iehP3")+""),
+						Float.parseFloat(eDataInfo.get("iehP4")+""),
+						Float.parseFloat(eDataInfo.get("iehP5")+""),
+						Float.parseFloat(eDataInfo.get("iehP6")+""),
+						Float.parseFloat(eDataInfo.get("iehP7")+""),
+						Float.parseFloat(eDataInfo.get("iehP8")+"")};
+				Arrays.sort(arr);
+				float BlMax = arr[arr.length-1];
+				eDataInfo.put("pMax", BlMax);
+			}
 			model.put("eDataInfo", eDataInfo);
 			model.put("cIsiFile", Edata);
 			model.put("cFile", map.get("cFile"));
