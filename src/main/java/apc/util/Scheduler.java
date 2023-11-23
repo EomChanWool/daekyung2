@@ -855,7 +855,7 @@ public class Scheduler {
 	}
 	
 	
-//	//@Scheduled(cron = "20 * * * * *")
+	@Scheduled(cron = "20 * * * * *")
 //	public void open() {
 //		
 //	    ftp = new FTPClient();

@@ -358,7 +358,12 @@
 											<th>합격여부</th>
 											<td><span class="form-control val-area" id="qF">${detail.iehE}</span></td>
 										</tr>
-										
+										<c:if test="${not empty eDataInfo.pMax}">
+											<tr>
+												<th>P 검사값</th>
+												<td><span class="form-control val-area" id="pC">${eDataInfo.pMax}</span></td>
+											</tr>
+										</c:if>
 										
 									</tbody>
                                	</table>

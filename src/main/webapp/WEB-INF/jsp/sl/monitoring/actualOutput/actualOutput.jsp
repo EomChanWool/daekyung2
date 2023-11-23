@@ -184,7 +184,7 @@
     }
 
     <c:forEach items="${prodCntList2}" var="list">
-    totalQty[${list.months-1}] = ${list.totalQty};
+    	totalQty[${list.months-1}] = ${list.totalQty};
     </c:forEach>
     
     
