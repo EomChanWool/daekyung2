@@ -164,6 +164,6 @@
 
 	<delete id="deleteCutting">
 	DELETE FROM sm_cut_sensor_data
-	where cs_data09 = #{csData09}
+	where csIdx = #{csIdx}
 	</delete>
 </mapper>
