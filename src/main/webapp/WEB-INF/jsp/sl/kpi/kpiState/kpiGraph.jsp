@@ -190,7 +190,7 @@
 			var sumData = ${list.totalQty};
 			var workTime = ${list.totalTime};
 			
-			var hourProd = Math.round((sumData/workTime) * 60);
+			var hourProd = Math.round((sumData/workTime) * 3600);
 			
 			console.log(hourProd);
 			viewData[${list.months-1}] = hourProd;
