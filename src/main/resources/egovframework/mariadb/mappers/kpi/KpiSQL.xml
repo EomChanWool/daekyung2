@@ -199,47 +199,44 @@
 			total_time, SUM(cs_qty) AS total_qty FROM sm_cut_sensor_data WHERE 1=1 AND 
 			YEAR(cs_reg_date) =#{searchCondition} AND cs_state = 0 GROUP BY month(cs_reg_date), 
 			YEAR(cs_reg_date) ORDER BY months -->
-		WITH MonthlyData AS (
-		SELECT
-		cs_prod_name,
-		YEAR(cs_reg_date) AS years,
-		MONTH(cs_reg_date) AS months,
-		(SELECT TOP 1 cs_work_time FROM sm_cut_sensor_data s2 WHERE s1.cs_prod_name =
-		s2.cs_prod_name AND MONTH(s2.CS_REG_DATE) = MONTH(s1.CS_REG_DATE) AND
-		YEAR(s2.CS_REG_DATE) = #{searchCondition} AND s2.cs_state = 0 ORDER BY CS_REG_DATE)
-		AS total_work_time,
-		(SELECT TOP 1 cs_qty FROM sm_cut_sensor_data s3 WHERE s1.cs_prod_name =
-		s3.cs_prod_name AND MONTH(s3.CS_REG_DATE) = MONTH(s1.CS_REG_DATE) AND
-		YEAR(s3.CS_REG_DATE) = #{searchCondition} AND s3.cs_state = 0 ORDER BY CS_REG_DATE)
-		AS total_qty
-		FROM
-		sm_cut_sensor_data s1
-		WHERE
-		YEAR(s1.CS_REG_DATE) = #{searchCondition}
-		AND s1.cs_state = 0
-		GROUP BY
-		cs_prod_name,
-		YEAR(cs_reg_date),
-		MONTH(cs_reg_date)
+		WITH dataa AS (
 
-		)
-		SELECT
-		years,
-		months,
-		SUM(total_work_time) AS total_time,
-		SUM(total_qty) AS total_qty
-		FROM
-		MonthlyData
-		GROUP BY
-		years, months
-		ORDER BY
-		years, months
+SELECT 
+YEAR(CP_REG_DATE) AS years,
+MONTH(cp_reg_date) AS months,
+DAY(CP_REG_DATE) AS days,
+sum(cp_qty) AS cp_qty
+FROM sm_cut_proc
+WHERE YEAR(CP_REG_DATE) = 2023
+GROUP BY YEAR(CP_REG_DATE), MONTH(CP_REG_DATE),DAY(CP_REG_DATE)
 
+)
+SELECT years,
+months,
+COUNT(days) AS days,
+SUM(cp_qty) AS total_qty
+FROM dataa
+GROUP BY years, months
+
+	</select>
+	
+	<select id="selectProdCnt2" resultType="egovMap">
+	SELECT YEAR(cs_reg_date) AS years,
+ month(cs_reg_date) AS months, 
+ SUM(cs_work_time)AS total_time  
+ FROM sm_cut_sensor_data 
+ WHERE 1=1 
+ AND YEAR(cs_reg_date) =#{searchCondition}
+ AND cs_state = 0
+ GROUP BY month(cs_reg_date), YEAR(cs_reg_date) 
+ ORDER BY months
+	
 	</select>
 
 	<select id="inspecPer" resultType="egovMap">
 		SELECT YEAR(pt_ins_date)
-		AS years, MONTH(pt_ins_date) AS months,
+		AS
+		years, MONTH(pt_ins_date) AS months,
 		ISNULL(SUM(pt_qty), 0)AS
 		total_cnt,
 		ISNULL(SUM(pt_bad_qty), 0)AS

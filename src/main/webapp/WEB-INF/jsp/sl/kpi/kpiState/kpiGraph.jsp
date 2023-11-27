@@ -187,15 +187,18 @@
 			kpiOutputData[${list.kiMonth-1}] = ${list.kiQty};
 			</c:forEach>
 			<c:forEach items="${totalProdCnt}" var="list">
-			var sumData = ${list.totalQty};
-			var workTime = ${list.totalTime};
 			
-			var hourProd = Math.round((sumData/workTime) * 3600);
+			
+			 var sumData = ${list.totalQty};
+			var workTime = ${list.days};
+			
+			var hourProd = Math.round((sumData/workTime) / 9); 
 			
 			console.log(hourProd);
 			viewData[${list.months-1}] = hourProd;
-			totalProd[${list.months-1}] = sumData;
+			totalProd[${list.months-1}] = sumData; 
 			</c:forEach>
+			
 			
 		}else if($('#searchCondition2').val() == "2"){
 			

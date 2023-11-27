@@ -94,4 +94,9 @@ public class KpiServieImpl implements KpiService {
 		return kpiMapper.inspecPer(searchVO);
 	}
 
+	@Override
+	public List<?> selectProdCnt2(SearchVO searchVO) {
+		return kpiMapper.selectProdCnt2(searchVO);
+	}
+
 }
