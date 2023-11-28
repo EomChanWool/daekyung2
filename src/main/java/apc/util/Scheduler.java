@@ -230,14 +230,17 @@ public class Scheduler {
 			BufferedReader br = new BufferedReader(new FileReader(note2));
 			String line = "";
 			
-			
 			while ((line= br.readLine()) !=null) {
 				
 				String[] line2 = line.split(",");
 				linee.put("orId", line2[0].trim());
 				linee.put("orCompany", line2[1].trim());
 				linee.put("orProd", line2[11].trim());
-				linee.put("orDate", edDate);
+				String year = line2[0].trim().substring(0, 4);
+				String month = line2[0].trim().substring(4, 6);
+				String day = line2[0].trim().substring(6, 8);
+				String formattedDate = String.format("%s-%s-%s", year, month, day);
+				linee.put("orDate", formattedDate);
 				linee.put("orDueDate", line2[7].trim());
 				linee.put("orFinDate", line2[17].trim());
 				linee.put("orOrType", line2[5].trim());
@@ -246,6 +249,7 @@ public class Scheduler {
 				linee.put("orThickness", line2[13].trim());
 				linee.put("orState", line2[14].trim());
 				linee.put("orStandard", line2[15].trim());
+				linee.put("orLotno", line2[16].trim());
 				linee.put("orManager", line2[19].trim());
 				linee.put("orPrNo", line2[4].trim());
 				linee.put("orUnit", line2[9].trim());
@@ -264,8 +268,8 @@ public class Scheduler {
 				if(line2[17].equals("00000000")) {
 					linee.remove("orFinDate");
 				}
-				System.out.println(linee);
 				excelReaderService.registOrder(linee);
+				
 			}
 			br.close();
 			EgovFileUtil.delete(note2);
