@@ -223,7 +223,7 @@ public class QualityInfoController {
 	public String modifySpcInfoOk(@RequestParam Map<String,Object>map,RedirectAttributes redirectAttributes) {
 		
 		System.out.println(map);
-//		qualityInfoService.modifySpcinfo(map);
+		qualityInfoService.modifySpcinfo(map);
 		redirectAttributes.addFlashAttribute("msg","수정 되었습니다.");
 		return "redirect:/sl/basicInfo/qualityInfo/qualityInfoList.do";
 	}

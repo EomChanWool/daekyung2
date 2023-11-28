@@ -65,6 +65,13 @@ function addZeros(num, digit) { // 자릿수 맞춰주기
 
 window.onload = function(){ 
 		 printClock();
+		
+	        var pagePopValue = '${pagePop}' || 0; 
+			
+	        console.log(pagePopValue)
+	        if (pagePopValue == 1) {
+	            document.querySelector('.gnb').style.marginRight = '850px';
+	        }
 } 	
 function cancel(divId) {
 $('#'+divId).hide();

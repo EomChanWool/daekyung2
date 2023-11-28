@@ -65,7 +65,7 @@
 									<input type="hidden" name="mflManager" id="mflManage">
 									<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
 									<input type="text" class="form-control bg-light border-0 small" name="searchKeyword" id="searchKeyword"
-						    									value="${searchVO.searchKeyword}" placeholder="수주번호를 입력해 주세요" oninput="fn_search_mf()"
+						    									value="${searchVO.searchKeyword}" placeholder="수주번호를 입력해 주세요" oninput="fn_search_mf()" autofocus
 						    									style="background-color:#eaecf4; width: 25%; float: left; margin: 0 0.3rem 0 0;">
 									
 						    	</form>

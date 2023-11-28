@@ -363,8 +363,7 @@
 		    ssi_stub_f = #{ssiStubF}, ssi_stub_f_max = #{ssiStubFMax}, ssi_stub_f_min = #{ssiStubFMin},
 		    ssi_stub_g = #{ssiStubG}, ssi_stub_g_max = #{ssiStubGMax}, ssi_stub_g_min = #{ssiStubGMin},
 		    ssi_stub_gt = #{ssiStubGt}, ssi_stub_gt_max = #{ssiStubGtMax}, ssi_stub_gt_min = #{ssiStubGtMin},
-		    ssi_stub_r = #{ssiStubR}, ssi_stub_r_max = #{ssiStubRMax}, ssi_stub_r_min = #{ssiStubRMin},
-		    ssi_type = #{ithType}
+		    ssi_stub_r = #{ssiStubR}, ssi_stub_r_max = #{ssiStubRMax}, ssi_stub_r_min = #{ssiStubRMin}
 		WHERE
 			 ssi_id = #{ssiId};
 	</update>
