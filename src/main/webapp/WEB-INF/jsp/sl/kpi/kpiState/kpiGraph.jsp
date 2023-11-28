@@ -188,8 +188,7 @@
 			</c:forEach>
 			<c:forEach items="${totalProdCnt}" var="list">
 			
-			s
-			 var sumData = ${list.totalQty};
+			var sumData = ${list.totalQty};
 			var workTime = ${list.days};
 			
 			var hourProd = Math.round((sumData/workTime) / 9); 
