@@ -230,7 +230,6 @@ public class Scheduler {
 			BufferedReader br = new BufferedReader(new FileReader(note2));
 			String line = "";
 			
-			
 			while ((line= br.readLine()) !=null) {
 				
 				String[] line2 = line.split(",");
@@ -269,8 +268,8 @@ public class Scheduler {
 				if(line2[17].equals("00000000")) {
 					linee.remove("orFinDate");
 				}
-				System.out.println(linee);
 				excelReaderService.registOrder(linee);
+				
 			}
 			br.close();
 			EgovFileUtil.delete(note2);

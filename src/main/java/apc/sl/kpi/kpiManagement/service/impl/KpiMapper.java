@@ -33,6 +33,8 @@ public interface KpiMapper {
 	
 	List<?> selectProdCnt(SearchVO searchVO);
 	
+	List<?> selectProdCnt2(SearchVO searchVO);
+	
 	List<Map<String, Object>> selectWorktime(SearchVO searchVO);
 	
 	List<Map<String, Object>> selectWorkCnt(SearchVO searchVO);
