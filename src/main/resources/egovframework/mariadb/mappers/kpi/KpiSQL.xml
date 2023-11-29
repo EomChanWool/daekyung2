@@ -41,13 +41,13 @@
 
 	<select id="selectKpiGraphList" resultType="egovMap">
 		SELECT
-		ki_id,
-		ki_year,
-		ki_month,
-		ki_qty,
-		ki_bad_qty,
-		ki_manhour,
-		ki_leadtime
+			ki_id,
+			ki_year,
+			ki_month,
+			ki_qty,
+			ki_bad_qty,
+			ki_manhour,
+			ki_leadtime
 		FROM sm_kpi_info
 		WHERE 1=1
 		<if test="searchCondition != ''">
@@ -199,25 +199,59 @@
 			total_time, SUM(cs_qty) AS total_qty FROM sm_cut_sensor_data WHERE 1=1 AND 
 			YEAR(cs_reg_date) =#{searchCondition} AND cs_state = 0 GROUP BY month(cs_reg_date), 
 			YEAR(cs_reg_date) ORDER BY months -->
+		
+		
+		<!--  WITH dataa AS (
+			SELECT 
+				YEAR(CP_REG_DATE) AS years,
+				MONTH(CP_REG_DATE) AS months,
+				DAY(CP_REG_DATE) AS days,
+				sum(cp_qty) AS cp_qty
+			FROM 
+				sm_cut_proc
+				WHERE YEAR(CP_REG_DATE) = 2023
+			GROUP BY
+				YEAR(CP_REG_DATE),
+				MONTH(CP_REG_DATE),
+				DAY(CP_REG_DATE)
+		)
+		SELECT 
+			years,
+			months,
+			COUNT(days) AS days,
+			SUM(cp_qty) AS total_qty
+		FROM 
+			dataa
+		GROUP BY
+			years,
+			months -->
 		WITH dataa AS (
-
-SELECT 
-YEAR(CP_REG_DATE) AS years,
-MONTH(cp_reg_date) AS months,
-DAY(CP_REG_DATE) AS days,
-sum(cp_qty) AS cp_qty
-FROM sm_cut_proc
-WHERE YEAR(CP_REG_DATE) = 2023
-GROUP BY YEAR(CP_REG_DATE), MONTH(CP_REG_DATE),DAY(CP_REG_DATE)
-
-)
-SELECT years,
-months,
-COUNT(days) AS days,
-SUM(cp_qty) AS total_qty
-FROM dataa
-GROUP BY years, months
-
+			SELECT 
+				YEAR(rel_clgo) AS years,
+				MONTH(rel_clgo) AS months,
+				DAY(rel_clgo) AS days,
+				sum(rel_qty) AS rel_qty
+			FROM 
+				sm_release_info
+			WHERE
+				YEAR(rel_clgo) = 2023
+			AND 
+				rel_or_type NOT LIKE '%화물%'
+			GROUP BY
+				YEAR(rel_clgo),
+				MONTH(rel_clgo),
+				DAY(rel_clgo)
+		)
+		SELECT 
+			years,
+			months,
+			COUNT(days) AS days,
+			SUM(rel_qty) AS total_qty
+		FROM 
+			dataa
+		GROUP BY
+			years,
+			months
 	</select>
 	
 	<select id="selectProdCnt2" resultType="egovMap">

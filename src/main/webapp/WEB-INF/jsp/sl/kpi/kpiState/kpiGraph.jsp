@@ -174,31 +174,29 @@
 		
 		if($('#searchCondition2').val() == "1"){
 			<c:forEach items="${kpiGraphList}" var="list">
-			years2 = ${list.kiYear};
-			maxMon2 = ${list.kiMonth};
-		</c:forEach>
+				years2 = ${list.kiYear};
+				maxMon2 = ${list.kiMonth};
+			</c:forEach>
+			
 			for(var i=1;i<=maxMon2;i++){
-			date.push(years2+"년 "+i+"월");
-			kpiOutputData.push(0);
-			viewData.push(0);
-			totalProd.push(0);
+				date.push(years2+"년 "+i+"월");
+				kpiOutputData.push(0);
+				viewData.push(0);
+				totalProd.push(0);
 			}
+			
 			<c:forEach items="${kpiGraphList}" var="list">
-			kpiOutputData[${list.kiMonth-1}] = ${list.kiQty};
+				kpiOutputData[${list.kiMonth-1}] = ${list.kiQty};
 			</c:forEach>
+			
 			<c:forEach items="${totalProdCnt}" var="list">
-			
-			s
-			 var sumData = ${list.totalQty};
-			var workTime = ${list.days};
-			
-			var hourProd = Math.round((sumData/workTime) / 9); 
-			
-			console.log(hourProd);
-			viewData[${list.months-1}] = hourProd;
-			totalProd[${list.months-1}] = sumData; 
+				var sumData = ${list.totalQty};
+				var workTime = ${list.days};
+				var hourProd = Math.round((sumData/21) / 10.4); 
+				console.log(hourProd);
+				viewData[${list.months-1}] = hourProd;
+				totalProd[${list.months-1}] = sumData; 
 			</c:forEach>
-			
 			
 		}else if($('#searchCondition2').val() == "2"){
 			
