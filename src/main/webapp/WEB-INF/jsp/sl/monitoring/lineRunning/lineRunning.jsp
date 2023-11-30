@@ -58,9 +58,9 @@
 									<input type="hidden" name="inIdx">
 									<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
 						    		
-						    		 <input type="text" class="form-control bg-light border-0 small" name="searchKeyword"
+						    		<%--  <input type="text" class="form-control bg-light border-0 small" name="searchKeyword"
 						    									value="${searchVO.searchKeyword}" placeholder="설비명을 입력해 주세요"
-						    									style="background-color:#eaecf4; width: 25%; float: left;">
+						    									style="background-color:#eaecf4; width: 25%; float: left;"> --%>
 						    									<%-- <input class="btn btn-secondary searchDate" id="searchStDate" name="searchStDate" id="searchStDate" value="${searchVO.searchStDate}" type="date">
 						    									<span class="dash" style="display: inline-block; float: left; margin: 0.5rem 0.3rem 0 0">~</span> --%>
 									<input class="btn btn-secondary searchDate" id="searchEdDate" name="searchEdDate" value="${searchVO.searchEdDate}" type="date">
@@ -77,8 +77,8 @@
 	                            </a>
 							</div>
                         </div>
-                        <div id="graph" style="width: 100%; height:300px;"></div>
-                        <div class="card-body">
+                        <div id="graph" style="width: 100%; height: 500px;"></div>
+                        <%-- <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable"  >
                                     <thead>
@@ -86,6 +86,7 @@
                                             <th>날짜</th>
 											<th>설비</th>
 											<th>카운팅</th>
+											<th>작동시간(초)</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -94,6 +95,7 @@
 	                                   		<td>${result.daqEdDate}</td>
 	                                   		<td>${result.daqName}</td>
 	                                   		<td>${result.counting}</td>
+	                                   		<td>${result.workTime}</td>
 	                                   		</tr>
                                     	</c:forEach>
                                     	<c:if test="${empty lineRunningList}"><tr><td colspan='4'>결과가 없습니다.</td><del></del></c:if>
@@ -103,7 +105,7 @@
 									<ui:pagination paginationInfo="${paginationInfo}" type="image" jsFunction="fn_pageview"/>
 							    </div>
                             </div>
-                        </div>
+                        </div> --%>
                     </div>
                 </div>
                 <!-- /.container-fluid -->
@@ -198,11 +200,14 @@
 	let lineName = [];
 	
 	let lineCount = [];
+
+	let lineWorkTime = [];
 	
 	
 	<c:forEach items="${lineRunningList}" var="list">
 	lineName.push('${list.daqName}');
 	lineCount.push('${list.counting}');
+	lineWorkTime.push('${list.workTime}');
 	</c:forEach>
 	
 	
@@ -244,6 +249,15 @@
 			      axisLabel: {
 			        formatter: '{value} Count'
 			      }
+			    },
+			    {
+			    	type: 'value',
+			      	name: '작동시간',
+			      	position: 'right',
+			      	axisLabel: {
+			        	formatter: '{value} sec',
+			            
+						}
 			    }
 			  ],
 			  series: [
@@ -262,8 +276,24 @@
 			        }
 			      },
 			      data: lineCount
-			    }
-			    
+			    },
+			    {
+			    	name: '작동시간',
+				      yAxisIndex: 1,
+				      type: 'line',
+				      label: {
+				          show: true,
+				          position: 'inside',
+				          formatter: '{c} sec'
+				          
+				        },
+				      tooltip: {
+				        valueFormatter: function (value) {
+				          return value + ' sec';
+				        }
+				      },
+				      data: lineWorkTime
+				    }
 			  ]
 			};
 	option && myChart.setOption(option);

@@ -67,7 +67,7 @@
 						    		<select class="btn btn-secondary dropdown-toggle searchCondition" name="searchCondition2" id="searchCondition2">
 						    		<option value="" <c:if test="${searchVO.searchCondition2 eq ''}">selected="selected"</c:if>>전체</option>
 						    		<c:forEach var="list" items="${eqName}" varStatus="status">
-						    		<option value="${list.eqSensorid}" <c:if test="${searchVO.searchCondition2 eq list.eqSensorid}">selected="selected"</c:if>>${list.eqSensorid}</option>
+						    		<option value="${list.daqName}" <c:if test="${searchVO.searchCondition2 eq list.daqName}">selected="selected"</c:if>>${list.daqName}</option>
 						    		</c:forEach>
 						    		
 						    		</select>
@@ -192,10 +192,12 @@
 	
 	let lineCount = [];
 	
+	let workTime = [];
 	
 	<c:forEach items="${eqList}" var="list">
-	date.push('${list.months}월');
-	lineCount.push('${list.counting}');
+		date.push('${list.months}월');
+		lineCount.push('${list.counting}');
+		workTime.push('${list.workTime}');
 	</c:forEach>
 	
 	
@@ -219,7 +221,7 @@
 			    }
 			  },
 			  legend: {
-			    data: ['카운트']
+			    data: ['카운트','작동시간']
 			  },
 			  xAxis: [
 			    {
@@ -237,7 +239,15 @@
 			      axisLabel: {
 			        formatter: '{value} Count'
 			      }
-			    }
+			    },
+			    {
+		    		  type: 'value',
+			      	  name: '작동시간',
+			      	  position: 'right',
+			      	  axisLabel: {
+			            formatter: '{value} sec'
+					  }
+				    }
 			  ],
 			  series: [
 			    {
@@ -255,7 +265,24 @@
 			        }
 			      },
 			      data: lineCount
-			    }
+			    },
+			    {
+				      name: '작동시간',
+				      yAxisIndex: 1,
+				      type: 'bar',
+				      label: {
+				          show: true,
+				          position: 'inside',
+				          formatter: '{c} sec'
+				          
+				        },
+				      tooltip: {
+				        valueFormatter: function (value) {
+				          return value + ' sec';
+				        }
+				      },
+				      data: workTime
+				    }
 			  ]
 			};
 	option && myChart.setOption(option);

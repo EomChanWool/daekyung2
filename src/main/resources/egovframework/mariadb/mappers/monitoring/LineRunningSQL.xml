@@ -16,36 +16,63 @@
 	</select>
 
 	<select id="selectLineRunningList" resultType="egovMap">
-		SELECT COUNT(*) AS
-		counting , DAQ_NAME, convert(date,DAQ_ST_DATE) AS
-		daq_ed_date
+		SELECT 
+			max(daq_count) AS counting,
+			DAQ_NAME,
+			convert(date,DAQ_ED_DATE) AS daq_ed_date,
+			SUM(DAQ_WORK_TIME) AS work_time
 		FROM
-		sm_daq_data
-		WHERE 1=1
-
-		AND CONVERT(DATE, DAQ_ST_DATE) = #{searchEdDate}
+			sm_daq_data
+		WHERE 
+			1=1
+		AND 
+			CONVERT(DATE, DAQ_ed_DATE) = #{searchEdDate}
 		<if test="searchKeyword != ''">AND daq_name like concat('%', '${searchKeyword}', '%')</if>
-		GROUP BY daq_name, DAQ_ST_DATE
-		ORDER BY DAQ_NAME
-		OFFSET
-		(#{firstIndex}) ROWS
-		FETCH NEXT
-		#{recordCountPerPage} ROWS ONLY
+		GROUP BY
+			daq_name,
+			convert(date,DAQ_ED_DATE)
+		ORDER BY
+			DAQ_NAME
 	</select>
 
 	<select id="selectLineYear" resultType="egovMap">
-		SELECT COUNT(*) AS counting , MONTH(DAQ_ST_DATE) AS months
-		FROM sm_daq_data
-		WHERE 1=1
-		AND YEAR(DAQ_ST_DATE) = #{searchCondition}
+		SELECT
+			SUM(daq_count) AS counting,
+			MONTH(DAQ_ed_DATE) AS months,
+			SUM(DAQ_WORK_TIME) AS work_time
+		FROM
+			(
+			SELECT 
+				max(daq_count) AS daq_count,
+				DAQ_NAME,
+				convert(date,DAQ_ED_DATE) AS DAQ_ED_DATE,
+				SUM(DAQ_WORK_TIME) AS DAQ_WORK_TIME
+			FROM
+				sm_daq_data
+			GROUP BY
+				daq_name,
+				convert(date,DAQ_ED_DATE)
+			) AS Subquery
+		WHERE
+			1=1
+		AND
+			YEAR(DAQ_ed_DATE) = #{searchCondition}
 		<if test="searchCondition2 != ''">AND daq_name = #{searchCondition2}</if>
-		GROUP BY MONTH(DAQ_ST_DATE)
-		ORDER BY months
-		
+		GROUP BY
+			MONTH(DAQ_ed_DATE)
+		ORDER BY
+			months
 	</select>
 
 	<select id="selectDaqName" resultType="egovMap">
-		SELECT EQ_SENSORID FROM sm_equipment
+		SELECT
+			daq_name
+		FROM
+			sm_daq_data
+		GROUP BY
+			daq_name
+		ORDER BY
+			daq_name
 	</select>
 
 </mapper>
