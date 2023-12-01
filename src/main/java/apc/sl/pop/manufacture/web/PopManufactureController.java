@@ -3,14 +3,13 @@ package apc.sl.pop.manufacture.web;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,7 +43,6 @@ public class PopManufactureController {
 	
 	@RequestMapping("/sl/pop/popMf/popMfList.do")
 	public String popManufactureList(@ModelAttribute("searchVO") SearchVO searchVO, ModelMap model, HttpSession session) {
-		
 		if(searchVO.getSearchKeyword().length() > 16) {
 			String searSpilt = searchVO.getSearchKeyword().substring(0,16);
 			searchVO.setSearchKeyword(searSpilt);
@@ -54,12 +52,13 @@ public class PopManufactureController {
 			Map<String, Object> temp = (Map<String, Object>) model.get("sear");
 			searchVO.setSearchKeyword(temp.get("searchKeyword")+"");	
 		}
+		System.out.println("공정상태 : " + searchVO.getSearchCondition());
 		int totCnt = popManufactureService.selectMfListToCnt(searchVO);
 		/** pageing setting */
 		searchVO.setPageSize(10);
 		PaginationInfo paginationInfo = new PaginationInfo();
 		paginationInfo.setCurrentPageNo(searchVO.getPageIndex()); // 현재 페이지 번호
-		paginationInfo.setRecordCountPerPage(4); // 한 페이지에 게시되는 게시물 건수
+		paginationInfo.setRecordCountPerPage(7); // 한 페이지에 게시되는 게시물 건수
 		paginationInfo.setPageSize(searchVO.getPageSize()); // 페이징 리스트의 사이즈
 		paginationInfo.setTotalRecordCount(totCnt);
 		searchVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
@@ -110,6 +109,27 @@ public class PopManufactureController {
 		map.put("userId", session.getAttribute("user_id"));
 		
 		popManufactureService.registMfStopLog(map);
+		
+		return "redirect:/sl/pop/popMf/popMfList.do";
+	}
+
+	@RequestMapping(value="/sl/pop/popMf/stopLunchMf.do" , method=RequestMethod.POST)
+	public String lunchStopManufacture(@RequestParam Map<String, Object> map, RedirectAttributes redirectAttributes, HttpSession session) {
+		if(!map.get("searchKeyword").equals("")) {
+			redirectAttributes.addFlashAttribute("sear",map);
+		}
+		map.put("userId", session.getAttribute("user_id"));
+		List<Map<String, Object>> proceedingOrid = popManufactureService.selectMfProceeding();
+		for (int i = 0; i < proceedingOrid.size(); i++) {
+			Map<String, Object> result = new HashMap<String, Object>();
+			Map<String, Object> orList = new HashMap<String, Object>();
+			result = proceedingOrid.get(i);
+			System.out.println(result.get("orId"));
+			orList.put("orId", result.get("orId"));
+			popManufactureService.registMfStopLog(orList);
+		}
+		
+		
 		
 		return "redirect:/sl/pop/popMf/popMfList.do";
 	}

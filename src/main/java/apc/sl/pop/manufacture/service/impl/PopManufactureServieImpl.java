@@ -67,6 +67,11 @@ public class PopManufactureServieImpl implements PopManufactureService{
 	}
 
 	@Override
+	public List<Map<String, Object>> selectMfProceeding() {
+		return popManufactureMapper.selectMfProceeding();
+	}
+
+	@Override
 	public Map<String,Object> outData(String str) {
 		return popManufactureMapper.outData(str);
 	}

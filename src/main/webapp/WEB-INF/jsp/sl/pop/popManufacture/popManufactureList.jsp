@@ -63,6 +63,7 @@
 									<input type="hidden" name="orId">
 									<input type="hidden" name="mfsIdx">
 									<input type="hidden" name="mflManager" id="mflManage">
+									<input type="hidden" name="searchCondition" id="searchCondition" value="${searchVO.searchCondition}">
 									<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
 									<input type="text" class="form-control bg-light border-0 small" name="searchKeyword" id="searchKeyword"
 						    									value="${searchVO.searchKeyword}" placeholder="수주번호를 입력해 주세요" oninput="fn_search_mf()" autofocus
@@ -74,6 +75,19 @@
 	                            </a>
 						    	<a href="#" class="btn btn-success btn-icon-split" onclick="fn_searchAll_mf()">
 	                                <span class="text">전체목록</span>
+	                            </a>
+	                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						    	<a href="#" class="btn btn-success btn-icon-split" onclick="fn_lunchTime_mf()">
+	                                <span class="text">점심시간</span>
+	                            </a>
+	                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						    	<a href="#" class="btn btn-danger btn-icon-split" onclick="fn_proceeding_mf()">
+	                                <span class="text">가공중</span>
+	                            </a>
+						    	<a href="#" class="btn btn-primary btn-icon-split" onclick="fn_stopping_mf()">
+	                                <span class="text">정지중</span>
 	                            </a>
 	                            
 							</div>
@@ -184,7 +198,26 @@
 	}
 	
 	function fn_searchAll_mf(){
+		listForm.searchCondition.value = "";
 		listForm.searchKeyword.value = "";
+		listForm.pageIndex.value = 1;
+		listForm.submit();
+	}
+
+	function fn_lunchTime_mf(){
+		listForm.searchCondition.value = 0;
+		listForm.action = "${pageContext.request.contextPath}/sl/pop/popMf/stopLunchMf.do";
+		listForm.submit();
+	}
+
+	function fn_proceeding_mf(){
+		listForm.searchCondition.value = 1;
+		listForm.pageIndex.value = 1;
+		listForm.submit();
+	}
+
+	function fn_stopping_mf(){
+		listForm.searchCondition.value = 2;
 		listForm.pageIndex.value = 1;
 		listForm.submit();
 	}

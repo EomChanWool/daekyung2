@@ -109,7 +109,7 @@ public class Scheduler {
 
 	
 	//끝난 가공공정 txt파일로 생성
-//	@Scheduled(cron = "20 57 20 * * *")
+	@Scheduled(cron = "20 57 20 * * *")
 	public void outPro() {
 		
 		List<Map<String,Object>> outProList = excelReaderService.outProList();
@@ -140,7 +140,7 @@ public class Scheduler {
 		
 	}
 	//끝난 가공공정 txt파일로 생성된것을 ftp서버로 옮김
-//	@Scheduled(cron = "40 57 20 * * *")
+	@Scheduled(cron = "40 57 20 * * *")
 	public void outProFTP() {
 		
 	    ftp = new FTPClient();
@@ -214,7 +214,7 @@ public class Scheduler {
 	
 	
 	
-//	@Scheduled(cron = "40 18 21 * * *")
+	@Scheduled(cron = "40 18 21 * * *")
 	public void readSuju() throws Exception{
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
@@ -278,7 +278,7 @@ public class Scheduler {
 		}
 	}
 	
-//	@Scheduled(cron = "50 15 21 * * *")
+	@Scheduled(cron = "50 15 21 * * *")
 	public void readPro() throws Exception{
 		
 		
@@ -323,7 +323,7 @@ public class Scheduler {
 		} catch (Exception e) {
 		}
 	}
-//	@Scheduled(cron = "50 12 21 * * *")
+	@Scheduled(cron = "50 12 21 * * *")
 	public void readClgo() throws Exception{
 		
 		
@@ -403,7 +403,7 @@ public class Scheduler {
 		}
 	}
 	
-//	@Scheduled(cron = "30 05 21 * * *")
+	@Scheduled(cron = "30 05 21 * * *")
 	public void readSubl() throws Exception{
 		
 		
@@ -510,7 +510,7 @@ public class Scheduler {
 	}
 	
 	
-//	@Scheduled(cron = "20 18 21 * * *")
+	@Scheduled(cron = "20 18 21 * * *")
 	public void openSuju() {
 		  ftp = new FTPClient();
 		    //default controlEncoding 값이 "ISO-8859-1" 때문에 한글 파일의 경우 파일명이 깨짐
@@ -597,7 +597,7 @@ public class Scheduler {
 		
 	}
 	
-//	@Scheduled(cron = "20 15 21 * * *")
+	@Scheduled(cron = "20 15 21 * * *")
 	public void openPro() {
 		  ftp = new FTPClient();
 		    //default controlEncoding 값이 "ISO-8859-1" 때문에 한글 파일의 경우 파일명이 깨짐
@@ -686,7 +686,7 @@ public class Scheduler {
 	
 
 	
-//	@Scheduled(cron = "05 05 21 * * *")
+	@Scheduled(cron = "05 05 21 * * *")
 	public void openSubl() {
 		  ftp = new FTPClient();
 		    //default controlEncoding 값이 "ISO-8859-1" 때문에 한글 파일의 경우 파일명이 깨짐
@@ -772,7 +772,7 @@ public class Scheduler {
 		
 	}
 
-//	@Scheduled(cron = "20 12 21 * * *")
+	@Scheduled(cron = "20 12 21 * * *")
 	public void openClgo() {
 		ftp = new FTPClient();
 		//default controlEncoding 값이 "ISO-8859-1" 때문에 한글 파일의 경우 파일명이 깨짐
@@ -859,7 +859,7 @@ public class Scheduler {
 	}
 	
 	
-//	@Scheduled(cron = "20 * * * * *")
+	@Scheduled(cron = "20 * * * * *")
 //	public void open() {
 //		
 //	    ftp = new FTPClient();
@@ -927,7 +927,7 @@ public class Scheduler {
 //	    
 //	}
 	
-//	@Scheduled(cron = "20 50 22 * * *")
+	@Scheduled(cron = "20 50 22 * * *")
 	public void insdataUpdate() {
 		
 		 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");

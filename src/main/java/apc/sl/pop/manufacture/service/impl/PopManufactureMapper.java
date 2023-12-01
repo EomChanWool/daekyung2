@@ -16,6 +16,8 @@ public interface PopManufactureMapper {
 	List<?> selectMfList(SearchVO searchVO);
 	
 	List<?> selectMfManager();
+
+	List<Map<String, Object>> selectMfProceeding();
 	
 	int countFinish();
 	
