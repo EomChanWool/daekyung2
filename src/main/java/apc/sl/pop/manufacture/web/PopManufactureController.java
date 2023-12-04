@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,6 +45,12 @@ public class PopManufactureController {
 	@RequestMapping("/sl/pop/popMf/popMfList.do")
 	public String popManufactureList(@ModelAttribute("searchVO") SearchVO searchVO, ModelMap model, HttpSession session) {
 		
+		if(model.get("sear") != null) {
+			Map<String, Object> temp = (Map<String, Object>) model.get("sear");
+			searchVO.setSearchKeyword(temp.get("searchKeyword")+"");
+			searchVO.setSearchCondition(temp.get("searchCondition")+"");
+		}
+
 		searchVO.setSearchCondition2(searchVO.getSearchKeyword());
 		
 		if(searchVO.getSearchKeyword().length() > 17 && searchVO.getSearchKeyword().length() <22) {
@@ -57,10 +64,6 @@ public class PopManufactureController {
 			searchVO.setSearchKeyword("");
 		}
 		
-		if(model.get("sear") != null) {
-			Map<String, Object> temp = (Map<String, Object>) model.get("sear");
-			searchVO.setSearchKeyword(temp.get("searchKeyword")+"");	
-		}
 		int totCnt = popManufactureService.selectMfListToCnt(searchVO);
 		/** pageing setting */
 		searchVO.setPageSize(10);
@@ -99,7 +102,7 @@ public class PopManufactureController {
 	
 	@RequestMapping(value="/sl/pop/popMf/reMf.do" , method=RequestMethod.POST)
 	public String reManufacture(@RequestParam Map<String, Object> map, RedirectAttributes redirectAttributes, HttpSession session) {
-		if(!map.get("searchKeyword").equals("")) {
+		if(!map.get("searchKeyword").equals("") || !map.get("searchCondition").equals("")) {
 			redirectAttributes.addFlashAttribute("sear",map);
 		}
 		map.put("userId", session.getAttribute("user_id"));
@@ -111,7 +114,7 @@ public class PopManufactureController {
 	
 	@RequestMapping(value="/sl/pop/popMf/stopMf.do" , method=RequestMethod.POST)
 	public String stopManufacture(@RequestParam Map<String, Object> map, RedirectAttributes redirectAttributes, HttpSession session) {
-		if(!map.get("searchKeyword").equals("")) {
+		if(!map.get("searchKeyword").equals("") || !map.get("searchCondition").equals("")) {
 			redirectAttributes.addFlashAttribute("sear",map);
 		}
 		map.put("userId", session.getAttribute("user_id"));

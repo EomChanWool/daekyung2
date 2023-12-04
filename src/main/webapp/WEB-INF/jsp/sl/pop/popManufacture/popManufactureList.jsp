@@ -64,6 +64,7 @@
 									<input type="hidden" name="mfsIdx">
 									<input type="hidden" name="mflManager" id="mflManage">
 									<input type="hidden" name="searchCondition" id="searchCondition" value="${searchVO.searchCondition}">
+									<input type="hidden" name="searchCondition2" id="searchCondition2"value="${searchVO.searchCondition2}">
 									<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
 									<input type="text" class="form-control bg-light border-0 small" name="searchKeyword" id="searchKeyword"
 																<c:if test="${not empty searchVO.searchKeyword}">value="${searchVO.searchKeyword}"</c:if>
