@@ -66,23 +66,28 @@
 									<input type="hidden" name="searchCondition" id="searchCondition" value="${searchVO.searchCondition}">
 									<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
 									<input type="text" class="form-control bg-light border-0 small" name="searchKeyword" id="searchKeyword"
-						    									value="${searchVO.searchKeyword}" placeholder="수주번호를 입력해 주세요" oninput="fn_search_mf()" autofocus
+																<c:if test="${not empty searchVO.searchKeyword}">value="${searchVO.searchKeyword}"</c:if>
+																<c:if test="${not empty searchVO.searchCondition2}">value="${searchVO.searchCondition2}"</c:if>
+						    									 placeholder="수주번호를 입력해 주세요" oninput="fn_search_mf()" autofocus
 						    									style="background-color:#eaecf4; width: 25%; float: left; margin: 0 0.3rem 0 0;">
 									
 						    	</form>
-						    	<a href="#" class="btn btn-info btn-icon-split" onclick="fn_search_mf()" style="margin-left: 0.3rem;">
+						    	<a href="#" class="btn btn-info btn-icon-split" onclick="fn_search_mf2()" style="margin-left: 0.3rem;">
 	                                <span class="text">검색</span>
+	                            </a>
+	                            <a href="#" class="btn btn-info btn-icon-split" id="sr" onclick="fn_search_several()" style="margin-left: 0.3rem;">
+	                                <span class="text">다중검색</span>
 	                            </a>
 						    	<a href="#" class="btn btn-success btn-icon-split" onclick="fn_searchAll_mf()">
 	                                <span class="text">전체목록</span>
 	                            </a>
-	                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						    	<a href="#" class="btn btn-success btn-icon-split" onclick="fn_lunchTime_mf()">
 	                                <span class="text">점심시간</span>
 	                            </a>
-	                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						    	<a href="#" class="btn btn-danger btn-icon-split" onclick="fn_proceeding_mf()">
 	                                <span class="text">가공중</span>
 	                            </a>
@@ -189,12 +194,35 @@
 	   	listForm.submit();
 	}
 	
+	function fn_search_several(){
+		var color = document.getElementById("sr");
+		var color2 = color.style.backgroundColor;
+		if(color2 == ''){
+			
+			color.style.backgroundColor = 'red';
+			$('#searchKeyword').removeAttr("oninput");
+		}
+		
+		if(color2 == 'red'){
+			color.style.removeProperty('background-color');
+			$('#searchKeyword').attr("oninput","fn_search_mf()");
+		}
+		//color.style.backgroundColor = 'red';
+		//var inputVal = $('#searchKeyword').val();
+	}
+	
 	function fn_search_mf(){
 		var inputVal = $('#searchKeyword').val();
 		var length = inputVal.length;
 		if(length >= 16){
 		listForm.pageIndex.value = 1;	
 		listForm.submit();}
+	}
+	
+	function fn_search_mf2(){
+		
+		listForm.pageIndex.value = 1;
+		listForm.submit();
 	}
 	
 	function fn_searchAll_mf(){
@@ -205,9 +233,11 @@
 	}
 
 	function fn_lunchTime_mf(){
-		listForm.searchCondition.value = 0;
-		listForm.action = "${pageContext.request.contextPath}/sl/pop/popMf/stopLunchMf.do";
-		listForm.submit();
+		if (confirm("현재 가공중인 공정을 모두 일시정지 합니다.")) {
+			listForm.searchCondition.value = 0;
+			listForm.action = "${pageContext.request.contextPath}/sl/pop/popMf/stopLunchMf.do";
+			listForm.submit();
+		}
 	}
 
 	function fn_proceeding_mf(){

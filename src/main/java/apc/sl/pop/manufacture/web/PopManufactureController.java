@@ -43,16 +43,24 @@ public class PopManufactureController {
 	
 	@RequestMapping("/sl/pop/popMf/popMfList.do")
 	public String popManufactureList(@ModelAttribute("searchVO") SearchVO searchVO, ModelMap model, HttpSession session) {
-		if(searchVO.getSearchKeyword().length() > 16) {
+		
+		searchVO.setSearchCondition2(searchVO.getSearchKeyword());
+		
+		if(searchVO.getSearchKeyword().length() > 17 && searchVO.getSearchKeyword().length() <22) {
 			String searSpilt = searchVO.getSearchKeyword().substring(0,16);
 			searchVO.setSearchKeyword(searSpilt);
+		}
+		
+		if(searchVO.getSearchKeyword().length() > 23) {
+			String[] splitOrderNumbers = splitString(searchVO.getSearchKeyword(), 16);
+			searchVO.setSearchKeyword2(splitOrderNumbers);
+			searchVO.setSearchKeyword("");
 		}
 		
 		if(model.get("sear") != null) {
 			Map<String, Object> temp = (Map<String, Object>) model.get("sear");
 			searchVO.setSearchKeyword(temp.get("searchKeyword")+"");	
 		}
-		System.out.println("공정상태 : " + searchVO.getSearchCondition());
 		int totCnt = popManufactureService.selectMfListToCnt(searchVO);
 		/** pageing setting */
 		searchVO.setPageSize(10);
@@ -252,4 +260,23 @@ public class PopManufactureController {
 		}
 		
 	}
+	private static String[] splitString(String input, int length) {
+        int strLength = input.length();
+        int arrayLength = (int) Math.ceil((double) strLength / length);
+        String[] result = new String[arrayLength];
+
+        int start = 0;
+        int end = length;
+
+        for (int i = 0; i < arrayLength; i++) {
+            if (end > strLength) {
+                end = strLength;
+            }
+            result[i] = input.substring(start, end);
+            start += length;
+            end += length;
+        }
+
+        return result;
+    }
 }

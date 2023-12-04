@@ -20,6 +20,7 @@ public class SearchVO implements Serializable {
 	private String temp3 = "";
 
 	private String searchKeyword = "";
+	private String[] searchKeyword2;
     private String searchStDate="";
     private String searchEdDate="";
     private String searchStDate2="";
@@ -126,6 +127,13 @@ public class SearchVO implements Serializable {
 
 	public void setSearchKeyword(String searchKeyword) {
 		this.searchKeyword = searchKeyword;
+	}
+	public String[] getSearchKeyword2() {
+		return searchKeyword2;
+	}
+	
+	public void setSearchKeyword2(String[] searchKeyword2) {
+		this.searchKeyword2 = searchKeyword2;
 	}
 
 	public int getPageIndex() {

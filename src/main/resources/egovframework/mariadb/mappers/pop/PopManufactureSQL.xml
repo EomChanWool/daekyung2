@@ -4,17 +4,81 @@
 	namespace="apc.sl.pop.manufacture.service.impl.PopManufactureMapper">
 
 	<select id="selectMfListToCnt" resultType="int">
-		SELECT 
-			COUNT(*)
-		FROM
-			sm_mf_proc
-		WHERE
-			1=1
-		AND 
-			mp_pr_state IN (0,1)
-		<if test="searchKeyword != ''">
-		AND or_id LIKE CONCAT('%',#{searchKeyword},'%')
-		</if>
+		<choose>
+			<when test="searchCondition == 1 or searchCondition == 2">
+				SELECT 
+					COUNT(*) count
+				FROM 
+				(select
+					COUNT(*) AS COUNT2
+				FROM
+					sm_mf_proc a
+				LEFT JOIN
+					sm_mf_process_stop b
+				ON
+					a.OR_ID = b.OR_ID
+				WHERE
+					1=1
+			<choose>
+				<when test="searchCondition != ''">
+				AND
+					a.mp_pr_state = 1
+				<if test="searchCondition == 1">
+					AND 
+						ISNULL((
+							SELECT
+								TOP 1 mfs_state
+							FROM
+								sm_mf_process_stop
+							WHERE
+								OR_ID = a.OR_ID
+							ORDER BY
+								mfs_idx DESC
+					),0) IN (2,0)
+					</if>
+					<if test="searchCondition == 2">
+					AND 
+						ISNULL((
+							SELECT
+								TOP 1 mfs_state
+							FROM
+								sm_mf_process_stop
+							WHERE
+								OR_ID = a.OR_ID
+							ORDER BY
+								mfs_idx DESC
+						),0) IN (1)
+					</if>
+				</when>
+				<otherwise>
+				AND
+					a.mp_pr_state IN (0,1)
+				</otherwise>
+			</choose>
+				GROUP BY
+					a.or_id) AS dataa;
+			</when>
+			<otherwise>
+				SELECT 
+					COUNT(*)
+				FROM
+					sm_mf_proc
+				WHERE
+					1=1
+				AND 
+					mp_pr_state IN (0,1)
+				<if test="searchKeyword != ''">
+				AND or_id LIKE CONCAT('%',#{searchKeyword},'%')
+				</if>
+				<if test="searchKeyword2 != null">
+				    AND or_id IN
+				    <foreach collection="searchKeyword2" item="keyword" open="(" separator="," close=")">
+				        #{keyword}
+				    </foreach>
+				</if>
+			</otherwise>
+		</choose>
+		
 
 	</select>
 
@@ -84,9 +148,14 @@
 					a.mp_pr_state IN (0,1)
 				</otherwise>
 			</choose>
-		
 		<if test="searchKeyword != ''">
 			AND a.or_id LIKE CONCAT('%',#{searchKeyword},'%')
+		</if>
+		<if test="searchKeyword2 != null">
+		    AND a.or_id IN
+		    <foreach collection="searchKeyword2" item="keyword" open="(" separator="," close=")">
+		        #{keyword}
+		    </foreach>
 		</if>
 		GROUP BY
 			a.or_id
