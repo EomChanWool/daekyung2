@@ -152,6 +152,7 @@
 	var num = 0;
 	var years = 0;
 	var maxMon = 0;
+	var totalMpQtyValue = 0;
 
 	if ($('#searchCondition2').val() == "1") {
 
@@ -168,7 +169,7 @@
 
 	    <c:forEach items="${prodCntList}" var="list">
 	        totalRealTime[${list.months-1}] = ${list.totalRealTime};
-	        totalMpQty[${list.months-1}] = ${list.totalMpQty};
+        	totalMpQty[${list.months-1}] = ${list.totalMpQty};
 	    </c:forEach>
 	    
 	}else if ($('#searchCondition2').val() == "2") {

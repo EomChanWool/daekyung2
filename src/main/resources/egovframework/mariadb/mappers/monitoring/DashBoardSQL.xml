@@ -60,7 +60,7 @@
 		    YEAR(a.mfl_ed_date) AS years,
 		    MONTH(a.mfl_ed_date) AS months,
 		    SUM(a.mfl_work_time - ISNULL(b.total_rest_time, 0)) AS total_real_time,
-		    d.total_mp_qty
+		    ISNULL(d.total_mp_qty, 0) AS total_mp_qty
 		FROM
 		    sm_mf_proc_log a
 		LEFT JOIN (

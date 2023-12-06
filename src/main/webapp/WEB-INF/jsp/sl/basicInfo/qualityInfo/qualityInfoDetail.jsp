@@ -131,10 +131,10 @@
 									            <th>T1</th>
 									            <td><span class="form-control val-area">${detail.ssiT1Bevel}</span></td>
 									        </c:if>
-									        <c:if test="${not empty detail.ssiT1BevelMax}">
+									        <%-- <c:if test="${not empty detail.ssiT1BevelMax}">
 									            <th>T1 상한</th>
 									            <td><span class="form-control val-area">${detail.ssiT1BevelMax}</span></td>
-									        </c:if>
+									        </c:if> --%>
 									        <c:if test="${not empty detail.ssiT1BevelMin}">
 									            <th>T1 하한</th>
 									            <td><span class="form-control val-area">${detail.ssiT1BevelMin}</span></td>
@@ -145,10 +145,10 @@
 									            <th>T2</th>
 									            <td><span class="form-control val-area">${detail.ssiT2Bevel}</span></td>
 									        </c:if>
-									        <c:if test="${not empty detail.ssiT2BevelMax}">
+									        <%-- <c:if test="${not empty detail.ssiT2BevelMax}">
 									            <th>T2 상한</th>
 									            <td><span class="form-control val-area">${detail.ssiT2BevelMax}</span></td>
-									        </c:if>
+									        </c:if> --%>
 									        <c:if test="${not empty detail.ssiT2BevelMin}">
 									            <th>T2 하한</th>
 									            <td><span class="form-control val-area">${detail.ssiT2BevelMin}</span></td>
@@ -159,10 +159,10 @@
 									            <th>T1</th>
 									            <td><span class="form-control val-area">${detail.ssiT1Body}</span></td>
 									        </c:if>
-									        <c:if test="${not empty detail.ssiT1BodyMax}">
+									        <%-- <c:if test="${not empty detail.ssiT1BodyMax}">
 									            <th>T1 상한</th>
 									            <td><span class="form-control val-area">${detail.ssiT1BodyMax}</span></td>
-									        </c:if>
+									        </c:if> --%>
 									        <c:if test="${not empty detail.ssiT1BodyMin}">
 									            <th>T1 하한</th>
 									            <td><span class="form-control val-area">${detail.ssiT1BodyMin}</span></td>
@@ -173,10 +173,10 @@
 									            <th>T2</th>
 									            <td><span class="form-control val-area">${detail.ssiT2Body}</span></td>
 									        </c:if>
-									        <c:if test="${not empty detail.ssiT2BodyMax}">
+									        <%-- <c:if test="${not empty detail.ssiT2BodyMax}">
 									            <th>T2 상한</th>
 									            <td><span class="form-control val-area">${detail.ssiT2BodyMax}</span></td>
-									        </c:if>
+									        </c:if> --%>
 									        <c:if test="${not empty detail.ssiT2BodyMin}">
 									            <th>T2 하한</th>
 									            <td><span class="form-control val-area">${detail.ssiT2BodyMin}</span></td>

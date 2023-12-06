@@ -124,26 +124,26 @@ public class PopManufactureController {
 		return "redirect:/sl/pop/popMf/popMfList.do";
 	}
 
-	@RequestMapping(value="/sl/pop/popMf/stopLunchMf.do" , method=RequestMethod.POST)
-	public String lunchStopManufacture(@RequestParam Map<String, Object> map, RedirectAttributes redirectAttributes, HttpSession session) {
-		if(!map.get("searchKeyword").equals("")) {
-			redirectAttributes.addFlashAttribute("sear",map);
-		}
-		map.put("userId", session.getAttribute("user_id"));
-		List<Map<String, Object>> proceedingOrid = popManufactureService.selectMfProceeding();
-		for (int i = 0; i < proceedingOrid.size(); i++) {
-			Map<String, Object> result = new HashMap<String, Object>();
-			Map<String, Object> orList = new HashMap<String, Object>();
-			result = proceedingOrid.get(i);
-			System.out.println(result.get("orId"));
-			orList.put("orId", result.get("orId"));
-			popManufactureService.registMfStopLog(orList);
-		}
-		
-		
-		
-		return "redirect:/sl/pop/popMf/popMfList.do";
-	}
+//	@RequestMapping(value="/sl/pop/popMf/stopLunchMf.do" , method=RequestMethod.POST)
+//	public String lunchStopManufacture(@RequestParam Map<String, Object> map, RedirectAttributes redirectAttributes, HttpSession session) {
+//		if(!map.get("searchKeyword").equals("")) {
+//			redirectAttributes.addFlashAttribute("sear",map);
+//		}
+//		map.put("userId", session.getAttribute("user_id"));
+//		List<Map<String, Object>> proceedingOrid = popManufactureService.selectMfProceeding();
+//		for (int i = 0; i < proceedingOrid.size(); i++) {
+//			Map<String, Object> result = new HashMap<String, Object>();
+//			Map<String, Object> orList = new HashMap<String, Object>();
+//			result = proceedingOrid.get(i);
+//			System.out.println(result.get("orId"));
+//			orList.put("orId", result.get("orId"));
+//			popManufactureService.registMfStopLog(orList);
+//		}
+//		
+//		
+//		
+//		return "redirect:/sl/pop/popMf/popMfList.do";
+//	}
 	
 	@RequestMapping(value="/sl/pop/popMf/finishMf.do" , method=RequestMethod.POST)
 	public String finishManufacture(@RequestParam Map<String, Object> map, RedirectAttributes redirectAttributes, HttpSession session) {

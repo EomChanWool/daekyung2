@@ -28,6 +28,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import apc.sl.db.service.ExcelReaderService;
+import apc.sl.pop.manufacture.service.PopManufactureService;
 import egovframework.rte.fdl.filehandling.EgovFileUtil;
 
 @Component
@@ -38,7 +39,8 @@ public class Scheduler {
 	@Autowired
 	private ExcelReaderService excelReaderService;
 	
-	
+	@Autowired
+	private PopManufactureService popManufactureService;	
 	
 //	@Scheduled(cron = "10 55 8 * * *")
 //	public void delete1() throws Exception{
@@ -1047,5 +1049,22 @@ public class Scheduler {
 //	public static void setUserId(String userId) {
 //		user_id = userId;
 //	}
+	
+	@Scheduled(cron = "10 00 00 * * *")
+	@Scheduled(cron = "12 00 00 * * *")
+	@Scheduled(cron = "15 00 00 * * *")
+	@Scheduled(cron = "17 00 00 * * *")
+	public void lunchStopManufacture() {
+		List<Map<String, Object>> proceedingOrid = popManufactureService.selectMfProceeding();
+		System.out.println(proceedingOrid);
+		for (int i = 0; i < proceedingOrid.size(); i++) {
+			Map<String, Object> result = new HashMap<String, Object>();
+			Map<String, Object> orList = new HashMap<String, Object>();
+			result = proceedingOrid.get(i);
+			System.out.println(result.get("orId"));
+			orList.put("orId", result.get("orId"));
+			popManufactureService.registMfStopLog(orList);
+		}
+	}
 	
 }

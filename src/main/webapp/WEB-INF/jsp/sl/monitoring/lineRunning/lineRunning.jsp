@@ -166,7 +166,7 @@
 	}
 	
 	function fn_searchAll_lineRunning(){
-		listForm.searchKeyword.value = "";
+// 		listForm.searchKeyword.value = "";
 		listForm.searchEdDate.value = "";
 		listForm.pageIndex.value = 1;
 		listForm.submit();
