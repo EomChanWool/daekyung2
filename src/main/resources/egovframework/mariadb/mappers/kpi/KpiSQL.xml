@@ -234,7 +234,7 @@
 			FROM 
 				sm_release_info
 			WHERE
-				YEAR(rel_clgo) = 2023
+				YEAR(rel_clgo) = #{searchCondition}
 			AND 
 				rel_or_type NOT LIKE '%화물%'
 			GROUP BY
