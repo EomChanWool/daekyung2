@@ -576,13 +576,18 @@
 		
 	}
 	function fn_search_excel(isiId,isiItemType,isiSpcSpec,isiFile,cFile){
-		detailForm.isiId.value = isiId;
-		detailForm.isiItemType.value = isiItemType;
-		detailForm.isiSpcSpec.value = isiSpcSpec;
-		detailForm.isiFile.value = isiFile;
-		detailForm.cFile.value = cFile;
-		detailForm.submit();
-	}
+		console.log(isiFile);
+		if (isiFile != '') {
+			detailForm.isiId.value = isiId;
+			detailForm.isiItemType.value = isiItemType;
+			detailForm.isiSpcSpec.value = isiSpcSpec;
+			detailForm.isiFile.value = isiFile;
+			detailForm.cFile.value = cFile;
+			detailForm.submit();
+		} else {
+			alert("데이터가 존재하지 않습니다.");
+		}
+}
 	
 	
 	

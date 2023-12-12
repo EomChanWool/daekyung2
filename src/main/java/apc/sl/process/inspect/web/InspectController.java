@@ -166,7 +166,7 @@ public class InspectController {
 	@RequestMapping("/sl/process/inspect/detailInspect.do")
 	public String detailInspect(@RequestParam Map<String, Object> map,ModelMap model) {
 		String type = map.get("isiItemType")+"";
-		System.out.println(type);
+		System.out.println("type : "+type);
 		if(type.equals("90E(L)") || type.equals("90E(S)") || type.equals("45E(L)")) {
 			Map<String, Object> detail = inspectService.detailInspec(map);
 			model.put("detail", detail);
@@ -175,7 +175,7 @@ public class InspectController {
 			model.put("spcInfo",spcInfo);
 			String Edata = map.get("isiFile")+"";
 			Map<String, Object> eDataInfo = inspectService.eDataInfo(Edata);
-			System.out.println(eDataInfo);
+			System.out.println("eDataInfo : " + eDataInfo);
 			
 			if (eDataInfo.get("iehP1") != null) {
 				float arr[] = { Float.parseFloat(eDataInfo.get("iehP1")+""),

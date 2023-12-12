@@ -82,11 +82,9 @@
 						    	<a href="#" class="btn btn-success btn-icon-split" onclick="fn_searchAll_mf()">
 	                                <span class="text">전체목록</span>
 	                            </a>
-	                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						    	<a href="#" class="btn btn-success btn-icon-split" onclick="fn_lunchTime_mf()">
+						    	<!-- <a href="#" class="btn btn-success btn-icon-split" onclick="fn_lunchTime_mf()">
 	                                <span class="text">점심시간</span>
-	                            </a>
+	                            </a> -->
 	                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						    	<a href="#" class="btn btn-danger btn-icon-split" onclick="fn_proceeding_mf()">
@@ -190,12 +188,19 @@
     <script src="/resources/js/sb-admin-2.min.js"></script>
 
 	<script>
+	document.listForm.addEventListener("keydown", evt => {
+	    if ((evt.keyCode || evt.which) === 13) {
+	        evt.preventDefault();
+	    }
+	});
+	
 	function fn_pageview(pageNo) {
 		listForm.pageIndex.value = pageNo;
 	   	listForm.submit();
 	}
 	
 	function fn_search_several(){
+		
 		var color = document.getElementById("sr");
 		var color2 = color.style.backgroundColor;
 		if(color2 == ''){
@@ -208,6 +213,7 @@
 			color.style.removeProperty('background-color');
 			$('#searchKeyword').attr("oninput","fn_search_mf()");
 		}
+		document.getElementById('searchKeyword').focus();
 		//color.style.backgroundColor = 'red';
 		//var inputVal = $('#searchKeyword').val();
 	}

@@ -18,6 +18,8 @@ public interface PopManufactureMapper {
 	List<?> selectMfManager();
 
 	List<Map<String, Object>> selectMfProceeding();
+
+	List<Map<String, Object>> selectRestOrId(Map<String, Object> map);
 	
 	int countFinish();
 	

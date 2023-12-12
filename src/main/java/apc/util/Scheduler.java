@@ -1,7 +1,5 @@
 package apc.util;
 
-
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -14,6 +12,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -33,23 +33,23 @@ import egovframework.rte.fdl.filehandling.EgovFileUtil;
 
 @Component
 public class Scheduler {
-	//static String user_id = "";
+	// static String user_id = "";
 	FTPClient ftp = null;
-	
+
 	@Autowired
 	private ExcelReaderService excelReaderService;
-	
+
 	@Autowired
-	private PopManufactureService popManufactureService;	
-	
+	private PopManufactureService popManufactureService;
+
 //	@Scheduled(cron = "10 55 8 * * *")
 //	public void delete1() throws Exception{
 //		//excelReaderService.deletedb();
 //		//excelReaderService.deleteMm();
 //	}
-	
-	//ini 파일 읽어들이기 예제
-	//@Scheduled(cron = "10 55 8 * * *")
+
+	// ini 파일 읽어들이기 예제
+	// @Scheduled(cron = "10 55 8 * * *")
 //	public void sampleIni() throws Exception{
 //		String fileName = "C:\\test\\sample.ini";
 //		File fileToParse = new File(fileName);
@@ -77,7 +77,7 @@ public class Scheduler {
 //		System.out.println("ini맵 : " + rowMap);
 //		System.out.println("ini맵2 : " + rowMap2);
 //	}
-	
+
 //	@Scheduled(cron = "20 * * * * *")
 //	public void test() {
 //		String aa = "000101";
@@ -109,131 +109,126 @@ public class Scheduler {
 //	}
 //	
 
-	
-	//끝난 가공공정 txt파일로 생성
+	// 끝난 가공공정 txt파일로 생성
 	@Scheduled(cron = "20 57 20 * * *")
 	public void outPro() {
-		
-		List<Map<String,Object>> outProList = excelReaderService.outProList();
-		
+
+		List<Map<String, Object>> outProList = excelReaderService.outProList();
+
 		System.out.println(outProList);
-		
+
 		String fileName = "C:\\test\\Test2.txt";
-		
+
 		try {
-			BufferedWriter fw = new BufferedWriter(new FileWriter(fileName,true));
-			
-			for(int i=0; i<outProList.size(); i++) {
-				
-				String outdata = outProList.get(i).get("orId")+"," + outProList.get(i).get("mflManager")+","+outProList.get(i).get("mflEdDate")+","+
-						outProList.get(i).get("mpMfno")+","+outProList.get(i).get("poLotno")+","+outProList.get(i).get("mpQty")+"";
+			BufferedWriter fw = new BufferedWriter(new FileWriter(fileName, true));
+
+			for (int i = 0; i < outProList.size(); i++) {
+
+				String outdata = outProList.get(i).get("orId") + "," + outProList.get(i).get("mflManager") + ","
+						+ outProList.get(i).get("mflEdDate") + "," + outProList.get(i).get("mpMfno") + ","
+						+ outProList.get(i).get("poLotno") + "," + outProList.get(i).get("mpQty") + "";
 				fw.write(outdata + "\n");
-				
+
 			}
 			fw.flush();
 			fw.close();
 //			fw.write(outProList.toString()+",");
 //			fw.flush();
 //			fw.close();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	//끝난 가공공정 txt파일로 생성된것을 ftp서버로 옮김
+
+	// 끝난 가공공정 txt파일로 생성된것을 ftp서버로 옮김
 	@Scheduled(cron = "40 57 20 * * *")
 	public void outProFTP() {
-		
-	    ftp = new FTPClient();
-	    //default controlEncoding 값이 "ISO-8859-1" 때문에 한글 파일의 경우 파일명이 깨짐
-	    //ftp server 에 저장될 파일명을 uuid 등의 방식으로 한글을 사용하지 않고 저장할 경우 UTF-8 설정이 따로 필요하지 않다.
-	    ftp.setControlEncoding("UTF-8");
-	    //PrintCommandListener 를 추가하여 표준 출력에 대한 명령줄 도구를 사용하여 FTP 서버에 연결할 때 일반적으로 표시되는 응답을 출력
-	    ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out), true));
 
-	    try {
-	        //ftp 서버 연결
-	        ftp.connect("dkbend.iptime.org", 30431);
+		ftp = new FTPClient();
+		// default controlEncoding 값이 "ISO-8859-1" 때문에 한글 파일의 경우 파일명이 깨짐
+		// ftp server 에 저장될 파일명을 uuid 등의 방식으로 한글을 사용하지 않고 저장할 경우 UTF-8 설정이 따로 필요하지 않다.
+		ftp.setControlEncoding("UTF-8");
+		// PrintCommandListener 를 추가하여 표준 출력에 대한 명령줄 도구를 사용하여 FTP 서버에 연결할 때 일반적으로 표시되는
+		// 응답을 출력
+		ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out), true));
 
-	        //ftp 서버에 정상적으로 연결되었는지 확인
-	        int reply = ftp.getReplyCode();
-	        if (!FTPReply.isPositiveCompletion(reply)) {
-	            ftp.disconnect();
-	            System.out.println("에러");
-	        }
+		try {
+			// ftp 서버 연결
+			ftp.connect("dkbend.iptime.org", 30431);
 
-	        //socketTimeout 값 설정
-	        ftp.setSoTimeout(1000);
-	        //ftp 서버 로그인
-	        ftp.login("signlab", "dk304316@");
-	        //file type 설정 (default FTP.ASCII_FILE_TYPE)
-	        ftp.setFileType(FTP.BINARY_FILE_TYPE);
-	        //ftp Active모드 설정
-	        ftp.enterLocalPassiveMode(); 
-	            
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	        System.out.println("에러");
-	    }
-	    SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-	    Date now = new Date();
-		String edDate = format.format(now);
-	    
-	    String append_fileName = "C:\\test\\Test2.txt";
-	    
-	    File append_file = new File(append_fileName);
-	    
-	    String fileName = "/down-data/pro"+"-"+edDate+".txt";
-	   
-	    System.out.println("");
-		 try {
-		FileInputStream inputStream = new FileInputStream(append_file);
-		
-		boolean result = ftp.appendFile(fileName, inputStream);
-		
-		inputStream.close();
-		}
-		 catch (Exception e) {
+			// ftp 서버에 정상적으로 연결되었는지 확인
+			int reply = ftp.getReplyCode();
+			if (!FTPReply.isPositiveCompletion(reply)) {
+				ftp.disconnect();
+				System.out.println("에러");
+			}
+
+			// socketTimeout 값 설정
+			ftp.setSoTimeout(1000);
+			// ftp 서버 로그인
+			ftp.login("signlab", "dk304316@");
+			// file type 설정 (default FTP.ASCII_FILE_TYPE)
+			ftp.setFileType(FTP.BINARY_FILE_TYPE);
+			// ftp Active모드 설정
+			ftp.enterLocalPassiveMode();
+
+		} catch (IOException e) {
 			e.printStackTrace();
+			System.out.println("에러");
 		}
-		 finally {
-			 try {
-				 EgovFileUtil.delete(append_file);
-			        ftp.logout();
-			        ftp.disconnect();
-			        
-			    } catch (IOException e) {
-			        e.printStackTrace();
-			        System.out.println("에러");
-			    }
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+		Date now = new Date();
+		String edDate = format.format(now);
+
+		String append_fileName = "C:\\test\\Test2.txt";
+
+		File append_file = new File(append_fileName);
+
+		String fileName = "/down-data/pro" + "-" + edDate + ".txt";
+
+		System.out.println("");
+		try {
+			FileInputStream inputStream = new FileInputStream(append_file);
+
+			boolean result = ftp.appendFile(fileName, inputStream);
+
+			inputStream.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				EgovFileUtil.delete(append_file);
+				ftp.logout();
+				ftp.disconnect();
+
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.out.println("에러");
+			}
 		}
-		
-		
-	    
+
 	}
 
-	
-	
-	
 	@Scheduled(cron = "40 18 21 * * *")
-	public void readSuju() throws Exception{
-		
+	public void readSuju() throws Exception {
+
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-	    Date now = new Date();
-	    
-	    now =  new Date(now.getTime()+(1000*60*60*24*-1));
-	    
+		Date now = new Date();
+
+		now = new Date(now.getTime() + (1000 * 60 * 60 * 24 * -1));
+
 		String edDate = format.format(now);
-		
-		File note2 = new File("C:\\test4\\suju-"+edDate+".txt");
-		Map<String,String> linee = new HashMap<String, String>();
+
+		File note2 = new File("D:\\test4\\suju-" + edDate + ".txt");
+		Map<String, String> linee = new HashMap<String, String>();
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(note2));
 			String line = "";
-			
-			while ((line= br.readLine()) !=null) {
-				
+
+			while ((line = br.readLine()) != null) {
+
 				String[] line2 = line.split(",");
 				linee.put("orId", line2[0].trim());
 				linee.put("orCompany", line2[1].trim());
@@ -257,55 +252,52 @@ public class Scheduler {
 				linee.put("orUnit", line2[9].trim());
 				linee.put("orMoney", line2[10].trim());
 				linee.put("orQty", line2[8].trim());
-				
+
 				int jungbok = excelReaderService.checkjungbok(linee);
-				
-				if(jungbok == 1) {
+
+				if (jungbok == 1) {
 					linee.clear();
 				}
-				
-				if(line2[7].equals("00000000")) {
+
+				if (line2[7].equals("00000000")) {
 					linee.remove("orDueDate");
 				}
-				if(line2[17].equals("00000000")) {
+				if (line2[17].equals("00000000")) {
 					linee.remove("orFinDate");
 				}
 				excelReaderService.registOrder(linee);
-				
+
 			}
 			br.close();
 			EgovFileUtil.delete(note2);
-		
+
 		} catch (Exception e) {
 		}
 	}
-	
+
 	@Scheduled(cron = "50 15 21 * * *")
-	public void readPro() throws Exception{
-		
-		
-		
+	public void readPro() throws Exception {
+
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-	    Date now = new Date();
-	    
-	    now =  new Date(now.getTime()+(1000*60*60*24*-1));
-	    
+		Date now = new Date();
+
+		now = new Date(now.getTime() + (1000 * 60 * 60 * 24 * -1));
+
 		String edDate = format.format(now);
-		
+
 		System.out.println("들어옴 : " + now);
-		
-		File note = new File("C:\\test4\\pro-"+edDate+".txt");
-		
-		Map<String,String> linee = new HashMap<String, String>();
+
+		File note = new File("D:\\test4\\pro-" + edDate + ".txt");
+
+		Map<String, String> linee = new HashMap<String, String>();
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(note));
 			String line = "";
-			
-			while ((line= br.readLine()) !=null) {
-				
+
+			while ((line = br.readLine()) != null) {
+
 				String[] line2 = line.split(",");
-				
-				
+
 				linee.put("mpMfno", line2[3].trim());
 				linee.put("orId", line2[4].trim());
 				linee.put("mpProdName", line2[5].trim());
@@ -325,109 +317,99 @@ public class Scheduler {
 		} catch (Exception e) {
 		}
 	}
+
 	@Scheduled(cron = "50 12 21 * * *")
-	public void readClgo() throws Exception{
-		
-		
-		
+	public void readClgo() throws Exception {
+
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 		Date now = new Date();
-		
-		now =  new Date(now.getTime()+(1000*60*60*24*-1));
-		
+
+		now = new Date(now.getTime() + (1000 * 60 * 60 * 24 * -1));
+
 		String edDate = format.format(now);
-		
-		
-		File note = new File("C:\\test4\\clgo-"+edDate+".txt");
-		
-		Map<String,String> linee = new HashMap<String, String>();
+
+		File note = new File("D:\\test4\\clgo-" + edDate + ".txt");
+
+		Map<String, String> linee = new HashMap<String, String>();
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(note));
 			String line = "";
-			
-			while ((line= br.readLine()) !=null) {
+
+			while ((line = br.readLine()) != null) {
 				String[] line2 = line.split(",");
 				Map<String, Object> clgoChk = new HashMap<>();
-					
-				if (line2.length <= 21) {
-					
-				
-				
-				String relUnit = line2[8];
-				String relPrice = line2[9];
-				
-				if(line2[8].contains("}")) {
-					relUnit = relUnit.replaceAll("}", "");
-					
-				}
-				
-				if(line2[9].contains("}")) {
-					relPrice = relPrice.replaceAll("}", "");
-					
-				}
-				
-				linee.put("orId", line2[0].trim()); //수주번호
-				linee.put("relCompony", line2[1].trim()); //거래처
-				linee.put("relDel", line2[2].trim()); //납품처
-				linee.put("relEsno", line2[3].trim()); //주문번호
-				linee.put("relPrno", line2[4].trim()); //공정번호
-				linee.put("relOrType", line2[5].trim()); //수주구분
-				linee.put("relNabgi", line2[6].trim()); //납기일자
-				linee.put("relQty", line2[7].trim()); //수량
-				linee.put("relUnit", relUnit.trim()); //단가
-				linee.put("relPrice", relPrice.trim()); //금액
-				linee.put("relProd", line2[10].trim()); //품명
-				linee.put("relTexture", line2[11].trim()); //재질
-				linee.put("relThickness", line2[12].trim()); //두께
-				linee.put("relState", line2[13].trim()); //상태
-				linee.put("poLotno", line2[14].trim()); //로트번호
-				linee.put("relReport", line2[15].trim()); //성적서일자
-				linee.put("relCompletion", line2[16].trim()); //완료일자
-				linee.put("relPerson", line2[17].trim()); //담당자
-				linee.put("relNote1", line2[18].trim()); //비고
-				linee.put("relNote2", line2[19].trim()); //비고
-				
-				
 
-				clgoChk = excelReaderService.clgoList(linee);
-				if (clgoChk != null) {
-					linee.clear();
-				}
+				if (line2.length <= 21) {
+
+					String relUnit = line2[8];
+					String relPrice = line2[9];
+
+					if (line2[8].contains("}")) {
+						relUnit = relUnit.replaceAll("}", "");
+
+					}
+
+					if (line2[9].contains("}")) {
+						relPrice = relPrice.replaceAll("}", "");
+
+					}
+
+					linee.put("orId", line2[0].trim()); // 수주번호
+					linee.put("relCompony", line2[1].trim()); // 거래처
+					linee.put("relDel", line2[2].trim()); // 납품처
+					linee.put("relEsno", line2[3].trim()); // 주문번호
+					linee.put("relPrno", line2[4].trim()); // 공정번호
+					linee.put("relOrType", line2[5].trim()); // 수주구분
+					linee.put("relNabgi", line2[6].trim()); // 납기일자
+					linee.put("relQty", line2[7].trim()); // 수량
+					linee.put("relUnit", relUnit.trim()); // 단가
+					linee.put("relPrice", relPrice.trim()); // 금액
+					linee.put("relProd", line2[10].trim()); // 품명
+					linee.put("relTexture", line2[11].trim()); // 재질
+					linee.put("relThickness", line2[12].trim()); // 두께
+					linee.put("relState", line2[13].trim()); // 상태
+					linee.put("poLotno", line2[14].trim()); // 로트번호
+					linee.put("relReport", line2[15].trim()); // 성적서일자
+					linee.put("relCompletion", line2[16].trim()); // 완료일자
+					linee.put("relPerson", line2[17].trim()); // 담당자
+					linee.put("relNote1", line2[18].trim()); // 비고
+					linee.put("relNote2", line2[19].trim()); // 비고
+
+					clgoChk = excelReaderService.clgoList(linee);
+					if (clgoChk != null) {
+						linee.clear();
+					}
 					System.out.println(linee);
 					excelReaderService.registRelease(linee);
-			}
+				}
 			}
 			br.close();
-			
+
 			EgovFileUtil.delete(note);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Scheduled(cron = "30 05 21 * * *")
-	public void readSubl() throws Exception{
-		
-		
-		
+	public void readSubl() throws Exception {
+
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-	    Date now = new Date();
-	    
-	    now =  new Date(now.getTime()+(1000*60*60*24*-1));
-	    
+		Date now = new Date();
+
+		now = new Date(now.getTime() + (1000 * 60 * 60 * 24 * -1));
+
 		String edDate = format.format(now);
-		
-		
-		File note = new File("C:\\test4\\subl-"+edDate+".txt");
-		
-		Map<String,String> linee = new HashMap<String, String>();
+
+		File note = new File("D:\\test4\\subl-" + edDate + ".txt");
+
+		Map<String, String> linee = new HashMap<String, String>();
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(note));
 			String line = "";
-			while ((line= br.readLine()) !=null) {
+			while ((line = br.readLine()) != null) {
 				String[] line2 = line.split(",");
-				
-				
+
 				linee.put("piId", line2[0].trim());
 				linee.put("piItemType", line2[1].trim());
 				linee.put("piItemHeat", line2[2].trim());
@@ -446,55 +428,55 @@ public class Scheduler {
 				Map<String, Object> sublList = excelReaderService.sublList(linee);
 				Map<String, Object> mmMap = new HashMap<>();
 				mmMap.put("piId", linee.get("piId"));
-			
+
 				if (sublList != null) {
 					int nowQty = Integer.parseInt(String.valueOf(sublList.get("piRemainQty")));
 					float nowKg = Float.parseFloat(String.valueOf(sublList.get("piRemainKg")));
 					int addQty = Integer.parseInt(String.valueOf(linee.get("piRemainQty")));
 					float addKg = Float.parseFloat(String.valueOf(linee.get("piRemainKg")));
 					String result = comparisonSubl(nowQty, nowKg, addQty, addKg);
-					
+
 //					mmMap.put("mmIn", 0);
 //		            mmMap.put("mmInKg", 0);
 //		            mmMap.put("mmOut", 0);
 //		            mmMap.put("mmOutKg", 0);
-					
-					if ( result == "kUp") { //kg증가
+
+					if (result == "kUp") { // kg증가
 						mmMap.put("mmOutKg", 0);
 						mmMap.put("mmInKg", addKg - nowKg);
-					} else if ( result == "kDown") { //kg감소
+					} else if (result == "kDown") { // kg감소
 						mmMap.put("mmInKg", 0);
 						mmMap.put("mmOutKg", nowKg - addKg);
-					} else if ( result == "qUp") { //qty증가
+					} else if (result == "qUp") { // qty증가
 						mmMap.put("mmOut", 0);
 						mmMap.put("mmIn", addQty - nowQty);
-					} else if ( result == "qDown") { //qty감소
+					} else if (result == "qDown") { // qty감소
 						mmMap.put("mmIn", 0);
 						mmMap.put("mmOut", nowQty - addQty);
-					} else if ( result == "qkUp") { //qty,kg 증가
+					} else if (result == "qkUp") { // qty,kg 증가
 						mmMap.put("mmOut", 0);
 						mmMap.put("mmOutKg", 0);
 						mmMap.put("mmIn", addQty - nowQty);
 						mmMap.put("mmInKg", addKg - nowKg);
-					} else if ( result == "qUpkDown") { //qty증가, kg감소
+					} else if (result == "qUpkDown") { // qty증가, kg감소
 						mmMap.put("mmOut", 0);
 						mmMap.put("mmInKg", 0);
 						mmMap.put("mmIn", addQty - nowQty);
 						mmMap.put("mmOutKg", nowKg - addKg);
-					} else if ( result == "qDownkUp") { //qty감소, kg증가
+					} else if (result == "qDownkUp") { // qty감소, kg증가
 						mmMap.put("mmIn", 0);
 						mmMap.put("mmOutKg", 0);
 						mmMap.put("mmOut", nowQty - addQty);
 						mmMap.put("mmInKg", addKg - nowKg);
-					} else if ( result == "qDownkDown") { //qty감소, kg감소
+					} else if (result == "qDownkDown") { // qty감소, kg감소
 						mmMap.put("mmIn", 0);
 						mmMap.put("mmInKg", 0);
 						mmMap.put("mmOut", nowQty - addQty);
 						mmMap.put("mmOutKg", nowKg - addKg);
 					}
-					
-					if (mmMap.get("mmInKg") != null || mmMap.get("mmOutKg") != null
-					 || mmMap.get("mmIn") != null || mmMap.get("mmOut") != null	) {
+
+					if (mmMap.get("mmInKg") != null || mmMap.get("mmOutKg") != null || mmMap.get("mmIn") != null
+							|| mmMap.get("mmOut") != null) {
 						System.out.println(mmMap);
 						excelReaderService.updateMm(mmMap);
 					}
@@ -510,336 +492,72 @@ public class Scheduler {
 		} catch (Exception e) {
 		}
 	}
-	
-	
+
 	@Scheduled(cron = "20 18 21 * * *")
 	public void openSuju() {
-		  ftp = new FTPClient();
-		    //default controlEncoding 값이 "ISO-8859-1" 때문에 한글 파일의 경우 파일명이 깨짐
-		    //ftp server 에 저장될 파일명을 uuid 등의 방식으로 한글을 사용하지 않고 저장할 경우 UTF-8 설정이 따로 필요하지 않다.
-		    ftp.setControlEncoding("UTF-8");
-		    //PrintCommandListener 를 추가하여 표준 출력에 대한 명령줄 도구를 사용하여 FTP 서버에 연결할 때 일반적으로 표시되는 응답을 출력
-		    ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out), true));
-
-		    try {
-		        //ftp 서버 연결
-		        ftp.connect("dkbend.iptime.org", 30431);
-
-		        //ftp 서버에 정상적으로 연결되었는지 확인
-		        int reply = ftp.getReplyCode();
-		        if (!FTPReply.isPositiveCompletion(reply)) {
-		            ftp.disconnect();
-		            System.out.println("에러");
-		        }
-
-		        //socketTimeout 값 설정
-		        ftp.setSoTimeout(1000);
-		        //ftp 서버 로그인
-		        ftp.login("signlab", "dk304316@");
-		        //file type 설정 (default FTP.ASCII_FILE_TYPE)
-		        ftp.setFileType(FTP.BINARY_FILE_TYPE);
-		        //ftp Active모드 설정
-		        ftp.enterLocalPassiveMode(); 
-		            
-		    } catch (IOException e) {
-		        e.printStackTrace();
-		        System.out.println("에러");
-		    }
-		    
-		    
-		    SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-		    Date now = new Date();
-		    
-		    now =  new Date(now.getTime()+(1000*60*60*24*-1));
-		    
-			String edDate = format.format(now);
-			String fileName = "/up-data/suju-"+edDate;
-			File get_file = new File("C:\\test4","suju-"+edDate+"row.txt");
-			
-			
-		    try {
-		    	FileOutputStream outputstream = new FileOutputStream(get_file);
-		    	boolean result = ftp.retrieveFile(fileName, outputstream);
-
-		    	if(result) {
-		    		System.out.println("ftp들어옴 : " + now);
-		    		System.out.println("파일다운성공");
-		    	}else {
-		    		System.out.println("파일없음");
-		    	}
-		    	
-		    	FileInputStream fis = new FileInputStream(get_file);
-		    	InputStreamReader isr = new InputStreamReader(fis,"euc-kr");
-		    	
-		    	
-		    	FileOutputStream fos1 = new FileOutputStream("C:\\test4\\suju-"+edDate+".txt");
-		    	OutputStreamWriter osw1 = new OutputStreamWriter(fos1,"utf-8");
-		    	int c ;
-				while ((c=isr.read())!=-1) {
-					osw1.write(c);
-				}
-				
-		    	isr.close();
-		    	osw1.close();
-		    	outputstream.close();
-		    	EgovFileUtil.delete(get_file);
-		    } catch (IOException e) {
-		        e.printStackTrace();
-		    } finally {
-		    	try {
-		    		//ftp.deleteFile(fileName);
-			        ftp.logout();
-			        ftp.disconnect();
-			    } catch (IOException e) {
-			        e.printStackTrace();
-			        System.out.println("에러");
-			    }
-		    }
-		
-		
-	}
-	
-	@Scheduled(cron = "20 15 21 * * *")
-	public void openPro() {
-		  ftp = new FTPClient();
-		    //default controlEncoding 값이 "ISO-8859-1" 때문에 한글 파일의 경우 파일명이 깨짐
-		    //ftp server 에 저장될 파일명을 uuid 등의 방식으로 한글을 사용하지 않고 저장할 경우 UTF-8 설정이 따로 필요하지 않다.
-		    ftp.setControlEncoding("UTF-8");
-		    //PrintCommandListener 를 추가하여 표준 출력에 대한 명령줄 도구를 사용하여 FTP 서버에 연결할 때 일반적으로 표시되는 응답을 출력
-		    ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out), true));
-
-		    try {
-		        //ftp 서버 연결
-		        ftp.connect("dkbend.iptime.org", 30431);
-
-		        //ftp 서버에 정상적으로 연결되었는지 확인
-		        int reply = ftp.getReplyCode();
-		        if (!FTPReply.isPositiveCompletion(reply)) {
-		            ftp.disconnect();
-		            System.out.println("에러");
-		        }
-
-		        //socketTimeout 값 설정
-		        ftp.setSoTimeout(1000);
-		        //ftp 서버 로그인
-		        ftp.login("signlab", "dk304316@");
-		        //file type 설정 (default FTP.ASCII_FILE_TYPE)
-		        ftp.setFileType(FTP.BINARY_FILE_TYPE);
-		        //ftp Active모드 설정
-		        ftp.enterLocalPassiveMode(); 
-		            
-		    } catch (IOException e) {
-		        e.printStackTrace();
-		        System.out.println("에러");
-		    }
-		    //긁어오기 이까지
-		    
-		    SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-		    Date now = new Date();
-		    
-		    now =  new Date(now.getTime()+(1000*60*60*24*-1));
-		    
-			String edDate = format.format(now);
-			String fileName = "/up-data/pro-"+edDate;
-			File get_file = new File("C:\\test4","pro-"+edDate+"row.txt");
-			
-			
-		    try {
-		    	FileOutputStream outputstream = new FileOutputStream(get_file);
-		    	boolean result = ftp.retrieveFile(fileName, outputstream);
-
-		    	if(result) {
-		    		System.out.println("ftp들어옴2 : " + now);
-		    		System.out.println("파일다운성공");
-		    	}else {
-		    		System.out.println("파일없음");
-		    	}
-		    	
-		    	FileInputStream fis = new FileInputStream(get_file);
-		    	InputStreamReader isr = new InputStreamReader(fis,"euc-kr");
-		    	
-		    	
-		    	FileOutputStream fos1 = new FileOutputStream("C:\\test4\\pro-"+edDate+".txt");
-		    	OutputStreamWriter osw1 = new OutputStreamWriter(fos1,"utf-8");
-		    	int c ;
-				while ((c=isr.read())!=-1) {
-					osw1.write(c);
-				}
-				
-		    	isr.close();
-		    	osw1.close();
-		    	outputstream.close();
-		    	EgovFileUtil.delete(get_file);
-		    } catch (IOException e) {
-		        e.printStackTrace();
-		    } finally {
-		    	try {
-		    		//ftp.deleteFile(fileName);
-			        ftp.logout();
-			        ftp.disconnect();
-			    } catch (IOException e) {
-			        e.printStackTrace();
-			        System.out.println("에러");
-			    }
-		    }
-		
-		
-	}
-	
-
-	
-	@Scheduled(cron = "05 05 21 * * *")
-	public void openSubl() {
-		  ftp = new FTPClient();
-		    //default controlEncoding 값이 "ISO-8859-1" 때문에 한글 파일의 경우 파일명이 깨짐
-		    //ftp server 에 저장될 파일명을 uuid 등의 방식으로 한글을 사용하지 않고 저장할 경우 UTF-8 설정이 따로 필요하지 않다.
-		    ftp.setControlEncoding("UTF-8");
-		    //PrintCommandListener 를 추가하여 표준 출력에 대한 명령줄 도구를 사용하여 FTP 서버에 연결할 때 일반적으로 표시되는 응답을 출력
-		    ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out), true));
-
-		    try {
-		        //ftp 서버 연결
-		        ftp.connect("dkbend.iptime.org", 30431);
-
-		        //ftp 서버에 정상적으로 연결되었는지 확인
-		        int reply = ftp.getReplyCode();
-		        if (!FTPReply.isPositiveCompletion(reply)) {
-		            ftp.disconnect();
-		            System.out.println("에러");
-		        }
-
-		        //socketTimeout 값 설정
-		        ftp.setSoTimeout(1000);
-		        //ftp 서버 로그인
-		        ftp.login("signlab", "dk304316@");
-		        //file type 설정 (default FTP.ASCII_FILE_TYPE)
-		        ftp.setFileType(FTP.BINARY_FILE_TYPE);
-		        //ftp Active모드 설정
-		        ftp.enterLocalPassiveMode(); 
-		            
-		    } catch (IOException e) {
-		        e.printStackTrace();
-		        System.out.println("에러");
-		    }
-		    //긁어오기 이까지
-		    
-		    SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-		    Date now = new Date();
-		    
-		    now =  new Date(now.getTime()+(1000*60*60*24*-1));
-		    
-			String edDate = format.format(now);
-			String fileName = "/up-data/subl-"+edDate;
-			File get_file = new File("C:\\test4","subl-"+edDate+"row.txt");
-			
-			
-		    try {
-		    	FileOutputStream outputstream = new FileOutputStream(get_file);
-		    	boolean result = ftp.retrieveFile(fileName, outputstream);
-
-		    	if(result) {
-		    		System.out.println("파일다운성공");
-		    	}else {
-		    		System.out.println("파일없음");
-		    	}
-		    	
-		    	FileInputStream fis = new FileInputStream(get_file);
-		    	InputStreamReader isr = new InputStreamReader(fis,"euc-kr");
-		    	
-		    	
-		    	FileOutputStream fos1 = new FileOutputStream("C:\\test4\\subl-"+edDate+".txt");
-		    	OutputStreamWriter osw1 = new OutputStreamWriter(fos1,"utf-8");
-		    	int c ;
-				while ((c=isr.read())!=-1) {
-					osw1.write(c);
-				}
-				
-		    	isr.close();
-		    	osw1.close();
-		    	outputstream.close();
-		    	EgovFileUtil.delete(get_file);
-		    } catch (IOException e) {
-		        e.printStackTrace();
-		    } finally {
-		    	try {
-		    		//ftp.deleteFile(fileName);
-			        ftp.logout();
-			        ftp.disconnect();
-			    } catch (IOException e) {
-			        e.printStackTrace();
-			        System.out.println("에러");
-			    }
-		    }
-		
-		
-	}
-
-	@Scheduled(cron = "20 12 21 * * *")
-	public void openClgo() {
 		ftp = new FTPClient();
-		//default controlEncoding 값이 "ISO-8859-1" 때문에 한글 파일의 경우 파일명이 깨짐
-		//ftp server 에 저장될 파일명을 uuid 등의 방식으로 한글을 사용하지 않고 저장할 경우 UTF-8 설정이 따로 필요하지 않다.
+		// default controlEncoding 값이 "ISO-8859-1" 때문에 한글 파일의 경우 파일명이 깨짐
+		// ftp server 에 저장될 파일명을 uuid 등의 방식으로 한글을 사용하지 않고 저장할 경우 UTF-8 설정이 따로 필요하지 않다.
 		ftp.setControlEncoding("UTF-8");
-		//PrintCommandListener 를 추가하여 표준 출력에 대한 명령줄 도구를 사용하여 FTP 서버에 연결할 때 일반적으로 표시되는 응답을 출력
+		// PrintCommandListener 를 추가하여 표준 출력에 대한 명령줄 도구를 사용하여 FTP 서버에 연결할 때 일반적으로 표시되는
+		// 응답을 출력
 		ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out), true));
-		
+
 		try {
-			//ftp 서버 연결
+			// ftp 서버 연결
 			ftp.connect("dkbend.iptime.org", 30431);
-			
-			//ftp 서버에 정상적으로 연결되었는지 확인
+
+			// ftp 서버에 정상적으로 연결되었는지 확인
 			int reply = ftp.getReplyCode();
 			if (!FTPReply.isPositiveCompletion(reply)) {
 				ftp.disconnect();
 				System.out.println("에러");
 			}
-			
-			//socketTimeout 값 설정
+
+			// socketTimeout 값 설정
 			ftp.setSoTimeout(1000);
-			//ftp 서버 로그인
+			// ftp 서버 로그인
 			ftp.login("signlab", "dk304316@");
-			//file type 설정 (default FTP.ASCII_FILE_TYPE)
+			// file type 설정 (default FTP.ASCII_FILE_TYPE)
 			ftp.setFileType(FTP.BINARY_FILE_TYPE);
-			//ftp Active모드 설정
-			ftp.enterLocalPassiveMode(); 
-			
+			// ftp Active모드 설정
+			ftp.enterLocalPassiveMode();
+
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("에러");
 		}
-		//긁어오기 이까지
-		
+
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 		Date now = new Date();
-		
-		now =  new Date(now.getTime()+(1000*60*60*24*-1));
-		
+
+		now = new Date(now.getTime() + (1000 * 60 * 60 * 24 * -1));
+
 		String edDate = format.format(now);
-		String fileName = "/up-data/clgo-"+edDate;
-		File get_file = new File("C:\\test4","clgo-"+edDate+"row.txt");
-		
-		
+		String fileName = "/up-data/suju-" + edDate;
+		File get_file = new File("D:\\test4", "suju-" + edDate + "row.txt");
+
 		try {
 			FileOutputStream outputstream = new FileOutputStream(get_file);
 			boolean result = ftp.retrieveFile(fileName, outputstream);
-			
-			if(result) {
+
+			if (result) {
+				System.out.println("ftp들어옴 : " + now);
 				System.out.println("파일다운성공");
-			}else {
+			} else {
 				System.out.println("파일없음");
 			}
-			
+
 			FileInputStream fis = new FileInputStream(get_file);
-			InputStreamReader isr = new InputStreamReader(fis,"euc-kr");
-			
-			
-			FileOutputStream fos1 = new FileOutputStream("C:\\test4\\clgo-"+edDate+".txt");
-			OutputStreamWriter osw1 = new OutputStreamWriter(fos1,"utf-8");
-			int c ;
-			while ((c=isr.read())!=-1) {
+			InputStreamReader isr = new InputStreamReader(fis, "euc-kr");
+
+			FileOutputStream fos1 = new FileOutputStream("D:\\test4\\suju-" + edDate + ".txt");
+			OutputStreamWriter osw1 = new OutputStreamWriter(fos1, "utf-8");
+			int c;
+			while ((c = isr.read()) != -1) {
 				osw1.write(c);
 			}
-			
+
 			isr.close();
 			osw1.close();
 			outputstream.close();
@@ -848,7 +566,7 @@ public class Scheduler {
 			e.printStackTrace();
 		} finally {
 			try {
-				//ftp.deleteFile(fileName);
+				// ftp.deleteFile(fileName);
 				ftp.logout();
 				ftp.disconnect();
 			} catch (IOException e) {
@@ -856,12 +574,263 @@ public class Scheduler {
 				System.out.println("에러");
 			}
 		}
-		
-		
+
 	}
-	
-	
-	@Scheduled(cron = "20 * * * * *")
+
+	@Scheduled(cron = "20 15 21 * * *")
+	public void openPro() {
+		ftp = new FTPClient();
+		// default controlEncoding 값이 "ISO-8859-1" 때문에 한글 파일의 경우 파일명이 깨짐
+		// ftp server 에 저장될 파일명을 uuid 등의 방식으로 한글을 사용하지 않고 저장할 경우 UTF-8 설정이 따로 필요하지 않다.
+		ftp.setControlEncoding("UTF-8");
+		// PrintCommandListener 를 추가하여 표준 출력에 대한 명령줄 도구를 사용하여 FTP 서버에 연결할 때 일반적으로 표시되는
+		// 응답을 출력
+		ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out), true));
+
+		try {
+			// ftp 서버 연결
+			ftp.connect("dkbend.iptime.org", 30431);
+
+			// ftp 서버에 정상적으로 연결되었는지 확인
+			int reply = ftp.getReplyCode();
+			if (!FTPReply.isPositiveCompletion(reply)) {
+				ftp.disconnect();
+				System.out.println("에러");
+			}
+
+			// socketTimeout 값 설정
+			ftp.setSoTimeout(1000);
+			// ftp 서버 로그인
+			ftp.login("signlab", "dk304316@");
+			// file type 설정 (default FTP.ASCII_FILE_TYPE)
+			ftp.setFileType(FTP.BINARY_FILE_TYPE);
+			// ftp Active모드 설정
+			ftp.enterLocalPassiveMode();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("에러");
+		}
+		// 긁어오기 이까지
+
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+		Date now = new Date();
+
+		now = new Date(now.getTime() + (1000 * 60 * 60 * 24 * -1));
+
+		String edDate = format.format(now);
+		String fileName = "/up-data/pro-" + edDate;
+		File get_file = new File("D:\\test4", "pro-" + edDate + "row.txt");
+
+		try {
+			FileOutputStream outputstream = new FileOutputStream(get_file);
+			boolean result = ftp.retrieveFile(fileName, outputstream);
+
+			if (result) {
+				System.out.println("ftp들어옴2 : " + now);
+				System.out.println("파일다운성공");
+			} else {
+				System.out.println("파일없음");
+			}
+
+			FileInputStream fis = new FileInputStream(get_file);
+			InputStreamReader isr = new InputStreamReader(fis, "euc-kr");
+
+			FileOutputStream fos1 = new FileOutputStream("D:\\test4\\pro-" + edDate + ".txt");
+			OutputStreamWriter osw1 = new OutputStreamWriter(fos1, "utf-8");
+			int c;
+			while ((c = isr.read()) != -1) {
+				osw1.write(c);
+			}
+
+			isr.close();
+			osw1.close();
+			outputstream.close();
+			EgovFileUtil.delete(get_file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				// ftp.deleteFile(fileName);
+				ftp.logout();
+				ftp.disconnect();
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.out.println("에러");
+			}
+		}
+
+	}
+
+	@Scheduled(cron = "05 05 21 * * *")
+	public void openSubl() {
+		ftp = new FTPClient();
+		// default controlEncoding 값이 "ISO-8859-1" 때문에 한글 파일의 경우 파일명이 깨짐
+		// ftp server 에 저장될 파일명을 uuid 등의 방식으로 한글을 사용하지 않고 저장할 경우 UTF-8 설정이 따로 필요하지 않다.
+		ftp.setControlEncoding("UTF-8");
+		// PrintCommandListener 를 추가하여 표준 출력에 대한 명령줄 도구를 사용하여 FTP 서버에 연결할 때 일반적으로 표시되는
+		// 응답을 출력
+		ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out), true));
+
+		try {
+			// ftp 서버 연결
+			ftp.connect("dkbend.iptime.org", 30431);
+
+			// ftp 서버에 정상적으로 연결되었는지 확인
+			int reply = ftp.getReplyCode();
+			if (!FTPReply.isPositiveCompletion(reply)) {
+				ftp.disconnect();
+				System.out.println("에러");
+			}
+
+			// socketTimeout 값 설정
+			ftp.setSoTimeout(1000);
+			// ftp 서버 로그인
+			ftp.login("signlab", "dk304316@");
+			// file type 설정 (default FTP.ASCII_FILE_TYPE)
+			ftp.setFileType(FTP.BINARY_FILE_TYPE);
+			// ftp Active모드 설정
+			ftp.enterLocalPassiveMode();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("에러");
+		}
+		// 긁어오기 이까지
+
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+		Date now = new Date();
+
+		now = new Date(now.getTime() + (1000 * 60 * 60 * 24 * -1));
+
+		String edDate = format.format(now);
+		String fileName = "/up-data/subl-" + edDate;
+		File get_file = new File("D:\\test4", "subl-" + edDate + "row.txt");
+
+		try {
+			FileOutputStream outputstream = new FileOutputStream(get_file);
+			boolean result = ftp.retrieveFile(fileName, outputstream);
+
+			if (result) {
+				System.out.println("파일다운성공");
+			} else {
+				System.out.println("파일없음");
+			}
+
+			FileInputStream fis = new FileInputStream(get_file);
+			InputStreamReader isr = new InputStreamReader(fis, "euc-kr");
+
+			FileOutputStream fos1 = new FileOutputStream("D:\\test4\\subl-" + edDate + ".txt");
+			OutputStreamWriter osw1 = new OutputStreamWriter(fos1, "utf-8");
+			int c;
+			while ((c = isr.read()) != -1) {
+				osw1.write(c);
+			}
+
+			isr.close();
+			osw1.close();
+			outputstream.close();
+			EgovFileUtil.delete(get_file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				// ftp.deleteFile(fileName);
+				ftp.logout();
+				ftp.disconnect();
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.out.println("에러");
+			}
+		}
+
+	}
+
+	@Scheduled(cron = "20 12 21 * * *")
+	public void openClgo() {
+		ftp = new FTPClient();
+		// default controlEncoding 값이 "ISO-8859-1" 때문에 한글 파일의 경우 파일명이 깨짐
+		// ftp server 에 저장될 파일명을 uuid 등의 방식으로 한글을 사용하지 않고 저장할 경우 UTF-8 설정이 따로 필요하지 않다.
+		ftp.setControlEncoding("UTF-8");
+		// PrintCommandListener 를 추가하여 표준 출력에 대한 명령줄 도구를 사용하여 FTP 서버에 연결할 때 일반적으로 표시되는
+		// 응답을 출력
+		ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out), true));
+
+		try {
+			// ftp 서버 연결
+			ftp.connect("dkbend.iptime.org", 30431);
+
+			// ftp 서버에 정상적으로 연결되었는지 확인
+			int reply = ftp.getReplyCode();
+			if (!FTPReply.isPositiveCompletion(reply)) {
+				ftp.disconnect();
+				System.out.println("에러");
+			}
+
+			// socketTimeout 값 설정
+			ftp.setSoTimeout(1000);
+			// ftp 서버 로그인
+			ftp.login("signlab", "dk304316@");
+			// file type 설정 (default FTP.ASCII_FILE_TYPE)
+			ftp.setFileType(FTP.BINARY_FILE_TYPE);
+			// ftp Active모드 설정
+			ftp.enterLocalPassiveMode();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("에러");
+		}
+		// 긁어오기 이까지
+
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+		Date now = new Date();
+
+		now = new Date(now.getTime() + (1000 * 60 * 60 * 24 * -1));
+
+		String edDate = format.format(now);
+		String fileName = "/up-data/clgo-" + edDate;
+		File get_file = new File("D:\\test4", "clgo-" + edDate + "row.txt");
+
+		try {
+			FileOutputStream outputstream = new FileOutputStream(get_file);
+			boolean result = ftp.retrieveFile(fileName, outputstream);
+
+			if (result) {
+				System.out.println("파일다운성공");
+			} else {
+				System.out.println("파일없음");
+			}
+
+			FileInputStream fis = new FileInputStream(get_file);
+			InputStreamReader isr = new InputStreamReader(fis, "euc-kr");
+
+			FileOutputStream fos1 = new FileOutputStream("D:\\test4\\clgo-" + edDate + ".txt");
+			OutputStreamWriter osw1 = new OutputStreamWriter(fos1, "utf-8");
+			int c;
+			while ((c = isr.read()) != -1) {
+				osw1.write(c);
+			}
+
+			isr.close();
+			osw1.close();
+			outputstream.close();
+			EgovFileUtil.delete(get_file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				// ftp.deleteFile(fileName);
+				ftp.logout();
+				ftp.disconnect();
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.out.println("에러");
+			}
+		}
+
+	}
+
+//	@Scheduled(cron = "20 * * * * *")
 //	public void open() {
 //		
 //	    ftp = new FTPClient();
@@ -928,64 +897,63 @@ public class Scheduler {
 //	    
 //	    
 //	}
-	
+
 	@Scheduled(cron = "20 50 22 * * *")
 	public void insdataUpdate() {
-		
-		 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		 Date now = new Date();
-		 String edDate = format.format(now);
-		 Map<String, Object> rowMap = excelReaderService.inspCount(edDate);
-		 
+
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date now = new Date();
+		String edDate = format.format(now);
+		Map<String, Object> rowMap = excelReaderService.inspCount(edDate);
+
 		int insExcelNum = (int) rowMap.get("count1");
 		int insDataNum = (int) rowMap.get("count2");
-		
-		if(insExcelNum > insDataNum) {
-			
+
+		if (insExcelNum > insDataNum) {
+
 			List<Map<String, Object>> noUpList = excelReaderService.noUpList(edDate);
-			
-			for(int i=0;i<noUpList.size();i++) {
+
+			for (int i = 0; i < noUpList.size(); i++) {
 				Map<String, Object> temp = new HashMap<>();
 				temp = noUpList.get(i);
-				String lotNo = temp.get("iehLotno")+"";
+				String lotNo = temp.get("iehLotno") + "";
 				Map<String, Object> proc = excelReaderService.mfProc(lotNo);
-				
-				String prodName = proc.get("mpProdName")+"";
+
+				String prodName = proc.get("mpProdName") + "";
 				String mpTexture = proc.get("mpTexture") + "";
-				String mpThickness = proc.get("mpThickness")+"";
-				String mpState = proc.get("mpState")+"";
-				String mpStandard = proc.get("mpStandard")+"";
-				
-				String idName = prodName+","+ mpTexture+","+mpThickness+","+ mpState+","+mpStandard;
-				
+				String mpThickness = proc.get("mpThickness") + "";
+				String mpState = proc.get("mpState") + "";
+				String mpStandard = proc.get("mpStandard") + "";
+
+				String idName = prodName + "," + mpTexture + "," + mpThickness + "," + mpState + "," + mpStandard;
+
 				Map<String, Object> map = new HashMap<String, Object>();
-				
-				map.put("idDoc", temp.get("idDoc")+"");
+
+				map.put("idDoc", temp.get("idDoc") + "");
 				map.put("poLotno", lotNo);
 				map.put("idProdName", proc.get("mpProdName"));
 				map.put("idName", idName);
 				map.put("mpMfno", proc.get("mpMfno"));
-				map.put("idTestTime",edDate);
-				map.put("idCheckTime",edDate);
-				map.put("orId",proc.get("orId"));
-				
-				Map<String,Object>time = excelReaderService.idTestTime(temp);
-				
-				map.put("idTestTime", time.get("idTestTime"+""));
-				
+				map.put("idTestTime", edDate);
+				map.put("idCheckTime", edDate);
+				map.put("orId", proc.get("orId"));
+
+				Map<String, Object> time = excelReaderService.idTestTime(temp);
+
+				map.put("idTestTime", time.get("idTestTime" + ""));
+
 				int exist = excelReaderService.checkVision(map);
-				if(exist == 0) {
+				if (exist == 0) {
 					excelReaderService.registinspData(map);
 					excelReaderService.insFileStateUpdate(map);
 				}
-				
-				
+
 			}
-			
+
 		}
-		 
-		
+
 	}
+
 	public String comparisonSubl(int nowqty, float nowkg, int addqty, float addkg) {
 		String result = "";
 		if (nowqty == addqty && nowkg == addkg) {
@@ -1009,51 +977,50 @@ public class Scheduler {
 		}
 		return result;
 	}
-	
+
 	public String qtyStr(String qty) {
 
 		int piRemainQty = 0;
 		try {
-		    String numericPartQty = qty.replaceAll("[^0-9.]", "");
+			String numericPartQty = qty.replaceAll("[^0-9.]", "");
 
-		    if (!numericPartQty.isEmpty()) {
-	            piRemainQty = Integer.parseInt(numericPartQty);
-	        }
+			if (!numericPartQty.isEmpty()) {
+				piRemainQty = Integer.parseInt(numericPartQty);
+			}
 
-		    
 		} catch (NumberFormatException e) {
 			System.out.println(piRemainQty);
-		    e.printStackTrace();
+			e.printStackTrace();
 		}
 		return Integer.toString(piRemainQty);
 	}
-	
+
 	public String kgStr(String kg) {
-		
+
 		float piRemainKg = 0;
 		try {
 			String numericPartKg = kg.replaceAll("[^0-9.]", "");
-			
+
 			if (!numericPartKg.isEmpty()) {
 				piRemainKg = Float.parseFloat(numericPartKg);
-	        }
+			}
 
-			
 		} catch (NumberFormatException e) {
 			System.out.println(piRemainKg);
 			e.printStackTrace();
 		}
 		return Float.toString(piRemainKg);
 	}
-	
+
 //	public static void setUserId(String userId) {
 //		user_id = userId;
 //	}
-	
-	@Scheduled(cron = "10 00 00 * * *")
-	@Scheduled(cron = "12 00 00 * * *")
-	@Scheduled(cron = "15 00 00 * * *")
-	@Scheduled(cron = "17 00 00 * * *")
+
+	@Scheduled(cron = "00 00 10 * * *") //쉬는시간
+	@Scheduled(cron = "00 00 12 * * *") //점심시간
+	@Scheduled(cron = "00 00 15 * * *") //쉬는시간
+	@Scheduled(cron = "00 00 17 * * *") //간식시간
+	@Scheduled(cron = "00 00 20 * * *") //퇴근시간
 	public void lunchStopManufacture() {
 		List<Map<String, Object>> proceedingOrid = popManufactureService.selectMfProceeding();
 		System.out.println(proceedingOrid);
@@ -1064,7 +1031,60 @@ public class Scheduler {
 			System.out.println(result.get("orId"));
 			orList.put("orId", result.get("orId"));
 			popManufactureService.registMfStopLog(orList);
+
 		}
 	}
+
 	
+	@Scheduled(cron = "00 10 10 * * *") 
+	public void scheduleAt10AM() {
+		lunchStartManufacture("10:00"); 
+	}
+	 
+	@Scheduled(cron = "00 00 13 * * *")
+	public void scheduleAt1PM() {
+		lunchStartManufacture("12:00");
+	}
+	
+	@Scheduled(cron = "00 10 15 * * *")
+	public void scheduleAt3PM() {
+		lunchStartManufacture("15:00"); 
+	}
+	
+	@Scheduled(cron = "00 20 17 * * *") 
+	public void scheduleAt5PM() {
+		lunchStartManufacture("17:00"); 
+	}
+
+	public void lunchStartManufacture(String targetTime) {
+		LocalDateTime schedulerStartTime = LocalDateTime.now();
+
+		LocalDateTime desiredTime = schedulerStartTime.withHour(Integer.parseInt(targetTime.split(":")[0]))
+				.withMinute(Integer.parseInt(targetTime.split(":")[1])).withSecond(0).withNano(0);
+
+		LocalDateTime bfTime = desiredTime.minusMinutes(1);
+		LocalDateTime afTime = desiredTime.plusMinutes(1);
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		String startTime = bfTime.format(formatter);
+		String endTime = afTime.format(formatter);
+
+		System.out.println(targetTime + "에 대한 원하는 시간: " + startTime + " / " + endTime);
+
+		Map<String, Object> timeValue = new HashMap<>();
+		timeValue.put("startTime", startTime);
+		timeValue.put("endTime", endTime);
+
+		List<Map<String, Object>> restOrid = popManufactureService.selectRestOrId(timeValue);
+		System.out.println(restOrid);
+		for (int i = 0; i < restOrid.size(); i++) {
+			Map<String, Object> result = new HashMap<String, Object>();
+			Map<String, Object> orList = new HashMap<String, Object>();
+			result = restOrid.get(i);
+			System.out.println(result.get("orId"));
+			orList.put("orId", result.get("orId"));
+			popManufactureService.updateMfStopLog2(orList);
+		}
+	}
+
 }

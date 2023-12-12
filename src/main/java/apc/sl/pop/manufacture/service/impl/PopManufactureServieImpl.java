@@ -72,6 +72,11 @@ public class PopManufactureServieImpl implements PopManufactureService{
 	}
 
 	@Override
+	public List<Map<String, Object>> selectRestOrId(Map<String, Object> map) {
+		return popManufactureMapper.selectRestOrId(map);
+	}
+
+	@Override
 	public Map<String,Object> outData(String str) {
 		return popManufactureMapper.outData(str);
 	}

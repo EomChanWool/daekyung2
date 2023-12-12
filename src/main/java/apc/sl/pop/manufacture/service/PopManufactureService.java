@@ -16,6 +16,8 @@ public interface PopManufactureService {
 	List<?> selectMfManager();
 	
 	List<Map<String, Object>> selectMfProceeding();
+
+	List<Map<String, Object>> selectRestOrId(Map<String, Object> map);
 	
 	Map<String,Object> outData(String str);
 	

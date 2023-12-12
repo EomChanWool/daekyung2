@@ -168,10 +168,17 @@
 	</select>
 
 	<select id="selectCheckStop" resultType="int">
-		SELECT COUNT(*) FROM
-		sm_mf_process_stop
-		WHERE or_id = #{orId}
-		AND mfs_state = 1
+		SELECT
+			COUNT(*)
+		FROM (
+			SELECT
+				TOP 1 or_id,
+				mfs_state
+			FROM
+				sm_mf_process_stop
+			WHERE or_id = #{orId}
+		) AS dataa
+		WHERE mfs_state = 1
 	</select>
 
 	<select id="selectMfManager" resultType="egovMap">
@@ -200,14 +207,14 @@
 
 	<insert id="registMfStopLog">
 		INSERT INTO sm_mf_process_stop (
-		or_id,
-		mfs_state,
-		mfs_stop_time
+			or_id,
+			mfs_state,
+			mfs_stop_time
 		) VALUES
 		(
-		#{orId},
-		1,
-		GETDATE()
+			#{orId},
+			1,
+			GETDATE()
 		)
 	</insert>
 
@@ -227,29 +234,42 @@
 
 	<update id="updateLogEdtime">
 		UPDATE sm_mf_proc_log SET
-		mfl_ed_date = GETDATE(),
-		mfl_work_time =
-		DATEDIFF(MINUTE,mfl_st_date,getdate())
+			mfl_ed_date = GETDATE(),
+			mfl_work_time =	DATEDIFF(MINUTE,mfl_st_date,getdate())
 		WHERE or_id = #{orId}
-		AND mfl_idx
-		= (
-		SELECT TOP 1 mfl_idx
-		FROM
-		sm_mf_proc_log
-		WHERE or_id = #{orId}
-		ORDER BY
-		mfl_idx DESC
+		AND mfl_idx	= (
+			SELECT 
+				TOP 1 mfl_idx
+			FROM
+				sm_mf_proc_log
+			WHERE 
+				or_id = #{orId}
+			ORDER BY
+				mfl_idx DESC
 		)
 	</update>
 
 	<update id="updateMfStopLog2">
-		UPDATE sm_mf_process_stop SET
-		mfs_state = 2,
-		mfs_re_time = GETDATE(),
-		MFS_REST_TIME = DATEDIFF(MINUTE,
-		MFS_STOP_TIME, GETDATE())
-		where mfs_idx
-		= #{mfsIdx}
+<!-- 		 UPDATE sm_mf_process_stop SET -->
+<!-- 			mfs_state = 2, -->
+<!-- 			mfs_re_time = GETDATE(), -->
+<!-- 			MFS_REST_TIME = DATEDIFF(MINUTE, -->
+<!-- 			MFS_STOP_TIME, GETDATE()) -->
+<!-- 		where -->
+<!-- 			mfs_idx	= #{mfsIdx} -->
+			
+		UPDATE sm_mf_process_stop 
+		SET
+		    mfs_state = 2,
+		    mfs_re_time = GETDATE(),
+		    MFS_REST_TIME = DATEDIFF(MINUTE, MFS_STOP_TIME, GETDATE())
+		WHERE
+  		  mfs_idx = (
+	        SELECT TOP 1 mfs_idx
+	        FROM sm_mf_process_stop
+	        WHERE or_id = #{orId}
+	        ORDER BY mfs_idx DESC
+    );
 	</update>
 
 	<select id="outData" resultType="egovMap">
@@ -264,7 +284,7 @@ WHERE CONVERT(DATE, mfl_ed_date) = CONVERT(DATE, GETDATE());
 	
 	</select>
 	<select id="selectMfProceeding" resultType="egovMap">
-				SELECT
+		SELECT
 			a.or_id
 			, MAX(a.MP_MFNO) AS mp_mfno
 			, MAX(a.MP_PROD_NAME) AS mp_prod_name
@@ -295,11 +315,34 @@ WHERE CONVERT(DATE, mfl_ed_date) = CONVERT(DATE, GETDATE());
 			1=1
 		AND
 			a.mp_pr_state IN (1)
+		AND 
+			ISNULL((
+				SELECT
+					TOP 1 mfs_state
+				FROM
+					sm_mf_process_stop
+				WHERE
+					OR_ID = a.OR_ID
+				ORDER BY
+					mfs_idx DESC
+			),0) IN (2,0)
 		GROUP BY
 			a.or_id
 		ORDER BY
 				or_id DESC
 
+	</select>
+	<select id="selectRestOrId" resultType="egovMap">
+		SELECT 
+			mfs_idx,
+			or_id
+        FROM
+        	sm_mf_process_stop
+        WHERE
+        	mfs_stop_time BETWEEN #{startTime} AND #{endTime}
+        AND
+        	mfs_state = 1
+		
 	</select>
 
 </mapper>
