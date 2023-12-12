@@ -290,7 +290,8 @@
 			YEAR(a.or_date) AS years,
 			MONTH(a.or_date) AS months,
 			max(DATEDIFF(DAY, a.or_date, b.rel_clgo)) AS lead_max,
-			MIN(DATEDIFF(DAY, a.or_date, b.rel_clgo)) AS lead_min
+			MIN(DATEDIFF(DAY, a.or_date, b.rel_clgo)) AS lead_min,
+			AVG(DATEDIFF(DAY, a.or_date, b.rel_clgo)) AS lead_avg
 		FROM 
 			sm_orders a
 		JOIN 

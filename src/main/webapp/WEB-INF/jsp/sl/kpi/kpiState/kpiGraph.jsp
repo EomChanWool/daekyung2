@@ -280,7 +280,7 @@
 			<c:forEach items="${leadTimeList}" var="list">
 			var aa1 = ${list.leadMax};
 			var bb1 = ${list.leadMin};
-			var cc1 = (aa1+bb1)/2;
+			var cc1 = ${list.leadAvg};
 			viewData[${list.months-1}] = cc1;
 			</c:forEach>
 			
