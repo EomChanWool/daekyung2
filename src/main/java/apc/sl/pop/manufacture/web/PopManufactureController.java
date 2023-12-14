@@ -49,6 +49,7 @@ public class PopManufactureController {
 			Map<String, Object> temp = (Map<String, Object>) model.get("sear");
 			searchVO.setSearchKeyword(temp.get("searchKeyword")+"");
 			searchVO.setSearchCondition(temp.get("searchCondition")+"");
+			searchVO.setSearchCondition3(temp.get("searchCondition3")+"");
 		}
 
 		searchVO.setSearchCondition2(searchVO.getSearchKeyword());
@@ -59,11 +60,14 @@ public class PopManufactureController {
 		}
 		
 		if(searchVO.getSearchKeyword().length() > 23) {
-			String[] splitOrderNumbers = splitString(searchVO.getSearchKeyword(), 16);
-			searchVO.setSearchKeyword2(splitOrderNumbers);
+			String[] splitOrderNumbers = splitString(searchVO.getSearchKeyword(), 21);
+			String[] searSpiltNum = new String[splitOrderNumbers.length];
+			for (int i = 0; i < splitOrderNumbers.length; i++) {
+				searSpiltNum[i] = splitOrderNumbers[i].substring(0, 16);
+			}
+			searchVO.setSearchKeyword2(searSpiltNum);
 			searchVO.setSearchKeyword("");
 		}
-		
 		int totCnt = popManufactureService.selectMfListToCnt(searchVO);
 		/** pageing setting */
 		searchVO.setPageSize(10);
@@ -102,7 +106,7 @@ public class PopManufactureController {
 	
 	@RequestMapping(value="/sl/pop/popMf/reMf.do" , method=RequestMethod.POST)
 	public String reManufacture(@RequestParam Map<String, Object> map, RedirectAttributes redirectAttributes, HttpSession session) {
-		if(!map.get("searchKeyword").equals("") || !map.get("searchCondition").equals("")) {
+		if(!map.get("searchKeyword").equals("") || !map.get("searchCondition").equals("") || !map.get("searchCondition3").equals("")) {
 			redirectAttributes.addFlashAttribute("sear",map);
 		}
 		map.put("userId", session.getAttribute("user_id"));
@@ -114,7 +118,7 @@ public class PopManufactureController {
 	
 	@RequestMapping(value="/sl/pop/popMf/stopMf.do" , method=RequestMethod.POST)
 	public String stopManufacture(@RequestParam Map<String, Object> map, RedirectAttributes redirectAttributes, HttpSession session) {
-		if(!map.get("searchKeyword").equals("") || !map.get("searchCondition").equals("")) {
+		if(!map.get("searchKeyword").equals("") || !map.get("searchCondition").equals("") || !map.get("searchCondition3").equals("")) {
 			redirectAttributes.addFlashAttribute("sear",map);
 		}
 		map.put("userId", session.getAttribute("user_id"));
@@ -139,16 +143,13 @@ public class PopManufactureController {
 			orList.put("orId", result.get("orId"));
 			popManufactureService.registMfStopLog(orList);
 		}
-		
-		
-		
 		return "redirect:/sl/pop/popMf/popMfList.do";
 	}
 	
 	@RequestMapping(value="/sl/pop/popMf/finishMf.do" , method=RequestMethod.POST)
 	public String finishManufacture(@RequestParam Map<String, Object> map, RedirectAttributes redirectAttributes, HttpSession session) {
 		
-		if(!map.get("searchKeyword").equals("") || !map.get("searchCondition").equals("")) {
+		if(!map.get("searchKeyword").equals("") || !map.get("searchCondition").equals("") || !map.get("searchCondition3").equals("")) {
 			redirectAttributes.addFlashAttribute("sear",map);
 		}
 		map.put("userId", session.getAttribute("user_id"));

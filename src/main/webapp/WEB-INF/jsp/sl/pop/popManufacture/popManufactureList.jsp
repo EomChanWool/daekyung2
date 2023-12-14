@@ -6,6 +6,16 @@
 	#graph {
 		width: 100%;
 	}
+	.search {
+        position: relative;
+    }
+    .search select {
+    	position: absolute;
+    	right: 20px;
+    	top: 0px;
+        width: 130px;
+        
+    }
 </style>
 <%@ include file="../../header.jsp" %>
 <body id="page-top">
@@ -65,6 +75,7 @@
 									<input type="hidden" name="mflManager" id="mflManage">
 									<input type="hidden" name="searchCondition" id="searchCondition" value="${searchVO.searchCondition}">
 									<input type="hidden" name="searchCondition2" id="searchCondition2"value="${searchVO.searchCondition2}">
+									<input type="hidden" name="searchCondition3" id="searchCondition3"value="${searchVO.searchCondition3}">
 									<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
 									<input type="text" class="form-control bg-light border-0 small" name="searchKeyword" id="searchKeyword"
 																<c:if test="${not empty searchVO.searchKeyword}">value="${searchVO.searchKeyword}"</c:if>
@@ -93,7 +104,12 @@
 						    	<a href="#" class="btn btn-primary btn-icon-split" onclick="fn_stopping_mf()">
 	                                <span class="text">정지중</span>
 	                            </a>
-	                            
+	                            <select class="form-control" id="searchCondition3" name="searchCondition3" onChange="selectManager(this.value)">
+                   				    <option value="">작업자 검색</option>
+									<c:forEach var="list" items="${mfmList}">
+										<option value="${list.miName}" <c:if test="${list.miName eq searchVO.searchCondition3}">selected="selected"</c:if>>${list.miName}</option>
+									</c:forEach>
+								</select>
 							</div>
                         </div>
                         <div class="card-body">
@@ -102,8 +118,12 @@
                                     <thead>
                                         <tr>
                                         	<th>수주번호</th>
+                                        	<th>로트번호</th>
                                             <th>품목</th>
-                                            <th>수주량</th>
+                                            <th>재질</th>
+                                            <th>두께</th>
+                                            <th>규격</th>
+                                            <th>생산량</th>
                                             <th>현재공정</th>
                                             <th>진행/중단/재개</th>
                                             
@@ -115,10 +135,12 @@
                                     	<c:forEach var="result" items="${ordList}" varStatus="status">
 	                                   		<tr>
 	                                   			<td>${result.orId}</td>
+	                                   			<td>${result.poLotno}</td>
 	                                   			<td>${result.mpProdName}</td>
+	                                   			<td>${result.mpTexture}</td>
+	                                   			<td>${result.mpThickness}</td>
+	                                   			<td>${result.mpStandard}</td>
 	                                   			<td>${result.mpQty}</td>
-	                                   			
-	                                   			
 	                                   			<c:if test="${result.mpPrState eq 0}"><td>가공공정대기중</td></c:if>
 	                                   			<c:if test="${result.mpPrState eq 1 and (result.mfsState eq 2 or result.mfsState eq 0)}"><td>가공공정중</td></c:if>
 	                                   			<c:if test="${result.mfsState eq 1 and result.mpPrState eq 1}"><td>일시정지</td></c:if>
@@ -134,21 +156,21 @@
 				                                    </a></td>
 				                                    </c:if> 
 	                                            <td>
-				                                    <a href="#" class="btn btn-danger btn-icon-split" onclick="fn_go_finish('${result.orId}','${result.orProcess}')">
+				                                    <a href="#" class="btn btn-danger btn-icon-split" onclick="fn_go_finish('${result.orId}','${result.mpPrState}')">
 				                                        <span class="text">작업완료</span>
 				                                    </a>
 	                                            </td>
 	                                            <td>
-	                                            <select class="form-control" id="mflManager_${status.index}" onChange="addManger(${status.index})">
-	                                          			    <option value="">선택</option>
-														<c:forEach var="list" items="${mfmList}">
-															<option value="${list.miName}" <c:if test="${result.mflManager eq list.miName}">selected="selected"</c:if>>${list.miName}</option>
-														</c:forEach>
-													</select></td>
-												
+		                                            <select class="form-control" id="mflManager_${status.index}" onChange="addManger(${status.index})">
+	                                   			    <option value="">선택</option>
+													<c:forEach var="list" items="${mfmList}">
+														<option value="${list.miName}" <c:if test="${result.mflManager eq list.miName}">selected="selected"</c:if>>${list.miName}</option>
+													</c:forEach>
+													</select>
+												</td>
 	                                        </tr>
                                     	</c:forEach>
-                                    	<c:if test="${empty ordList}"><tr><td colspan='9'>결과가 없습니다.</td><del></del></c:if>
+                                    	<c:if test="${empty ordList}"><tr><td colspan='11'>결과가 없습니다.</td><del></del></c:if>
                                     </tbody>
                                 </table>
                                 <div class="btn_page">
@@ -234,6 +256,7 @@
 	
 	function fn_searchAll_mf(){
 		listForm.searchCondition.value = "";
+		listForm.searchCondition3.value = "";
 		listForm.searchKeyword.value = "";
 		listForm.pageIndex.value = 1;
 		listForm.submit();
@@ -248,15 +271,27 @@
 	}
 
 	function fn_proceeding_mf(){
-		listForm.searchCondition.value = 1;
-		listForm.pageIndex.value = 1;
-		listForm.submit();
+		var managerSelect;
+		managerSelect = document.getElementById('searchCondition3').value;
+		if (managerSelect != '') {
+			alert("전체 목록에서만 가능합니다.")
+		} else {
+			listForm.searchCondition.value = 1;
+			listForm.pageIndex.value = 1;
+			listForm.submit();
+		}
 	}
 
 	function fn_stopping_mf(){
-		listForm.searchCondition.value = 2;
-		listForm.pageIndex.value = 1;
-		listForm.submit();
+		var managerSelect;
+		managerSelect = document.getElementById('searchCondition3').value;
+		if (managerSelect != '') {
+			alert("전체 목록에서만 가능합니다.")
+		} else {
+			listForm.searchCondition.value = 2;
+			listForm.pageIndex.value = 1;
+			listForm.submit();
+		}
 	}
 	
 	function fn_re_mf_go(orId,mfsIdx){
@@ -287,12 +322,11 @@
 	
 	
 	
-	function fn_go_finish(orId,orProcess){
-		if(orProcess == 2){
+	function fn_go_finish(orId,state){
+		if(state == 2 || state == 0){
 			alert("공정을 진행하여 주세요.");
 			return;
 		}
-		
 		if(confirm('작업을 완료하시겠습니까?')) {
 			listForm.orId.value = orId; 
 			listForm.action = "${pageContext.request.contextPath}/sl/pop/popMf/finishMf.do";
@@ -304,6 +338,12 @@
 		console.log($(str).val());
 		$('#mflManage').val($(str).val());
 	}
+
+	function selectManager(name) {
+        console.log(name);
+        listForm.searchCondition3.value = name;
+        listForm.submit();
+    }
 	
 
 	$(function() {
