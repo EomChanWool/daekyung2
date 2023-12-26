@@ -327,7 +327,7 @@ public class InspectController {
 		
 		String[] beFileName = itemName.split("-");
 		
-		String afterFileName = "C:\\test4\\" + beFileName[0]+"-"+Lotno +"-" +infoData.get("isiId")+""+".xlsx";
+		String afterFileName = "D:\\test4\\" + beFileName[0]+"-"+Lotno +"-" +infoData.get("isiId")+""+".xlsx";
 		String fileName = "C:\\test\\insEx.xlsx";
 		
 		String itemType = infoData.get("isiItemName")+"";
@@ -1491,7 +1491,7 @@ if(type.equals("CAP")) {
         wb.loadFromFile(afterFileName);
         
       //PDF로 저장함
-        wb.saveToFile("C:\\test4\\"+afterFileImg,FileFormat.PDF);
+        wb.saveToFile("D:\\test4\\"+afterFileImg,FileFormat.PDF);
 		
 		return "redirect:/sl/process/inspect/inspectList.do";
 	}
@@ -1504,9 +1504,9 @@ if(type.equals("CAP")) {
 		
 		inspectService.deleteInspect(map);
 		
-		String fileName ="C:\\test4\\" + map.get("isiReportFile")+"";
+		String fileName ="D:\\test4\\" + map.get("isiReportFile")+"";
 		System.out.println("경로 : " + fileName);
-		String fileImage = "C:\\test4\\" + map.get("isiReportImage")+"";
+		String fileImage = "D:\\test4\\" + map.get("isiReportImage")+"";
 		
 		File file = new File(fileName);
 		File file2 =new File(fileImage);
@@ -1594,7 +1594,7 @@ public void downloadInspect(HttpServletRequest request, HttpServletResponse resp
 //            System.out.println("UnsupportedEncodingException 발생");
 //        }
 	 
-	 	String filePath2 = "C:\\test4\\";
+	 	String filePath2 = "D:\\test4\\";
  
         realFilename = filePath2 + filename;
         System.out.println("파일이름 : " + realFilename);
