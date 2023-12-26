@@ -451,4 +451,9 @@ WHERE CAST(a.mfl_ed_date AS DATE) = CAST(GETDATE() AS DATE)
 		WHERE
 			or_id = #{orId}
 	</select>
+	
+	<select id="checkPro" resultType="int">
+	SELECT COUNT(*) FROM sm_mf_proc
+	WHERE or_id = #{orId}
+	</select>
 </mapper>

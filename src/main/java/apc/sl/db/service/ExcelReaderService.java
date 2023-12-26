@@ -50,4 +50,6 @@ public interface ExcelReaderService {
 	Map<String, Object> sublList(Map<String, String> linee);
 
 	Map<String, Object> clgoList(Map<String, String> map);
+	
+	int checkPro(Map<String, String> map);
 }

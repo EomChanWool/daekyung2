@@ -51,4 +51,6 @@ public interface ExcelReaderMapper {
 	Map<String, Object> sublList(Map<String, String> map);
 
 	Map<String, Object> clgoList(Map<String, String> map);
+	
+	int checkPro(Map<String, String> map);
 }

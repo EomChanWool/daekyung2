@@ -135,6 +135,11 @@ public class ExcelReaderServieImpl implements ExcelReaderService {
 		
 	}
 
+	@Override
+	public int checkPro(Map<String, String> map) {
+		return excelReaderMapper.checkPro(map);
+	}
+
 
 
 }

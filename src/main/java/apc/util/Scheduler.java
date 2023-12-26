@@ -285,7 +285,6 @@ public class Scheduler {
 
 		String edDate = format.format(now);
 
-		System.out.println("들어옴 : " + now);
 
 		File note = new File("D:\\test4\\pro-" + edDate + ".txt");
 
@@ -309,8 +308,15 @@ public class Scheduler {
 				linee.put("mpQty", line2[18].trim());
 				linee.put("mpNote", line2[20].trim());
 				System.out.println("생산데이터 들어옴 : " + now);
-				excelReaderService.registProc(linee);
-				excelReaderService.registCutpro(linee);
+				
+				int checkPro = excelReaderService.checkPro(linee);
+				
+				if(checkPro == 0) {
+					excelReaderService.registProc(linee);
+					excelReaderService.registCutpro(linee);
+				}
+				
+				
 			}
 			br.close();
 			EgovFileUtil.delete(note);
