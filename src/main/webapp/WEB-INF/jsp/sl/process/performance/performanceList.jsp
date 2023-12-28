@@ -89,7 +89,6 @@
                                             <th>불량수량</th>
                                             <th>등록자</th>
                                             <th>검사일</th>
-                                            <th>등록일</th>
 											<th>수정/삭제</th>
                                         </tr>
                                     </thead>
@@ -103,7 +102,6 @@
 												<td>${result.ptBadQty}</td>
 												<td>${result.ptRegId}</td>
 												<td>${result.ptInsDate}</td>
-												<td>${result.ptRegDate}</td>
 	                                            <td onclick="event.cancelBubble=true" style="padding: 5px 0px; cursor: default;">
 	                                            	<a href="#" class="btn btn-warning btn-icon-split" onclick="fn_modify_checkPr_go('${result.ptId}')">
 				                                        <span class="text">수정</span>
