@@ -220,7 +220,7 @@
 		
 		console.log(c1);
 		
-		var badPer = Math.round((b1/a1)*100);
+		var badPer = Math.round((b1/a1)*1000)/10;
 		if(manHour == Infinity){
 			badPer = 0;
 		}
