@@ -58,7 +58,7 @@
 									<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
 									<select class="btn btn-secondary dropdown-toggle searchCondition" name="searchCondition" id="searchCondition">
 							    		<option value="" <c:if test="${searchVO.searchCondition eq ''}">selected="selected"</c:if>>선택</option>
-							    		<option value="설비ID" <c:if test="${searchVO.searchCondition eq '설비ID'}">selected="selected"</c:if>>설비ID</option>
+							    		<option value="코드네임" <c:if test="${searchVO.searchCondition eq '코드네임'}">selected="selected"</c:if>>코드네임</option>
 							    		<option value="설비구분" <c:if test="${searchVO.searchCondition eq '설비구분'}">selected="selected"</c:if>>설비구분</option>
 							    		<option value="설비명" <c:if test="${searchVO.searchCondition eq '설비명'}">selected="selected"</c:if>>설비명</option>
 							    		<option value="설비상태" <c:if test="${searchVO.searchCondition eq '설비상태'}">selected="selected"</c:if>>설비상태</option>

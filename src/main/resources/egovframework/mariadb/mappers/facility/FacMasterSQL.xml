@@ -35,8 +35,8 @@
 			eq_edt_date
 		FROM sm_equipment
 		WHERE 1=1
-		<if test="searchCondition == '설비ID'">
-			AND eq_id LIKE '%' + #{searchKeyword} + '%'
+		<if test="searchCondition == '코드네임'">
+			AND eq_sensorid LIKE '%' + #{searchKeyword} + '%'
 		</if>
 		<if test="searchCondition == '설비구분'">
 			AND eq_type LIKE '%' + #{searchKeyword} + '%'
