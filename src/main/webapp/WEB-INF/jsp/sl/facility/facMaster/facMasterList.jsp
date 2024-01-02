@@ -83,7 +83,6 @@
                                 <table class="table table-bordered" id="dataTable"  >
                                     <thead>
                                         <tr>
-											<th>설비ID</th>
 											<th>설비구분</th>
 											<th>설비명</th>
 											<th>설치장소</th>
@@ -94,7 +93,6 @@
                                     <tbody>
                                     	<c:forEach var="result" items="${facMasterList}" varStatus="status">
 	                                   		<tr onclick="fn_detail_facMaster('${result.eqId}')" style="cursor: pointer;">
-												<td>${result.eqId}</td>
 												<td>${result.eqType}</td>
 												<td>${result.eqName}</td>
 												<td>${result.eqPlace}</td>
