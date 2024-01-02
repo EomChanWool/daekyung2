@@ -192,7 +192,7 @@
 			<c:forEach items="${totalProdCnt}" var="list">
 				var sumData = ${list.totalQty};
 				var workTime = ${list.days};
-				var hourProd = Math.round((sumData/workTime) / 10.4); 
+				var hourProd = Math.round(((sumData/workTime) / 10.4)*10)/10; 
 				console.log(hourProd);
 				viewData[${list.months-1}] = hourProd;
 				totalProd[${list.months-1}] = sumData; 
