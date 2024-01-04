@@ -58,7 +58,7 @@
 									<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
 									<select class="btn btn-secondary dropdown-toggle searchCondition" name="searchCondition" id="searchCondition">
 							    		<option value="" <c:if test="${searchVO.searchCondition eq ''}">selected="selected"</c:if>>선택</option>
-							    		<option value="설비ID" <c:if test="${searchVO.searchCondition eq '설비ID'}">selected="selected"</c:if>>설비ID</option>
+							    		<option value="코드네임" <c:if test="${searchVO.searchCondition eq '코드네임'}">selected="selected"</c:if>>코드네임</option>
 							    		<option value="설비구분" <c:if test="${searchVO.searchCondition eq '설비구분'}">selected="selected"</c:if>>설비구분</option>
 							    		<option value="설비명" <c:if test="${searchVO.searchCondition eq '설비명'}">selected="selected"</c:if>>설비명</option>
 							    		<option value="설비상태" <c:if test="${searchVO.searchCondition eq '설비상태'}">selected="selected"</c:if>>설비상태</option>
@@ -83,8 +83,8 @@
                                 <table class="table table-bordered" id="dataTable"  >
                                     <thead>
                                         <tr>
-											<th>설비ID</th>
 											<th>설비구분</th>
+											<th>코드네임</th>
 											<th>설비명</th>
 											<th>설치장소</th>
 											<th>설비상태</th>
@@ -94,8 +94,8 @@
                                     <tbody>
                                     	<c:forEach var="result" items="${facMasterList}" varStatus="status">
 	                                   		<tr onclick="fn_detail_facMaster('${result.eqId}')" style="cursor: pointer;">
-												<td>${result.eqId}</td>
 												<td>${result.eqType}</td>
+												<td>${result.eqSensorid}</td>
 												<td>${result.eqName}</td>
 												<td>${result.eqPlace}</td>
 												<td>${result.eqOpState}</td>

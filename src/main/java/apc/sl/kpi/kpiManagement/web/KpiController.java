@@ -144,7 +144,7 @@ public class KpiController {
 	private Map<String, Object> getYears(){
 		SimpleDateFormat format = new SimpleDateFormat("yyyy");
 		Date now = new Date();
-		int begin = Integer.parseInt(format.format(now))-1;
+		int begin = Integer.parseInt(format.format(now))-2;
 		int end = begin+5;
 		Map<String, Object> map = new HashMap<>();
 		map.put("begin", begin);
