@@ -176,7 +176,7 @@
 		JOIN sm_mf_proc_log b
 		ON a.OR_ID = b.OR_ID
 		WHERE
-		YEAR(mp_reg_date) =
+		YEAR(mfl_ed_date) =
 		#{searchCondition}
 		and
 		mp_pr_state = 2
