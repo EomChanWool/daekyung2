@@ -62,23 +62,23 @@
 					a.or_id = b.or_id
 				WHERE
 					1=1
-				<!--  AND 
-					mp_pr_state IN (0,1)-->
-					AND
-					mp_pr_state = 1
+				<choose>
+					<when test="searchKeyword != '' or searchKeyword2 != null">
+					  AND 
+						mp_pr_state IN (0,1)
+					</when>
+					<otherwise>
+						AND
+						mp_pr_state = 1
+					</otherwise>
+				</choose>
 				<if test="searchKeyword != ''">
-				AND 
- 					a.mp_pr_state IN (0,1)
 				AND a.or_id LIKE CONCAT('%',#{searchKeyword},'%')
 				</if>
 				<if test="searchCondition3 != ''">
-				AND 
- 					a.mp_pr_state IN (0,1)
 					AND b.mfl_manager LIKE CONCAT('%',#{searchCondition3},'%')
 				</if>
 				<if test="searchKeyword2 != null">
-				AND 
- 					a.mp_pr_state IN (0,1)
 				    AND a.or_id IN
 				    <foreach collection="searchKeyword2" item="keyword" open="(" separator="," close=")">
 				        #{keyword}
@@ -156,26 +156,23 @@
 						),0) IN (1)
 					</if>
 				</when>
+				<when test="searchKeyword != '' or searchKeyword2 != null">
+ 				AND 
+ 					a.mp_pr_state IN (0,1)
+				</when>
 				<otherwise>
-<!-- 				AND 
- 					a.mp_pr_state IN (0,1) -->
  					AND
 					a.mp_pr_state = 1
 				</otherwise>
+				
 			</choose>
 		<if test="searchCondition3 != ''">
-		AND 
- 					a.mp_pr_state IN (0,1)
 			AND c.mfl_manager LIKE CONCAT('%',#{searchCondition3},'%')
 		</if>
 		<if test="searchKeyword != ''">
-			AND 
- 					a.mp_pr_state IN (0,1)
 			AND a.or_id LIKE CONCAT('%',#{searchKeyword},'%')
 		</if>
 		<if test="searchKeyword2 != null">
-			AND 
- 					a.mp_pr_state IN (0,1)
 		    AND a.or_id IN
 		    <foreach collection="searchKeyword2" item="keyword" open="(" separator="," close=")">
 		        #{keyword}
