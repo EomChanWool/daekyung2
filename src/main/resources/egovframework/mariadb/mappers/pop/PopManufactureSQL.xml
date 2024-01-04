@@ -43,8 +43,9 @@
 					</if>
 				</when>
 				<otherwise>
-				AND
-					mp_pr_state IN (0,1)
+				<!--  AND
+					mp_pr_state IN (0,1)-->
+					
 				</otherwise>
 			</choose>
 				GROUP BY
@@ -61,8 +62,10 @@
 					a.or_id = b.or_id
 				WHERE
 					1=1
-				AND 
-					mp_pr_state IN (0,1)
+				<!--  AND 
+					mp_pr_state IN (0,1)-->
+					AND
+					mp_pr_state = 1
 				<if test="searchKeyword != ''">
 				AND a.or_id LIKE CONCAT('%',#{searchKeyword},'%')
 				</if>
@@ -148,8 +151,10 @@
 					</if>
 				</when>
 				<otherwise>
-				AND
-					a.mp_pr_state IN (0,1)
+<!-- 				AND 
+ 					a.mp_pr_state IN (0,1) -->
+ 					AND
+					a.mp_pr_state = 1
 				</otherwise>
 			</choose>
 		<if test="searchCondition3 != ''">

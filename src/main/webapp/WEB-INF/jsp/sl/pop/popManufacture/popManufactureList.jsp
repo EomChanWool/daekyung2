@@ -117,7 +117,7 @@
                                  <table class="table table-bordered" id="dataTable"  >
                                     <thead>
                                         <tr>
-                                        	<th>수주번호</th>
+<!--                                         	<th>수주번호</th> -->
                                         	<th>로트번호</th>
                                             <th>품목</th>
                                             <th>재질</th>
@@ -134,7 +134,7 @@
                                     <tbody>
                                     	<c:forEach var="result" items="${ordList}" varStatus="status">
 	                                   		<tr>
-	                                   			<td>${result.orId}</td>
+<!--   	                                   			<td>${result.orId}</td> -->
 	                                   			<td>${result.poLotno}</td>
 	                                   			<td>${result.mpProdName}</td>
 	                                   			<td>${result.mpTexture}</td>
@@ -168,6 +168,11 @@
 													</c:forEach>
 													</select>
 												</td>
+	                                            <!--  <td>
+				                                    <a href="#" class="btn btn-danger btn-icon-split" onclick="fn_go_finish()">
+				                                        <span class="text">취소</span>
+				                                    </a>
+	                                            </td>-->
 	                                        </tr>
                                     	</c:forEach>
                                     	<c:if test="${empty ordList}"><tr><td colspan='11'>결과가 없습니다.</td><del></del></c:if>

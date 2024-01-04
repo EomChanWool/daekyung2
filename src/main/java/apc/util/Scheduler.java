@@ -1069,14 +1069,14 @@ public class Scheduler {
 		String startTime = bfTime.format(formatter);
 		String endTime = afTime.format(formatter);
 
-		System.out.println(targetTime + "에 대한 원하는 시간: " + startTime + " / " + endTime);
+//		System.out.println(targetTime + "에 대한 원하는 시간: " + startTime + " / " + endTime);
 
 		Map<String, Object> timeValue = new HashMap<>();
 		timeValue.put("startTime", startTime);
 		timeValue.put("endTime", endTime);
 
 		List<Map<String, Object>> restOrid = popManufactureService.selectRestOrId(timeValue);
-		System.out.println(restOrid);
+//		System.out.println(restOrid);
 		for (int i = 0; i < restOrid.size(); i++) {
 			Map<String, Object> result = new HashMap<String, Object>();
 			Map<String, Object> orList = new HashMap<String, Object>();
