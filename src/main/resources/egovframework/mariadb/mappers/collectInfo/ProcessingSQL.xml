@@ -13,6 +13,7 @@
 			a.or_id = b.or_id
 		WHERE 
 			1=1
+		AND b.MP_PR_STATE = 2	
 		<if test="searchCondition == 1 and searchKeyword != ''">
 			AND a.or_id LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
