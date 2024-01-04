@@ -43,9 +43,8 @@
 					</if>
 				</when>
 				<otherwise>
-				<!--  AND
-					mp_pr_state IN (0,1)-->
-					
+				  AND
+					mp_pr_state = 1
 				</otherwise>
 			</choose>
 				GROUP BY

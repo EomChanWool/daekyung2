@@ -352,9 +352,12 @@
     }
 	
 	function fn_cancel(orId){
-		listForm.orId.value = orId;
-		listForm.action = "${pageContext.request.contextPath}/sl/pop/popMf/cancelMf.do";
-		listForm.submit();
+		if (confirm("작업을 취소하시겠습니까?")) {
+			listForm.orId.value = orId;
+			listForm.action = "${pageContext.request.contextPath}/sl/pop/popMf/cancelMf.do";
+			listForm.submit();
+			
+		}
 	}
 	
 
