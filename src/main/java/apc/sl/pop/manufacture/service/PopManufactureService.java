@@ -34,4 +34,10 @@ public interface PopManufactureService {
 	void updateProcess3(Map<String, Object> map);
 	
 	void updateLogEdtime(Map<String, Object> map);
+
+	void cancelMf(Map<String, Object> map);
+
+	void cancelMf2(Map<String, Object> map);
+	
+	void returnMf(Map<String, Object> map);
 }

@@ -37,4 +37,10 @@ public interface PopManufactureMapper {
 	
 	void updateLogEdtime(Map<String, Object> map);
 
+	void cancelMf(Map<String, Object> map);
+
+	void cancelMf2(Map<String, Object> map);
+
+	void returnMf(Map<String, Object> map);
+
 }

@@ -85,4 +85,20 @@ public class PopManufactureServieImpl implements PopManufactureService{
 	public int countFinish() {
 		return popManufactureMapper.countFinish();
 	}
+
+	@Override
+	public void cancelMf(Map<String, Object> map) {
+		popManufactureMapper.cancelMf(map);
+	}
+
+	@Override
+	public void cancelMf2(Map<String, Object> map) {
+		popManufactureMapper.cancelMf2(map);
+		
+	}
+
+	@Override
+	public void returnMf(Map<String, Object> map) {
+		popManufactureMapper.returnMf(map);
+	}
 }

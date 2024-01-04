@@ -129,6 +129,7 @@
                                             
 											<th>작업완료</th>
 											<th>작업자</th>
+											<th>취소</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -168,11 +169,11 @@
 													</c:forEach>
 													</select>
 												</td>
-	                                            <!--  <td>
-				                                    <a href="#" class="btn btn-danger btn-icon-split" onclick="fn_go_finish()">
-				                                        <span class="text">취소</span>
+	                                             <td style="width: 30px;">
+				                                    <a href="#" class="btn" onclick="fn_cancel('${result.orId}')" style="border: 1px solid;">
+				                                        <span class="text">X</span>
 				                                    </a>
-	                                            </td>-->
+	                                            </td>
 	                                        </tr>
                                     	</c:forEach>
                                     	<c:if test="${empty ordList}"><tr><td colspan='11'>결과가 없습니다.</td><del></del></c:if>
@@ -349,6 +350,12 @@
         listForm.searchCondition3.value = name;
         listForm.submit();
     }
+	
+	function fn_cancel(orId){
+		listForm.orId.value = orId;
+		listForm.action = "${pageContext.request.contextPath}/sl/pop/popMf/cancelMf.do";
+		listForm.submit();
+	}
 	
 
 	$(function() {

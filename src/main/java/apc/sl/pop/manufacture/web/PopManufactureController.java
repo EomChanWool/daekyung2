@@ -146,6 +146,20 @@ public class PopManufactureController {
 		return "redirect:/sl/pop/popMf/popMfList.do";
 	}
 	
+	@RequestMapping(value="/sl/pop/popMf/cancelMf.do" , method=RequestMethod.POST)
+	public String cancelManufacture(@RequestParam Map<String, Object> map, RedirectAttributes redirectAttributes, HttpSession session) {
+		if(!map.get("searchKeyword").equals("") || !map.get("searchCondition").equals("") || !map.get("searchCondition3").equals("")) {
+			redirectAttributes.addFlashAttribute("sear",map);
+		}
+		map.put("userId", session.getAttribute("user_id"));
+		System.out.println("map : " + map);
+		popManufactureService.cancelMf(map);
+		popManufactureService.cancelMf2(map);
+		popManufactureService.returnMf(map);
+		
+		return "redirect:/sl/pop/popMf/popMfList.do";
+	}
+	
 	@RequestMapping(value="/sl/pop/popMf/finishMf.do" , method=RequestMethod.POST)
 	public String finishManufacture(@RequestParam Map<String, Object> map, RedirectAttributes redirectAttributes, HttpSession session) {
 		
