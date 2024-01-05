@@ -12,13 +12,21 @@
 				(select
 					COUNT(*) AS COUNT2
 				FROM
-					sm_mf_proc
+			sm_mf_proc a
+		LEFT JOIN
+			sm_mf_process_stop b
+		ON
+			a.OR_ID = b.OR_ID LEFT
+		JOIN
+			sm_mf_proc_log c
+		ON
+			a.or_id = c.or_id
 				WHERE
 					1=1
 			<choose>
 				<when test="searchCondition != ''">
 				AND
-					mp_pr_state = 1
+					a.mp_pr_state = 1
 				<if test="searchCondition == 1">
 					AND 
 						ISNULL((
@@ -26,6 +34,8 @@
 								TOP 1 mfs_state
 							FROM
 								sm_mf_process_stop
+							WHERE
+								OR_ID = a.OR_ID
 							ORDER BY
 								mfs_idx DESC
 					),0) IN (2,0)
@@ -37,6 +47,8 @@
 								TOP 1 mfs_state
 							FROM
 								sm_mf_process_stop
+							WHERE
+								OR_ID = a.OR_ID
 							ORDER BY
 								mfs_idx DESC
 						),0) IN (1)
@@ -44,11 +56,11 @@
 				</when>
 				<otherwise>
 				  AND
-					mp_pr_state = 1
+					a.mp_pr_state = 1
 				</otherwise>
 			</choose>
 				GROUP BY
-					or_id) AS dataa;
+					a.or_id) AS dataa;
 			</when>
 			<otherwise>
 				SELECT 
