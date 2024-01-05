@@ -61,10 +61,10 @@
 						    									value="${searchVO.searchKeyword}" placeholder="LOT번호를 입력해 주세요"
 						    									style="background-color:#eaecf4; width: 25%; float: left;">
 						    	</form>
-						    	<a href="#" class="btn btn-info btn-icon-split" onclick="fn_search_inspect()" style="margin-left: 0.3rem;">
+						    	<a href="#" class="btn btn-info btn-icon-split" onclick="fn_search_vision()" style="margin-left: 0.3rem;">
 	                                <span class="text">검색</span>
 	                            </a>
-						    	<a href="#" class="btn btn-success btn-icon-split" onclick="fn_searchAll_inspect()">
+						    	<a href="#" class="btn btn-success btn-icon-split" onclick="fn_searchAll_vision()">
 	                                <span class="text">전체목록</span>
 	                            </a>
 	                            <a href="#" class="btn btn-primary btn-icon-split" onclick="fn_regist_vision()" style="float: right;">
