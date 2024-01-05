@@ -904,7 +904,7 @@ public class Scheduler {
 //	    
 //	}
 
-	@Scheduled(cron = "20 * * * * *")
+	@Scheduled(cron = "20 50 22 * * *")
 	public void insdataUpdate() {
 
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
