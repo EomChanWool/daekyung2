@@ -207,7 +207,7 @@
 	<c:forEach items="${lineRunningList}" var="list">
 	lineName.push('${list.daqName}');
 	lineCount.push('${list.counting}');
-	lineWorkTime.push('${list.workTime}');
+	lineWorkTime.push(Math.round(('${list.workTime/60}')*10)/10);
 	</c:forEach>
 	
 	
@@ -255,7 +255,7 @@
 			      	name: '작동시간',
 			      	position: 'right',
 			      	axisLabel: {
-			        	formatter: '{value} sec',
+			        	formatter: '{value} min',
 			            
 						}
 			    }
@@ -284,12 +284,12 @@
 				      label: {
 				          show: true,
 				          position: 'inside',
-				          formatter: '{c} sec'
+				          formatter: '{c} min'
 				          
 				        },
 				      tooltip: {
 				        valueFormatter: function (value) {
-				          return value + ' sec';
+				          return value + ' min';
 				        }
 				      },
 				      data: lineWorkTime
