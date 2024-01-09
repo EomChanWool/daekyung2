@@ -6,8 +6,17 @@
 	<select id="selectInspectListToCnt" resultType="int">
 		SELECT COUNT(*) FROM sm_inspection_info a
 		WHERE 1=1
-		<if test="searchKeyword != ''">
-			AND isi_lotno LIKE CONCAT('%',#{searchKeyword},'%')
+		<if test="searchCondition == 1 and searchKeyword != ''">
+			AND a.or_id LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchCondition == 2 and searchKeyword != ''">
+			AND a.isi_lotno LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchCondition == 3 and searchKeyword != ''">
+			AND a.isi_item_type LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchStDate != ''">
+			AND a.isi_date = #{searchStDate}
 		</if>
 		
 
@@ -19,10 +28,18 @@
 		isi_file5, a.si_id, a.isi_item_type, a.isi_spc_spec,
 		a.isi_check,a.isi_file1,a.isi_report_file,a.isi_report_image
 		FROM sm_inspection_info a
-		
 		where 1=1
-		<if test="searchKeyword != ''">
-			AND isi_lotno LIKE CONCAT('%',#{searchKeyword},'%')
+		<if test="searchCondition == 1 and searchKeyword != ''">
+			AND a.or_id LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchCondition == 2 and searchKeyword != ''">
+			AND a.isi_lotno LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchCondition == 3 and searchKeyword != ''">
+			AND a.isi_item_type LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchStDate != ''">
+			AND a.isi_date = #{searchStDate}
 		</if>
 		
 		ORDER BY isi_id DESC
