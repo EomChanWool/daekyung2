@@ -281,7 +281,7 @@ public class Scheduler {
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 		Date now = new Date();
 
-		now = new Date(now.getTime() + (1000 * 60 * 60 * 24 * -1));
+		now = new Date(now.getTime() + (1000 * 60 * 60 * 24 * -2));
 
 		String edDate = format.format(now);
 
@@ -622,7 +622,7 @@ public class Scheduler {
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 		Date now = new Date();
 
-		now = new Date(now.getTime() + (1000 * 60 * 60 * 24 * -1));
+		now = new Date(now.getTime() + (1000 * 60 * 60 * 24 * -2));
 
 		String edDate = format.format(now);
 		String fileName = "/up-data/pro-" + edDate;
@@ -918,13 +918,12 @@ public class Scheduler {
 		if (insExcelNum > insDataNum) {
 
 			List<Map<String, Object>> noUpList = excelReaderService.noUpList(edDate);
-
+			
 			for (int i = 0; i < noUpList.size(); i++) {
 				Map<String, Object> temp = new HashMap<>();
 				temp = noUpList.get(i);
 				String lotNo = temp.get("iehLotno") + "";
 				Map<String, Object> proc = excelReaderService.mfProc(lotNo);
-
 				String prodName = proc.get("mpProdName") + "";
 				String mpTexture = proc.get("mpTexture") + "";
 				String mpThickness = proc.get("mpThickness") + "";

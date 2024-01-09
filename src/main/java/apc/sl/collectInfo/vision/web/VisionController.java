@@ -30,7 +30,7 @@ public class VisionController {
 	@Autowired
 	private VisionService visionService;
 	
-	private String filePath = "C:\\test\\";
+	private String filePath = "D:\\test\\";
 	
 	@RequestMapping("/sl/collectInfo/vision/visionList.do")
 	public String visionList(@ModelAttribute("searchVO") SearchVO searchVO, ModelMap model, HttpSession session) {
