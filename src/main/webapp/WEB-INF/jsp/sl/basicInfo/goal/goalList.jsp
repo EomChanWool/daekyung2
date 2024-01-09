@@ -101,7 +101,7 @@
 	                                   		<tr>
 	                                            <td>${result.gmYear}년</td>
 												<td>${result.gmMonth}월</td>
-												<td>${result.gmProdQty}kg</td>
+												<td>${result.gmProdQty}EA</td>
 												<td>${result.gmGoodRate}%</td>
 												<td>${result.gmBadRate}%</td>
 												<td style="padding: 5px 0px;">
