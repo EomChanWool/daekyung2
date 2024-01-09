@@ -281,7 +281,7 @@ public class Scheduler {
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 		Date now = new Date();
 
-		now = new Date(now.getTime() + (1000 * 60 * 60 * 24 * -1));
+		now = new Date(now.getTime() + (1000 * 60 * 60 * 24 * -2));
 
 		String edDate = format.format(now);
 
@@ -622,7 +622,7 @@ public class Scheduler {
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 		Date now = new Date();
 
-		now = new Date(now.getTime() + (1000 * 60 * 60 * 24 * -1));
+		now = new Date(now.getTime() + (1000 * 60 * 60 * 24 * -2));
 
 		String edDate = format.format(now);
 		String fileName = "/up-data/pro-" + edDate;
