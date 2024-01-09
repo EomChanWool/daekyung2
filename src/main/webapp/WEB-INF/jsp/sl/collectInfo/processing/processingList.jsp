@@ -61,7 +61,8 @@
 							    		<option value="" <c:if test="${searchVO.searchCondition eq ''}">selected="selected"</c:if>>선택</option>
 							    		<option value="1" <c:if test="${searchVO.searchCondition eq '1'}">selected="selected"</c:if>>수주번호</option>
 							    		<option value="2" <c:if test="${searchVO.searchCondition eq '2'}">selected="selected"</c:if>>로트번호</option>
-							    		<option value="3" <c:if test="${searchVO.searchCondition eq '3'}">selected="selected"</c:if>>작업자</option>
+							    		<option value="3" <c:if test="${searchVO.searchCondition eq '3'}">selected="selected"</c:if>>품명</option>
+							    		<option value="4" <c:if test="${searchVO.searchCondition eq '4'}">selected="selected"</c:if>>작업자</option>
 						    		</select>
 									<input type="text" class="form-control bg-light border-0 small" name="searchKeyword"
 						    									value="${searchVO.searchKeyword}" placeholder="검색어를 입력해 주세요"

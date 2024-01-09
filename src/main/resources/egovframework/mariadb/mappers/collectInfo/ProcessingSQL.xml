@@ -21,6 +21,9 @@
 			AND b.po_lotno LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
 		<if test="searchCondition == 3 and searchKeyword != ''">
+			AND b.mp_prod_name LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchCondition == 4 and searchKeyword != ''">
 			AND a.mfl_manager LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
 		<if test="searchStDate != ''">
@@ -71,6 +74,9 @@
 			AND b.po_lotno LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
 		<if test="searchCondition == 3 and searchKeyword != ''">
+			AND b.mp_prod_name LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchCondition == 4 and searchKeyword != ''">
 			AND a.mfl_manager LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
 		<if test="searchStDate != ''">

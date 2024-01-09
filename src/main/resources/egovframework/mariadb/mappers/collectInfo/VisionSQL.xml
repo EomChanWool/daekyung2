@@ -5,8 +5,14 @@
 	<select id="selectVisionListToCnt" resultType="int">
 		SELECT COUNT(*) FROM sm_inspection_data
 		WHERE 1=1
-		<if test="searchKeyword != ''">
-			AND po_lotno LIKE CONCAT('%',#{searchKeyword},'%')
+		<if test="searchCondition == 1 and searchKeyword != ''">
+			AND or_id LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchCondition == 2 and searchKeyword != ''">
+			AND po_lotno LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchCondition == 3 and searchKeyword != ''">
+			AND id_prod_name LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
 		<if test="searchStDate != ''">
 			AND id_test_time >= #{searchStDate}
@@ -20,8 +26,14 @@
 	<select id="selectVisionList" resultType="egovMap">
 		SELECT * from sm_inspection_data
 		where 1=1
-		<if test="searchKeyword != ''">
-			AND po_lotno LIKE CONCAT('%',#{searchKeyword},'%')
+		<if test="searchCondition == 1 and searchKeyword != ''">
+			AND or_id LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchCondition == 2 and searchKeyword != ''">
+			AND po_lotno LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchCondition == 3 and searchKeyword != ''">
+			AND id_prod_name LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
 		<if test="searchStDate != ''">
 			AND id_test_time >= #{searchStDate}
