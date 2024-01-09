@@ -346,7 +346,7 @@
 	<c:forEach items="${eqList}" var="list">
 	date2.push('${list.months}월');
 	lineCount.push('${list.counting}');
-	workTime.push('${list.workTime/60}');
+	workTime.push(Math.round(('${list.workTime/60}')*10)/10);
 	</c:forEach>
 	
 	
