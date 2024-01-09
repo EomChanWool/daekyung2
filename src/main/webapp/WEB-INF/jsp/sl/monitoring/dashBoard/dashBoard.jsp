@@ -346,7 +346,7 @@
 	<c:forEach items="${eqList}" var="list">
 	date2.push('${list.months}월');
 	lineCount.push('${list.counting}');
-	workTime.push('${list.workTime}');
+	workTime.push('${list.workTime/60}');
 	</c:forEach>
 	
 	
@@ -394,7 +394,7 @@
 		      	  name: '작동시간(DAQ)',
 		      	  position: 'right',
 		      	  axisLabel: {
-		            formatter: '{value} sec'
+		            formatter: '{value} min'
 				  }
 			    }
 			  ],
@@ -422,12 +422,12 @@
 				      label: {
 				          show: true,
 				          position: 'inside',
-				          formatter: '{c} sec'
+				          formatter: '{c} min'
 				          
 				        },
 				      tooltip: {
 				        valueFormatter: function (value) {
-				          return value + ' sec';
+				          return value + ' min';
 				        }
 				      },
 				      data: workTime
