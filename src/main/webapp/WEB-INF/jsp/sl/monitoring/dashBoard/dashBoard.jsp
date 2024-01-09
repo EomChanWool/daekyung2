@@ -757,7 +757,7 @@ option && myChart.setOption(option);
 			    {
 				      name: '작동시간',
 				      yAxisIndex: 1,
-				      type: 'bar',
+				      type: 'line',
 				      label: {
 				          show: true,
 				          position: 'inside',

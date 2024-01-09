@@ -76,15 +76,18 @@
 		) b ON a.or_id = b.or_id
 		LEFT JOIN (
 		    SELECT
-		        YEAR(mp_reg_date) AS reg_year,
-		        MONTH(mp_reg_date) AS reg_month,
+		        YEAR(mfl_ed_date) AS reg_year,
+		        MONTH(mfl_ed_date) AS reg_month,
 		        SUM(mp_qty) AS total_mp_qty
 		    FROM
-		        sm_mf_proc
+		        sm_mf_proc_log f
+		    JOIN 
+		        sm_mf_proc p
+		    ON f.or_id = p.or_id     
 		    WHERE
 		        MP_PR_STATE = 2
 		    GROUP BY
-		        YEAR(mp_reg_date), MONTH(mp_reg_date)
+		        YEAR(mfl_ed_date), MONTH(mfl_ed_date)
 		) d ON YEAR(a.mfl_ed_date) = d.reg_year AND MONTH(a.mfl_ed_date) = d.reg_month
 		WHERE
 		    YEAR(a.mfl_ed_date) = #{searchCondition}
@@ -135,15 +138,23 @@
 	</select>
 	
 	<select id="selectLineRunningList" resultType="egovMap">
-		SELECT COUNT(*) AS
-		counting , DAQ_NAME, convert(date,DAQ_ED_DATE) AS
-		daq_ed_date, SUM(DAQ_WORK_TIME) AS work_time
+		SELECT 
+			max(daq_count) AS counting,
+			DAQ_NAME,
+			convert(date,DAQ_ED_DATE) AS daq_ed_date,
+			SUM(DAQ_WORK_TIME) AS work_time
 		FROM
-		sm_daq_data
-		WHERE 1=1
-		AND CONVERT(DATE, DAQ_ED_DATE) = #{searchEdDate}
-		GROUP BY daq_name, daq_ed_date
-		ORDER BY DAQ_NAME
+			sm_daq_data
+		WHERE 
+			1=1
+		AND 
+			CONVERT(DATE, DAQ_ed_DATE) = #{searchEdDate}
+		<if test="searchKeyword != ''">AND daq_name like concat('%', '${searchKeyword}', '%')</if>
+		GROUP BY
+			daq_name,
+			convert(date,DAQ_ED_DATE)
+		ORDER BY
+			DAQ_NAME
 	</select>
 
 </mapper>
