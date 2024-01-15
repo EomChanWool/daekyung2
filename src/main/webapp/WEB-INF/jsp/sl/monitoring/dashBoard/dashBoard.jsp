@@ -267,14 +267,14 @@
 			    {
 			      name: '수주량',
 			      type: 'bar',
-			      /* label: {
+			      label: {
 			          show: true,
 			          position: 'inside',
 			          formatter: function(d){
 			        	  return d.data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+" EA";
 			          }
 			          
-			        }, */
+			        }, 
 			      tooltip: {
 			        valueFormatter: function (value) {
 			        	let result = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');  
@@ -286,14 +286,14 @@
 			    {
 		    	name: '생산량',
 			    type: 'bar',
-			    /* label: {
+			     label: {
 			          show: true,
 			          position: 'inside',
 			          formatter: function(d){
 			        	  return d.data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+" EA";
 			          }
 			          
-			        }, */
+			        }, 
 			    tooltip: {
 			      valueFormatter: function (value) {
 			    	  
