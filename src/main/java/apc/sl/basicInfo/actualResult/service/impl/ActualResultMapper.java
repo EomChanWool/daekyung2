@@ -28,5 +28,6 @@ public interface ActualResultMapper {
 	void insertSystemLog(Map<String, Object> member);
 
 	List<?> selectMenuLevel();
-
+	
+	List<?> memList();
 }

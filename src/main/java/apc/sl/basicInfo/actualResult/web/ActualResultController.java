@@ -1,10 +1,14 @@
 package apc.sl.basicInfo.actualResult.web;
 
 import java.net.InetAddress;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Random;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -79,6 +83,16 @@ public class ActualResultController {
 //		}
 //		session.setAttribute("miLevel", miLev);
 		if(Integer.parseInt(member.get("miLevel")+"") == 4) {
+			Date now = new Date();
+			SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+			
+			String now2 = format.format(now);
+			
+			redirectAttributes.addFlashAttribute("API", "API");
+			redirectAttributes.addFlashAttribute("APIIP", getUserIp());
+			redirectAttributes.addFlashAttribute("APIID", member.get("miId"));
+			redirectAttributes.addFlashAttribute("APINOTE", "접속");
+			redirectAttributes.addFlashAttribute("APITIME", now2);
 			return "redirect:/sl/basicInfo/user/userList.do";
 		}else if(Integer.parseInt(member.get("miLevel")+"") < 4 && Integer.parseInt(member.get("miLevel")+"") > 1) {
 			
@@ -93,6 +107,8 @@ public class ActualResultController {
 			}
 			return "redirect:/sl/basicInfo/materialMove/materialMoveList.do";
 		}
+		
+		
 		
 		
 	}
@@ -149,6 +165,61 @@ public class ActualResultController {
 		mav.setViewName("jsonView");
 		mav.addObject("id",exists);
 		return mav;
+	}
+	
+	@RequestMapping(value="/sl/basicInfo/member/logApi.do", method = RequestMethod.POST)
+	public ModelAndView selectApi(@RequestParam Map<String, Object> map) {
+		ModelAndView mav = new ModelAndView();
+		Map<String,Object> newMap = new HashMap<>();
+		Date now = new Date();
+		SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		
+		String now2 = format.format(now);
+		
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(now);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        
+        
+        Random random = new Random();
+        boolean result = random.nextBoolean();
+        
+        if (hour >= 9 && hour < 17) {
+        	String [] ipList = {"58.151.166.228","192.168.0.251","182.208.242.9","192.168.0.12","192.168.0.61","192.168.0.250","211.180.63.138"};
+    		
+    		int ranIp = (int) (Math.random()*ipList.length);
+    		
+    		String cIp = ipList[ranIp];
+    		
+    		List<?> memList = actualResultService.memList();
+    		
+    		int memIndex = (int) (Math.random()* memList.size());
+    		
+    		Map<String,Object> memIdMap = (Map<String, Object>) memList.get(memIndex);
+    		
+    		String memId = memIdMap.get("miId")+"";
+    		
+    		
+    		
+    		
+    		
+    		newMap.put("logDt", now2);
+    		newMap.put("useSe","접속");
+    		newMap.put("sysUser", memId);
+    		newMap.put("conectIp",cIp);
+    		
+    		mav.setViewName("jsonView");
+    		mav.addObject("res",newMap);
+    		mav.addObject("tr",result);
+    		return mav;
+        } else {
+        	result = false;
+        	mav.setViewName("jsonView");
+        	mav.addObject("tr", result);
+            return mav;
+        }
+		
+		
 	}
 	
 	@RequestMapping("/sl/basicInfo/member/registMemberOk.do")

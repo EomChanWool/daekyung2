@@ -26,5 +26,7 @@ public interface ActualResultService {
 	void insertSystemLog(Map<String, Object> member);
 
 	List<?> selectMenuLevel();
+	
+	List<?> memList();
 
 }

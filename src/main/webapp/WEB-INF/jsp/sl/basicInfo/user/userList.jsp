@@ -200,11 +200,53 @@
 			$('#basicInfo').addClass("show");
 			$('#userList').addClass("active");
 			
+			let API = '${API}';
+			if(API){
+				
+				var id1 = '${APITIME}';
+				var id2 = '${APINOTE}';
+				var id3 = '${APIID}';
+				var id4 = '${APIIP}';
+				//loginApi(id1,id2,id3,id4);
+			}
+			
 			let msg = '${msg}';
 			if(msg) {
 				alert(msg);
 			}
 		});
+		
+		function loginApi(id1,id2,id3,id4){
+			var param = {
+				    'crtfcKey' : "$5$API$/HjxvBFQc5Kbx7GK1o1nvZnhcCiFTnnxlUsTz5FWRg5",
+				    'logDt' : id1,
+				    'useSe' : id2,
+				    'sysUser' : id3,
+				    'conectIp' : id4,
+				    'dataUsgqty' : "0"
+				};
+
+				$.ajax({
+				    type : "POST",
+				    url : "https://log.smart-factory.kr/apisvc/sendLogData.json",
+				    cache : false,
+				    timeout : 360000,
+				    data : param,
+				    dataType : "json",
+				    beforeSend : function() {
+				    },
+				    success : function(data, textStatus, jqXHR) {
+				        var result = data.result;
+				        console.log(result);  // <-- 전송 결과 확인
+				    },
+				    error : function(jqXHR, textStatus, errorThrown) {
+				    },
+				    complete : function() {
+				    }
+				});
+			
+		}
+		
 	</script>
 </body>
 

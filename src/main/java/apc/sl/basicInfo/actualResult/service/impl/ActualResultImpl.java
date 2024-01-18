@@ -64,4 +64,10 @@ public class ActualResultImpl implements ActualResultService {
 		return actualResultMapper.selectMenuLevel();
 	}
 
+	@Override
+	public List<?> memList() {
+		// TODO Auto-generated method stub
+		return actualResultMapper.memList();
+	}
+
 }
