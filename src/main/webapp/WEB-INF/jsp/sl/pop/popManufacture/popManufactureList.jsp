@@ -279,6 +279,7 @@
 	function fn_proceeding_mf(){
 		var managerSelect;
 		managerSelect = document.getElementById('searchCondition3').value;
+		
 		if (managerSelect != '') {
 			alert("전체 목록에서만 가능합니다.")
 		} else {
@@ -291,6 +292,7 @@
 	function fn_stopping_mf(){
 		var managerSelect;
 		managerSelect = document.getElementById('searchCondition3').value;
+
 		if (managerSelect != '') {
 			alert("전체 목록에서만 가능합니다.")
 		} else {
@@ -346,9 +348,14 @@
 	}
 
 	function selectManager(name) {
-        console.log(name);
-        listForm.searchCondition3.value = name;
-        listForm.submit();
+		var managerSelect2;
+		managerSelect2 = document.getElementById('searchCondition').value;
+		if (managerSelect2 != '') {
+			alert("전체 목록에서만 가능합니다.")
+		} else {
+	        listForm.searchCondition3.value = name;
+	        listForm.submit();
+		}
     }
 	
 	function fn_cancel(orId){
