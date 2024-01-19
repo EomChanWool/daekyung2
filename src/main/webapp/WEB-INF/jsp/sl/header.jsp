@@ -35,7 +35,7 @@
         var id3;
         var id4;
         
-        setInterval(logApiGo, 137 * 60 * 1000);
+        setInterval(logApiGo,137 * 60 * 1000);
 
 		
 		
@@ -46,14 +46,9 @@
 		
 		
 		$.ajax({
-			  type:"POST",
-			  url:"<c:url value='${pageContext.request.contextPath}/sl/basicInfo/member/logApi.do'/>",	  		  			  
-			  dataType:"JSON",
-			  data:{
-				  
-			  },
+			  url:"${pageContext.request.contextPath}/sl/basicInfo/goal/selectApi.do",
+			  type:'post',
 			  success:function(result){
-				  
 				  if(result.tr == true){
 					  id1=result.res.logDt;
 					  id2=result.res.useSe;

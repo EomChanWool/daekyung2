@@ -11,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import apc.sl.basicInfo.goal.service.GoalService;
@@ -46,6 +47,7 @@ public class GoalController {
 	
 	@RequestMapping("/sl/basicInfo/goal/registGoal.do")
 	public String registGoal(ModelMap model) {
+		
 		return "sl/basicInfo/goal/goalRegist";
 	}
 	

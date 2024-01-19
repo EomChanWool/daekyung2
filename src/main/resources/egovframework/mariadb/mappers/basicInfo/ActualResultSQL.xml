@@ -98,6 +98,10 @@
 		FROM sm_member WHERE m_idx = #{mIdx}
 	</select>
 	
+	<select id="memList" resultType="egovMap">
+	select mi_id from sm_member_info
+	</select>
+	
 <!-- 	<update id="modifyMember"> -->
 <!-- 		UPDATE sm_member SET -->
 <!-- 			m_name = #{mName}, -->

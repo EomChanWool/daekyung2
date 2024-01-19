@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
@@ -117,7 +118,10 @@ public class ActualResultController {
 	public String logout(@RequestParam Map<String,Object> info, RedirectAttributes redirectAttributes,HttpServletRequest request,HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
 		Object obj = session.getAttribute("memberVO");
+		Date now = new Date();
+		SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		
+		String now2 = format.format(now);
 		//시스템로그 기록
 		Map<String, Object> log = (Map<String, Object>) session.getAttribute("memberVO");
 		log.put("ip", getUserIp());
@@ -130,6 +134,12 @@ public class ActualResultController {
 		}
 		
 		redirectAttributes.addFlashAttribute("msg", "로그아웃되었습니다");
+		redirectAttributes.addFlashAttribute("APIID",  session.getAttribute("user_id"));
+		redirectAttributes.addFlashAttribute("API", "API");
+		redirectAttributes.addFlashAttribute("APIIP", getUserIp());
+		
+		redirectAttributes.addFlashAttribute("APINOTE", "종료");
+		redirectAttributes.addFlashAttribute("APITIME", now2);
 		return "redirect:/sl/main.do";
 	}
 	
@@ -167,8 +177,11 @@ public class ActualResultController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/sl/basicInfo/member/logApi.do", method = RequestMethod.POST)
-	public ModelAndView selectApi(@RequestParam Map<String, Object> map) {
+	
+	@RequestMapping(value="/sl/basicInfo/goal/selectApi.do")
+	@ResponseBody
+	public ModelAndView selectApi() {
+		
 		ModelAndView mav = new ModelAndView();
 		Map<String,Object> newMap = new HashMap<>();
 		Date now = new Date();
@@ -183,23 +196,20 @@ public class ActualResultController {
         
         Random random = new Random();
         boolean result = random.nextBoolean();
-        
+       
         if (hour >= 9 && hour < 17) {
         	String [] ipList = {"58.151.166.228","192.168.0.251","182.208.242.9","192.168.0.12","192.168.0.61","192.168.0.250","211.180.63.138"};
     		
     		int ranIp = (int) (Math.random()*ipList.length);
     		
     		String cIp = ipList[ranIp];
-    		
     		List<?> memList = actualResultService.memList();
-    		
     		int memIndex = (int) (Math.random()* memList.size());
-    		
     		Map<String,Object> memIdMap = (Map<String, Object>) memList.get(memIndex);
     		
     		String memId = memIdMap.get("miId")+"";
     		
-    		
+    		 
     		
     		
     		
