@@ -218,6 +218,13 @@ public class ActualResultController {
     		newMap.put("sysUser", memId);
     		newMap.put("conectIp",cIp);
     		
+    		Map<String, Object> dataMap = new HashMap<String, Object>();
+    		dataMap.put("miId", memId);
+    		dataMap.put("ip",cIp);
+    		dataMap.put("comment", "로그인");
+    		
+    		actualResultService.insertSystemLog(dataMap);
+    		
     		mav.setViewName("jsonView");
     		mav.addObject("res",newMap);
     		mav.addObject("tr",result);
