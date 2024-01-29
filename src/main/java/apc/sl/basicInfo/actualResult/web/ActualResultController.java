@@ -192,12 +192,12 @@ public class ActualResultController {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(now);
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
         
         Random random = new Random();
         boolean result = random.nextBoolean();
        
-        if (hour >= 9 && hour < 17) {
+        if (hour >= 9 && hour < 17 && dayOfWeek > 1) {
         	String [] ipList = {"58.151.166.228","192.168.0.251","182.208.242.9","192.168.0.12","192.168.0.61","192.168.0.250","211.180.63.138"};
     		
     		int ranIp = (int) (Math.random()*ipList.length);
