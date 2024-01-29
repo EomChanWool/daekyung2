@@ -222,8 +222,8 @@ public class ActualResultController {
     		dataMap.put("miId", memId);
     		dataMap.put("ip",cIp);
     		dataMap.put("comment", "로그인");
-    		
-    		actualResultService.insertSystemLog(dataMap);
+    		if(result) {
+    		actualResultService.insertSystemLog(dataMap);}
     		
     		mav.setViewName("jsonView");
     		mav.addObject("res",newMap);
