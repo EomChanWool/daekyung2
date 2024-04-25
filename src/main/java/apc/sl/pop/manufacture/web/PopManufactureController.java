@@ -182,9 +182,9 @@ public class PopManufactureController {
 		
 		System.out.println("str : " + str);
 		//txt파일 서버에 생성
-		CreateFile(str);
+		//CreateFile(str);
 		//ftp로 서버에 생성된 파일 전송후 서버에있는 파일 지우기
-		open(finish);
+		//open(finish);
 		
 		return "redirect:/sl/pop/popMf/popMfList.do";
 	}

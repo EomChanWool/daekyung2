@@ -110,14 +110,18 @@ public class Scheduler {
 //	
 
 	// 끝난 가공공정 txt파일로 생성
-	@Scheduled(cron = "20 57 20 * * *")
+	@Scheduled(cron = "20 17 20 * * *")
 	public void outPro() {
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+		Date now = new Date();
+		String edDate = format.format(now);
 
 		List<Map<String, Object>> outProList = excelReaderService.outProList();
 
-		System.out.println(outProList);
+		System.out.println("가공공정끝난거 : "+outProList);
 
-		String fileName = "C:\\test\\Test2.txt";
+		String fileName = "C:\\test\\Test2" + edDate + ".txt";
 
 		try {
 			BufferedWriter fw = new BufferedWriter(new FileWriter(fileName, true));
@@ -143,9 +147,13 @@ public class Scheduler {
 	}
 
 	// 끝난 가공공정 txt파일로 생성된것을 ftp서버로 옮김
-	@Scheduled(cron = "40 57 20 * * *")
+	@Scheduled(cron = "40 27 20 * * *")
 	public void outProFTP() {
-
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+		Date now = new Date();
+		String edDate = format.format(now);
+		
 		ftp = new FTPClient();
 		// default controlEncoding 값이 "ISO-8859-1" 때문에 한글 파일의 경우 파일명이 깨짐
 		// ftp server 에 저장될 파일명을 uuid 등의 방식으로 한글을 사용하지 않고 저장할 경우 UTF-8 설정이 따로 필요하지 않다.
@@ -176,19 +184,24 @@ public class Scheduler {
 
 		} catch (IOException e) {
 			e.printStackTrace();
-			System.out.println("에러");
+			try {
+				ftp.logout();
+				ftp.disconnect();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			System.out.println("에러 : " + now);
 		}
-		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-		Date now = new Date();
-		String edDate = format.format(now);
+		
 
-		String append_fileName = "C:\\test\\Test2.txt";
+		String append_fileName = "C:\\test\\Test2" + edDate + ".txt";
 
 		File append_file = new File(append_fileName);
 
 		String fileName = "/down-data/pro" + "-" + edDate + ".txt";
 
-		System.out.println("");
 		try {
 			FileInputStream inputStream = new FileInputStream(append_file);
 
@@ -196,16 +209,17 @@ public class Scheduler {
 
 			inputStream.close();
 		} catch (Exception e) {
+			System.out.println("File NOT input");
 			e.printStackTrace();
 		} finally {
 			try {
-				EgovFileUtil.delete(append_file);
+				//EgovFileUtil.delete(append_file);
 				ftp.logout();
 				ftp.disconnect();
 
 			} catch (IOException e) {
 				e.printStackTrace();
-				System.out.println("에러");
+				System.out.println("File NOT input2");
 			}
 		}
 

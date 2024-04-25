@@ -24,7 +24,7 @@
 		FROM
 			sm_daq_data
 		WHERE 
-			1=1
+			daq_count > 0
 		AND 
 			CONVERT(DATE, DAQ_ed_DATE) = #{searchEdDate}
 		<if test="searchKeyword != ''">AND daq_name like concat('%', '${searchKeyword}', '%')</if>
@@ -54,7 +54,7 @@
 				convert(date,DAQ_ED_DATE)
 			) AS Subquery
 		WHERE
-			1=1
+			daq_count > 0
 		AND
 			YEAR(DAQ_ed_DATE) = #{searchCondition}
 		<if test="searchCondition2 != ''">AND daq_name = #{searchCondition2}</if>
