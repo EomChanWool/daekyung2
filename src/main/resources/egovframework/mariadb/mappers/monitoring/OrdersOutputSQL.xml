@@ -50,6 +50,7 @@
 		FROM sm_orders
 		WHERE YEAR(or_date) =
 		#{searchCondition}
+		
 		<if test="searchCondition2 != ''">AND MONTH(or_date) = #{searchCondition2}</if>
 		GROUP BY YEAR(or_date), MONTH(or_date) <if test="searchCondition2 != ''"> , or_date</if>
 		ORDER BY months <if test="searchCondition2 != ''"> , or_date</if>
