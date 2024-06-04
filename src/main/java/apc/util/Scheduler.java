@@ -110,7 +110,7 @@ public class Scheduler {
 //	
 
 	// 끝난 가공공정 txt파일로 생성
-	@Scheduled(cron = "20 17 20 * * *")
+	@Scheduled(cron = "20 17 09 * * *")
 	public void outPro() {
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
@@ -147,7 +147,7 @@ public class Scheduler {
 	}
 
 	// 끝난 가공공정 txt파일로 생성된것을 ftp서버로 옮김
-	@Scheduled(cron = "40 27 20 * * *")
+	@Scheduled(cron = "40 27 14 * * *")
 	public void outProFTP() {
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
@@ -158,6 +158,9 @@ public class Scheduler {
 		// default controlEncoding 값이 "ISO-8859-1" 때문에 한글 파일의 경우 파일명이 깨짐
 		// ftp server 에 저장될 파일명을 uuid 등의 방식으로 한글을 사용하지 않고 저장할 경우 UTF-8 설정이 따로 필요하지 않다.
 		ftp.setControlEncoding("UTF-8");
+		ftp.setDefaultTimeout(60000);   // 기본 타임아웃 (60초)
+		ftp.setConnectTimeout(60000);   // 연결 타임아웃 (60초)
+		ftp.setDataTimeout(60000);   // 데이터 타임아웃 시간 설정 (60초)
 		// PrintCommandListener 를 추가하여 표준 출력에 대한 명령줄 도구를 사용하여 FTP 서버에 연결할 때 일반적으로 표시되는
 		// 응답을 출력
 		ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out), true));
@@ -174,14 +177,14 @@ public class Scheduler {
 			}
 
 			// socketTimeout 값 설정
-			ftp.setSoTimeout(1000);
+			ftp.setSoTimeout(5000);
 			// ftp 서버 로그인
 			ftp.login("signlab", "dk304316@");
 			// file type 설정 (default FTP.ASCII_FILE_TYPE)
 			ftp.setFileType(FTP.BINARY_FILE_TYPE);
 			// ftp Active모드 설정
 			ftp.enterLocalPassiveMode();
-
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 			try {

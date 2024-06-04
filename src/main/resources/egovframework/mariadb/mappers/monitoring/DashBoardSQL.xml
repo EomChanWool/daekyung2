@@ -34,8 +34,8 @@
 		SELECT YEAR(rel_clgo) AS
 		years, MONTH(rel_clgo) AS months,
 		ISNULL(SUM(rel_qty), 0)AS prod_cnt,
-		SUM(CASE WHEN CONVERT(float,
-		rel_price) >= 0 THEN CONVERT(float, rel_price) ELSE 0 END) AS
+		SUM(CASE WHEN TRY_CONVERT(float,
+		rel_price) >= 0 THEN TRY_CONVERT(float, rel_price) ELSE 0 END) AS
 		rel_price
 		FROM sm_release_info a
 		WHERE YEAR(rel_clgo) = #{str1}
@@ -146,7 +146,7 @@
 		FROM
 			sm_daq_data
 		WHERE 
-			1=1
+			daq_count > 1
 		AND 
 			CONVERT(DATE, DAQ_ed_DATE) = #{searchEdDate}
 		<if test="searchKeyword != ''">AND daq_name like concat('%', '${searchKeyword}', '%')</if>

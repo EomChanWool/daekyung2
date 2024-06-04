@@ -280,7 +280,7 @@
 			    {
 			    	name: '작동시간',
 				      yAxisIndex: 1,
-				      type: 'line',
+				      type: 'bar',
 				      label: {
 				          show: true,
 				          position: 'inside',

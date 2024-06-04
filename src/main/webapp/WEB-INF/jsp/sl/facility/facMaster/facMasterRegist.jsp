@@ -60,7 +60,7 @@
 												<td><input type="text" class="form-control" name="eqName" id="eqName" value="${facMasterVO.eqName}"/></td>
 											</tr>
 											<tr>
-												<th>센서ID<span class="req">*</span></th>
+												<th>코드네임<span class="req">*</span></th>
 												<td><input type="text" class="form-control" name="eqSensorid" id="eqSensorid" value="${facMasterVO.eqSensorid}"/></td>
 												<th>설치장소</th>
 												<td><input type="text" class="form-control" name="eqPlace" id="eqPlace" value="${facMasterVO.eqPlace}"/></td>

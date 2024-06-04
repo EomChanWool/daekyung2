@@ -24,7 +24,7 @@
 		FROM
 			sm_daq_data
 		WHERE 
-			daq_count > 0
+			daq_count > 1
 		AND 
 			CONVERT(DATE, DAQ_ed_DATE) = #{searchEdDate}
 		<if test="searchKeyword != ''">AND daq_name like concat('%', '${searchKeyword}', '%')</if>

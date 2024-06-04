@@ -83,7 +83,7 @@
                                 <table class="table table-bordered" id="dataTable"  >
                                     <thead>
                                         <tr>
-                                            <th>문서이름</th>
+                                           <!--  <th>문서이름</th> -->
                                             <th>수주번호</th>
                                             <th>LOT번호</th>
                                             <th>품목코드</th>
@@ -97,7 +97,7 @@
                                     <tbody>
                                     	<c:forEach var="result" items="${visionList}" varStatus="status">
 	                                   	<tr onclick="fn_detail_vision('${result.idDoc}')" style="cursor: pointer; font-size: 15px;">
-	                                            <td>${result.idDoc}</td>
+	                                           <%--  <td>${result.idDoc}</td> --%>
 	                                            <td>${result.orId}</td>
 	                                            <td>${result.poLotno}</td>
 	                                            <td>${result.idProdName}</td>
