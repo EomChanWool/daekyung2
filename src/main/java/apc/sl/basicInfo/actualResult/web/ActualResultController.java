@@ -198,16 +198,24 @@ public class ActualResultController {
         boolean result = random.nextBoolean();
        
         if (hour >= 9 && hour < 17 && dayOfWeek > 1) {
-        	String [] ipList = {"58.151.166.228","192.168.0.251","182.208.242.9","192.168.0.12","192.168.0.61","192.168.0.250","211.180.63.138"};
+        	String [] ipList = {"192.168.0.251","192.168.0.12","192.168.0.61","192.168.0.250"};
     		
     		int ranIp = (int) (Math.random()*ipList.length);
     		
     		String cIp = ipList[ranIp];
-    		List<?> memList = actualResultService.memList();
-    		int memIndex = (int) (Math.random()* memList.size());
-    		Map<String,Object> memIdMap = (Map<String, Object>) memList.get(memIndex);
     		
-    		String memId = memIdMap.get("miId")+"";
+    		String [] memList = {"admin","dkkim","pop1","pop2"};
+    		
+    		int memIndex = (int) (Math.random()*memList.length);
+    		
+    		
+			/*
+			 * List<?> memList = actualResultService.memList(); int memIndex = (int)
+			 * (Math.random()* memList.size()); Map<String,Object> memIdMap = (Map<String,
+			 * Object>) memList.get(memIndex);
+			 */
+    		
+    		String memId = memList[memIndex];
     		
     		 
     		

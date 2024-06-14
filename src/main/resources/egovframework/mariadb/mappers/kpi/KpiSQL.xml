@@ -287,26 +287,35 @@
 
 	<select id="selectLeadtime" resultType="egovMap">
 		SELECT 
-			YEAR(a.or_date) AS years,
-			MONTH(a.or_date) AS months,
-			max(DATEDIFF(DAY, a.or_date, b.rel_clgo)) AS lead_max,
-			MIN(DATEDIFF(DAY, a.or_date, b.rel_clgo)) AS lead_min,
-			AVG(DATEDIFF(DAY, a.or_date, b.rel_clgo)) AS lead_avg
-		FROM 
-			sm_orders a
-		JOIN 
-			sm_release_info b 
-		ON 
-			a.or_lotno = b.po_lotno
-		WHERE 
-			YEAR(a.or_date) = #{searchCondition}
-		AND
-			a.or_or_type = '내수'
-		GROUP BY 
-			YEAR(a.or_date),
-			MONTH(a.or_date)
-		ORDER BY 
-			months
+    years,
+    months,
+    MAX(lead_time) AS lead_max,
+    MIN(lead_time) AS lead_min,
+    AVG(lead_time) AS lead_avg
+FROM
+(
+    SELECT 
+        YEAR(a.or_date) AS years,
+        MONTH(a.or_date) AS months,
+        DATEDIFF(DAY, a.or_date, b.rel_clgo) AS lead_time
+    FROM 
+        sm_orders a
+    JOIN 
+        sm_release_info b 
+    ON 
+        a.or_lotno = b.po_lotno
+    WHERE 
+       YEAR(a.or_date) = #{searchCondition}
+    AND
+        a.or_or_type = '내수'
+) AS filtered_data
+WHERE lead_time <![CDATA[ <= ]]>  75
+GROUP BY 
+    years,
+    months
+ORDER BY 
+    months
+
 
 	</select>
 
