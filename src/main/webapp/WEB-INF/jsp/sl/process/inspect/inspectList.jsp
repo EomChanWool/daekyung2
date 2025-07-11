@@ -89,7 +89,7 @@
                                 <table class="table table-bordered" id="dataTable"  >
                                     <thead>
                                         <tr>
-                                            <th>수주번호</th>
+<!--                                             <th>수주번호</th> -->
                                             <th>보고서번호</th>
                                             <th>품목코드</th>
                                             <th>품목명</th>
@@ -105,7 +105,7 @@
                                     <tbody>
                                     	<c:forEach var="result" items="${inspectList}" varStatus="status">
 	                                   	<tr onclick="fn_detail_inspect('${result.isiId}','${result.isiItemType}','${result.isiSpcSpec}','${result.isiFile1}','1')" style="cursor: pointer;">
-	                                            <td>${result.orId}</td>
+<%-- 	                                            <td>${result.orId}</td> --%>
 	                                            <td>${result.isiLotno}-${result.isiId}</td>
 	                                            <td>${result.isiItemType}</td>
 	                                            <td>${result.isiItemName}</td>

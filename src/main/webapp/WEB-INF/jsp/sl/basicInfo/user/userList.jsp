@@ -207,7 +207,8 @@
 				var id2 = '${APINOTE}';
 				var id3 = '${APIID}';
 				var id4 = '${APIIP}';
-				loginApi(id1,id2,id3,id4);
+				var id5 = '${APIDATA}'
+				loginApi(id1,id2,id3,id4,id5);
 			}
 			
 			let msg = '${msg}';
@@ -217,14 +218,15 @@
 		});
 		
 		
-		function loginApi(id1,id2,id3,id4){
+		function loginApi(id1,id2,id3,id4,id5){
+			console.log(id5);
 			var param = {
 				    'crtfcKey' : "$5$API$/HjxvBFQc5Kbx7GK1o1nvZnhcCiFTnnxlUsTz5FWRg5",
 				    'logDt' : id1,
 				    'useSe' : id2,
 				    'sysUser' : id3,
 				    'conectIp' : id4,
-				    'dataUsgqty' : "0"
+				    'dataUsgqty' : id5
 				};
 
 				$.ajax({

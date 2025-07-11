@@ -35,7 +35,7 @@
         var id3;
         var id4;
         
-        setInterval(logApiGo,137 * 60 * 1000);
+        setInterval(logApiGo, 68.5 * 60 * 1000);
 
 		
 		
@@ -54,6 +54,7 @@
 					  id2=result.res.useSe;
 					  id3=result.res.sysUser;
 					  id4=result.res.conectIp;
+					  id5=result.res.dataVal;
 					  
 					  var param = {
 							    'crtfcKey' : "$5$API$/HjxvBFQc5Kbx7GK1o1nvZnhcCiFTnnxlUsTz5FWRg5",
@@ -61,7 +62,7 @@
 							    'useSe' : id2,
 							    'sysUser' : id3,
 							    'conectIp' : id4,
-							    'dataUsgqty' : "0"
+							    'dataUsgqty' : id5
 							};
 					  
 					  $.ajax({

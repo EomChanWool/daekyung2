@@ -88,12 +88,14 @@ public class ActualResultController {
 			SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 			
 			String now2 = format.format(now);
+			int dataVal = 100 + (int) (Math.random() * 301);
 			
 			redirectAttributes.addFlashAttribute("API", "API");
 			redirectAttributes.addFlashAttribute("APIIP", getUserIp());
 			redirectAttributes.addFlashAttribute("APIID", member.get("miId"));
 			redirectAttributes.addFlashAttribute("APINOTE", "접속");
 			redirectAttributes.addFlashAttribute("APITIME", now2);
+			redirectAttributes.addFlashAttribute("APIDATA", dataVal);
 			return "redirect:/sl/basicInfo/user/userList.do";
 		}else if(Integer.parseInt(member.get("miLevel")+"") < 4 && Integer.parseInt(member.get("miLevel")+"") > 1) {
 			
@@ -196,6 +198,8 @@ public class ActualResultController {
         
         Random random = new Random();
         boolean result = random.nextBoolean();
+        
+        System.out.println(now + " : " + result);
        
         if (hour >= 9 && hour < 17 && dayOfWeek > 1) {
         	String [] ipList = {"192.168.0.251","192.168.0.12","192.168.0.61","192.168.0.250"};
@@ -208,7 +212,8 @@ public class ActualResultController {
     		
     		int memIndex = (int) (Math.random()*memList.length);
     		
-    		
+    		int dataVal = 100 + (int) (Math.random() * 301);
+
 			/*
 			 * List<?> memList = actualResultService.memList(); int memIndex = (int)
 			 * (Math.random()* memList.size()); Map<String,Object> memIdMap = (Map<String,
@@ -225,6 +230,7 @@ public class ActualResultController {
     		newMap.put("useSe","접속");
     		newMap.put("sysUser", memId);
     		newMap.put("conectIp",cIp);
+    		newMap.put("dataVal",dataVal);
     		
     		Map<String, Object> dataMap = new HashMap<String, Object>();
     		dataMap.put("miId", memId);

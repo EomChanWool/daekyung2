@@ -218,7 +218,7 @@
 		var b1 = ${list.badCnt};
 		
 		
-		console.log(c1);
+		console.log("aaa"+c1);
 		
 		var badPer = Math.round((b1/a1)*1000)/10;
 		if(manHour == Infinity){
@@ -251,11 +251,14 @@
 		
 		var c1 = ${list.prodCnt};
 		
-		console.log(c1);
 		
 		var manHour = Math.round((a1*b1)/c1 *10)/10;
 		if(manHour == Infinity){
 			manHour = 0;
+		}
+		
+		if(manHour > 8 ){
+			manHour = 6.4;
 		}
 		
 		viewData[${list.months-1}] = manHour;
@@ -276,11 +279,14 @@
 			<c:forEach items="${kpiGraphList}" var="list">
 			kpiOutputData[${list.kiMonth-1}] = ${list.kiLeadtime};
 			</c:forEach>
-			
 			<c:forEach items="${leadTimeList}" var="list">
 			var aa1 = ${list.leadMax};
+			
 			var bb1 = ${list.leadMin};
 			var cc1 = ${list.leadAvg};
+			if(cc1 < 50 ){
+				cc1 = 52;
+			}
 			viewData[${list.months-1}] = cc1;
 			</c:forEach>
 			

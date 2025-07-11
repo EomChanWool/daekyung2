@@ -59,8 +59,8 @@
 									<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
 									<select class="btn btn-secondary dropdown-toggle searchCondition" name="searchCondition" id="searchCondition">
 							    		<option value="" <c:if test="${searchVO.searchCondition eq ''}">selected="selected"</c:if>>선택</option>
-							    		<option value="1" <c:if test="${searchVO.searchCondition eq '1'}">selected="selected"</c:if>>수주번호</option>
-							    		<option value="2" <c:if test="${searchVO.searchCondition eq '2'}">selected="selected"</c:if>>로트번호</option>
+<%-- 							    		<option value="1" <c:if test="${searchVO.searchCondition eq '1'}">selected="selected"</c:if>>수주번호</option> --%>
+<%-- 							    		<option value="2" <c:if test="${searchVO.searchCondition eq '2'}">selected="selected"</c:if>>로트번호</option> --%>
 							    		<option value="3" <c:if test="${searchVO.searchCondition eq '3'}">selected="selected"</c:if>>품목코드</option>
 						    		</select>
 									<input type="text" class="form-control bg-light border-0 small" name="searchKeyword"
@@ -83,8 +83,8 @@
                                 <table class="table table-bordered" id="dataTable"  >
                                     <thead>
                                         <tr>
-                                           <!--  <th>문서이름</th> -->
-                                            <th>수주번호</th>
+<!--                                             <th>문서이름</th> -->
+<!--                                             <th>수주번호</th> -->
                                             <th>LOT번호</th>
                                             <th>품목코드</th>
                                             <th>품목명</th>
@@ -97,8 +97,8 @@
                                     <tbody>
                                     	<c:forEach var="result" items="${visionList}" varStatus="status">
 	                                   	<tr onclick="fn_detail_vision('${result.idDoc}')" style="cursor: pointer; font-size: 15px;">
-	                                           <%--  <td>${result.idDoc}</td> --%>
-	                                            <td>${result.orId}</td>
+<%-- 	                                            <td>${result.idDoc}</td> --%>
+<%-- 	                                            <td>${result.orId}</td> --%>
 	                                            <td>${result.poLotno}</td>
 	                                            <td>${result.idProdName}</td>
 	                                            <td>${result.idName}</td>

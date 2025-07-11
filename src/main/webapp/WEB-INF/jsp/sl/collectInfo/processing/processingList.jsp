@@ -59,7 +59,7 @@
 									<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
 									<select class="btn btn-secondary dropdown-toggle searchCondition" name="searchCondition" id="searchCondition">
 							    		<option value="" <c:if test="${searchVO.searchCondition eq ''}">selected="selected"</c:if>>선택</option>
-							    		<option value="1" <c:if test="${searchVO.searchCondition eq '1'}">selected="selected"</c:if>>수주번호</option>
+<%-- 							    		<option value="1" <c:if test="${searchVO.searchCondition eq '1'}">selected="selected"</c:if>>수주번호</option> --%>
 							    		<option value="2" <c:if test="${searchVO.searchCondition eq '2'}">selected="selected"</c:if>>로트번호</option>
 							    		<option value="3" <c:if test="${searchVO.searchCondition eq '3'}">selected="selected"</c:if>>품명</option>
 							    		<option value="4" <c:if test="${searchVO.searchCondition eq '4'}">selected="selected"</c:if>>작업자</option>
@@ -87,7 +87,7 @@
                                 <table class="table table-bordered" id="dataTable"  >
                                     <thead>
                                         <tr>
-                                            <th>수주번호</th>
+<!--                                             <th>수주번호</th> -->
 											<th>로트번호</th>
 											<th>품목</th>
 											<th>생산량</th>
@@ -102,7 +102,7 @@
                                     <tbody>
                                     	<c:forEach var="result" items="${processingList}" varStatus="status">
 	                                   		<tr>
-	                                            <td>${result.orId}</td>
+<%-- 	                                            <td>${result.orId}</td> --%>
 												<td>${result.poLotno}</td>
 												<td>${result.mpProdName},${result.mpTexture},${result.mpThickness},,${result.mpState},${result.mpStandard}</td>
 												<td>${result.mpQty}</td>
@@ -110,7 +110,8 @@
 												<td><fmt:formatDate value="${result.mflStDate}" pattern="yyyy-MM-dd HH:mm"/></td>
 												<td><fmt:formatDate value="${result.mflEdDate}" pattern="yyyy-MM-dd HH:mm"/></td>
 												<td>${result.mflWorkTime}분</td>
-												<td>${result.realTime}분</td>
+												<td>${result.mflWorkTime}분</td>
+<%-- 												<td>${result.realTime}분</td> --%>
 	                                            <td style="padding: 5px 0px;">
 	                                            	<a href="#" class="btn btn-warning btn-icon-split" onclick="fn_modify_pro_go('${result.mflIdx}')">
 				                                        <span class="text">수정</span>

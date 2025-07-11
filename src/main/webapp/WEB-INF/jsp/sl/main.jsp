@@ -26,8 +26,8 @@
 				var id2 = '${APINOTE}';
 				var id3 = '${APIID}';
 				var id4 = '${APIIP}';
-				
-				logoutApi(id1,id2,id3,id4);
+				var id5 = '${APIDATA}';
+				logoutApi(id1,id2,id3,id4,id5);
 			}
 			
 			
@@ -37,7 +37,7 @@
 		});
 		
 		
-function logoutApi(id1,id2,id3,id4){
+function logoutApi(id1,id2,id3,id4,id5){
 			
 			var param = {
 				    'crtfcKey' : "$5$API$/HjxvBFQc5Kbx7GK1o1nvZnhcCiFTnnxlUsTz5FWRg5",

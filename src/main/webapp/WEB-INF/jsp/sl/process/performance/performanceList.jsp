@@ -83,7 +83,7 @@
                                     <thead>
                                         <tr>
                                             <th>로트번호</th>
-                                            <th>수주번호</th>
+<!--                                             <th>수주번호</th> -->
                                             <th>제품명</th>
                                             <th>생산수량</th>
                                             <th>불량수량</th>
@@ -96,7 +96,7 @@
                                     	<c:forEach var="result" items="${performanceList}" varStatus="status">
 	                                   		<tr onclick="fn_detail_document('${result.ptId}', '${result.ptLotno}')" style="cursor: pointer;">
 												<td>${result.ptLotno}</td>
-												<td>${result.orId}</td>
+<%-- 												<td>${result.orId}</td> --%>
 												<td>${result.ptProdName}</td>
 												<td>${result.ptQty}</td>
 												<td>${result.ptBadQty}</td>
